@@ -1,27 +1,25 @@
-# Sistema Deduttivo per la Logica Modale S4.2 in Agda
+# Deductive System for Modal Logic S4.2 in Agda
 
-## Descrizione del progetto
-Questo progetto nasce come parte di uno stage universitario e ha come obiettivo l’**implementazione, nel proof assistant [Agda](https://agda.readthedocs.io/)**, di un **sistema deduttivo in deduzione naturale per la logica modale S4.2**.
+## Project Description
+This project was developed as part of a university internship and aims at the **implementation, in the proof assistant [Agda](https://agda.readthedocs.io/)**, of a **deductive system in natural deduction for modal logic S4.2**.
 
-L’attività si colloca nell’ambito della **logica matematica** e dell’**informatica teorica**, con un approccio formale alla rappresentazione e verifica di sistemi logici tramite tipi dipendenti.
+The work lies within the fields of **mathematical logic** and **theoretical computer science**, adopting a formal approach to the representation and verification of logical systems through **dependent types**.
 
-Il progetto adotta la metodologia del **deep embedding**, ovvero la rappresentazione di un sistema logico all’interno di un altro (Agda) tramite **tipi induttivi**, al fine di studiarne la **metateoria** e dimostrarne proprietà fondamentali come la **normalizzazione**.
-
----
-
-## Contesto teorico
-La logica modale S4.2 è un’estensione della logica modale S4 che aggiunge assiomi per modellare nozioni di **necessità** e **possibilità** in contesti più ricchi, come quelli epistemici o topologici.
-
-Nel formalismo della **deduzione naturale**, le regole inferenziali sono espresse in termini di introduzione ed eliminazione dei connettivi, e in questo progetto tali regole saranno **codificate in Agda** tramite **tipi induttivi**.
+The project follows the **deep embedding** methodology — that is, representing one logical system within another (Agda) using **inductive types** — with the goal of studying its **metatheory** and proving key properties such as **normalization**.
 
 ---
 
-## Requisiti
+## Theoretical Context
+Modal logic **S4.2** is an extension of **S4** that adds specific axioms to model notions of **necessity** and **possibility** in richer contexts, such as epistemic or topological frameworks.
+
+Within the **natural deduction** formalism, inference rules are expressed in terms of the introduction and elimination of logical connectives. In this project, these rules will be **encoded in Agda** using **inductive types**.
+
+---
+
+## Requirements
 - **Agda** ≥ 2.6.4  
-  → [Installazione ufficiale](https://agda.readthedocs.io/en/latest/getting-started/installation.html)
-- **Agda Standard Library** (consigliata)
+  → [Official installation guide](https://agda.readthedocs.io/en/latest/getting-started/installation.html)
+- **Agda Standard Library** (recommended)
   ```bash
   agda --version
   agda -i . -i /path/to/stdlib
-  ```
-
