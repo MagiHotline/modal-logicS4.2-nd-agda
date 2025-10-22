@@ -9,16 +9,6 @@ Il progetto adotta la metodologia del **deep embedding**, ovvero la rappresentaz
 
 ---
 
-## Obiettivi
-1. Studiare la letteratura scientifica relativa alle **logiche modali**, con particolare attenzione al sistema **S4.2**.
-2. Acquisire familiarità con il **proof assistant Agda** e con i concetti base dei **tipi dipendenti**.
-3. Implementare in Agda:
-   - la **sintassi** del linguaggio della logica modale S4.2;
-   - le **regole deduttive** del sistema in deduzione naturale.
-4. Esplorare la possibilità di formalizzare e dimostrare il **teorema di normalizzazione**, risultato centrale nella teoria della dimostrazione.
-
----
-
 ## Contesto teorico
 La logica modale S4.2 è un’estensione della logica modale S4 che aggiunge assiomi per modellare nozioni di **necessità** e **possibilità** in contesti più ricchi, come quelli epistemici o topologici.
 
