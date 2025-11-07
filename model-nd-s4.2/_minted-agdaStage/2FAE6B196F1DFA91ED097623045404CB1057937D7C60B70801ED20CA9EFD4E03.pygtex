@@ -1,0 +1,18 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kr}{infix}\PYG{+w}{ }\PYG{l+m+mi}{5}\PYG{+w}{ }\PYGZus{}⊢\PYGZus{}
+\PYG{k+kr}{data}\PYG{+w}{ }\PYGZus{}⊢\PYGZus{}\PYG{+w}{ }\PYG{o+ow}{:}\PYG{+w}{ }Con\PYG{+w}{ }\PYG{o+ow}{→}\PYG{+w}{ }Form\PYG{+w}{ }\PYG{o+ow}{→}\PYG{+w}{ }\PYG{k+kt}{Set}\PYG{+w}{ }\PYG{k+kr}{where}
+\PYG{+w}{       }\PYG{c+c1}{\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+\PYG{n+nf}{zero}\PYG{+w}{ }\PYG{o+ow}{:}\PYG{+w}{ }Γ\PYG{+w}{ }▷\PYG{+w}{ }φ\PYG{+w}{ }⊢\PYG{+w}{ }φ
+
+\PYG{n+nf}{suc}\PYG{+w}{ }\PYG{o+ow}{:}\PYG{+w}{ }Γ\PYG{+w}{ }⊢\PYG{+w}{ }ψ\PYG{+w}{ }\PYG{o+ow}{→}
+\PYG{+w}{    }\PYG{c+c1}{\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+\PYG{+w}{     }Γ\PYG{+w}{ }▷\PYG{+w}{ }φ\PYG{+w}{ }⊢\PYG{+w}{ }ψ
+
+\PYG{n+nf}{lam}\PYG{+w}{ }\PYG{o+ow}{:}\PYG{+w}{ }Γ\PYG{+w}{ }▷\PYG{+w}{ }φ\PYG{+w}{ }⊢\PYG{+w}{ }ψ\PYG{+w}{ }\PYG{o+ow}{→}\PYG{+w}{ }\PYG{c+c1}{\PYGZhy{}\PYGZhy{} introduzione dell\PYGZsq{}implicazione}
+\PYG{+w}{      }\PYG{c+c1}{\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+\PYG{+w}{     }Γ\PYG{+w}{ }⊢\PYG{+w}{ }φ\PYG{+w}{ }[⇒]\PYG{+w}{ }ψ
+
+\PYG{n+nf}{app}\PYG{+w}{ }\PYG{o+ow}{:}\PYG{+w}{ }Γ\PYG{+w}{ }⊢\PYG{+w}{ }φ\PYG{+w}{ }[⇒]\PYG{+w}{ }ψ\PYG{+w}{ }\PYG{o+ow}{→}\PYG{+w}{ }Γ\PYG{+w}{ }⊢\PYG{+w}{ }φ\PYG{+w}{ }\PYG{o+ow}{→}\PYG{+w}{ }\PYG{c+c1}{\PYGZhy{}\PYGZhy{} modus ponens}
+\PYG{+w}{     }\PYG{c+c1}{\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+\PYG{+w}{            }Γ\PYG{+w}{ }⊢\PYG{+w}{ }ψ
+\end{Verbatim}

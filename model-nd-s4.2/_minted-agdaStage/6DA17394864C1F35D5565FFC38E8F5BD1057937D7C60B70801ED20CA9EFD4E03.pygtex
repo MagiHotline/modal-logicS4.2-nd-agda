@@ -1,0 +1,6 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nf}{\PYGZus{}!!\PYGZus{}}\PYG{+w}{ }\PYG{o+ow}{:}\PYG{+w}{ }\PYG{o}{\PYGZob{}}A\PYG{+w}{ }\PYG{o+ow}{:}\PYG{+w}{ }\PYG{k+kt}{Set}\PYG{o}{\PYGZcb{}}\PYG{+w}{ }\PYG{o+ow}{→}\PYG{+w}{ }List\PYG{+w}{ }A\PYG{+w}{ }\PYG{o+ow}{→}\PYG{+w}{ }ℕ\PYG{+w}{ }\PYG{o+ow}{→}\PYG{+w}{ }Maybe\PYG{+w}{ }A
+[]\PYG{+w}{ }!!\PYG{+w}{ }n\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }nothing
+\PYG{o}{(}x\PYG{+w}{ }\PYG{o+ow}{::}\PYG{+w}{ }xs\PYG{o}{)}\PYG{+w}{ }!!\PYG{+w}{ }zero\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }just\PYG{+w}{ }x
+\PYG{o}{(}x\PYG{+w}{ }\PYG{o+ow}{::}\PYG{+w}{ }xs\PYG{o}{)}\PYG{+w}{ }!!\PYG{+w}{ }\PYG{o}{(}suc\PYG{+w}{ }n\PYG{o}{)}\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }xs\PYG{+w}{ }!!\PYG{+w}{ }n
+\end{Verbatim}

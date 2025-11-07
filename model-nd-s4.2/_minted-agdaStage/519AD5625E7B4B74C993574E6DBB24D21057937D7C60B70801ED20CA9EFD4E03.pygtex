@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nf}{grande\PYGZhy{}teorema}\PYG{+w}{ }\PYG{o+ow}{:}\PYG{+w}{ }two\PYG{+w}{ }+\PYG{+w}{ }two\PYG{+w}{ }≡\PYG{+w}{ }four
+grande\PYGZhy{}teorema\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }refl
+\end{Verbatim}

@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nf}{trivial}\PYG{+w}{ }\PYG{o+ow}{:}\PYG{+w}{ }\PYG{o}{(}b\PYG{+w}{ }\PYG{o+ow}{:}\PYG{+w}{ }ℕ\PYG{o}{)}\PYG{+w}{ }\PYG{o+ow}{→}\PYG{+w}{ }zero\PYG{+w}{ }+\PYG{+w}{ }b\PYG{+w}{ }≡\PYG{+w}{ }b
+trivial\PYG{+w}{ }b\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }refl
+\end{Verbatim}

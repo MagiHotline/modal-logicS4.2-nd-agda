@@ -1,0 +1,1006 @@
+\documentclass[a4paper]{article}
+
+\usepackage{enumitem}
+\usepackage{mathpartir}
+\usepackage{xcolor}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{newunicodechar}
+
+\newunicodechar{ℕ}{\ensuremath{\mathbb{N}}}
+\newunicodechar{∀}{\ensuremath{\forall}}
+\newunicodechar{→}{\ensuremath{\to}}
+\newunicodechar{≡}{\ensuremath{\equiv}}
+\newunicodechar{λ}{\ensuremath{\lambda}}
+\newunicodechar{∈}{\ensuremath{\in}}
+\newunicodechar{∃}{\ensuremath{\exists}}
+\newunicodechar{⊥}{\ensuremath{\bot}}
+\newunicodechar{⊤}{\ensuremath{\top}}
+\newunicodechar{∧}{\ensuremath{\land}}
+\newunicodechar{∨}{\ensuremath{\lor}}
+\newunicodechar{¬}{\ensuremath{\neg}}
+\newunicodechar{≠}{\ensuremath{\neq}}
+\newunicodechar{≤}{\ensuremath{\leq}}
+\newunicodechar{≥}{\ensuremath{\geq}}
+\newunicodechar{⇒}{\ensuremath{\Rightarrow}}
+\newunicodechar{⇔}{\ensuremath{\Leftrightarrow}}
+\newunicodechar{∅}{\ensuremath{\varnothing}}
+\newunicodechar{∪}{\ensuremath{\cup}}
+\newunicodechar{•}{\ensuremath{\bullet}}
+\newunicodechar{▷}{\ensuremath{\triangleright}}
+\newunicodechar{φ}{\ensuremath{\phi}}
+\newunicodechar{ψ}{\ensuremath{\psi}}
+\newunicodechar{Γ}{\ensuremath{\Gamma}}
+\newunicodechar{Δ}{\ensuremath{\Delta}}
+\newunicodechar{⊢}{\ensuremath{\vdash}}
+\newunicodechar{∷}{::}
+
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{pgfplots}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{textcomp}
+\usepackage{tikz}
+\usetikzlibrary{decorations.pathreplacing} % for angle arc
+\usetikzlibrary{angles, quotes, calc, positioning, trees, automata} % for drawing angles
+\usetikzlibrary{arrows.meta, decorations.markings}
+\usepgfplotslibrary{fillbetween}
+\pgfplotsset{compat=1.18,width=10cm}
+\usepackage{tikz-cd}
+\usepackage{booktabs}
+\usepackage{geometry}
+\usepackage{setspace}
+\usepackage{cancel}
+\usepackage{amsmath, amssymb, amsthm, stmaryrd}
+\usepackage{titlesec}  
+\usepackage{lmodern}
+\usepackage{ulem}      
+\usepackage{minted}
+\usepackage{csquotes}
+\usepackage{gensymb}
+\usepackage{geometry}
+\usepackage{setspace}
+\usepackage{forest}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{fontawesome} 
+\usepackage{varwidth}
+\usepackage{pgfplots}
+\usepackage{lipsum}
+\usepackage{mdframed} 
+\usepackage{color}   
+\usepackage{hyperref}
+\usepackage{bussproofs}
+\usepackage{newpxtext,newpxmath} 
+
+\newmdtheoremenv{theo}{Theorem}
+\usepackage{mathtools}
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+\usetikzlibrary {positioning}
+\definecolor {processblue}{cmyk}{0.96,0,0,0}
+
+\hypersetup{
+    colorlinks=true, %set true if you want colored links
+    linktoc=all,     %set to all if you want both sections and subsections linked
+    linkcolor=black,  %choose some color if you want links to stand out
+}
+
+% Define theorem styles
+\newtheorem{theorem}{Theorem}[section]    % Theorems numbered within sections
+\newtheorem{lemma}[theorem]{Lemma}        % Lemmas use the same counter as theorems
+\newtheorem{corollary}[theorem]{Corollary} % Corollaries use the same counter as theorems
+\newtheorem{proposition}[theorem]{Proposition} % Proposition uses the same counter
+\newtheorem{property}[theorem]{Property}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition} % Now uses the same counter as theorems
+
+
+% Remark-style theorem
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+% Boxed environment for theorems
+\newmdenv[
+  linewidth=0.8pt,
+  roundcorner=5pt,
+  linecolor=black,
+  backgroundcolor=white!5,
+  skipabove=\baselineskip,
+  skipbelow=\baselineskip,
+  innerleftmargin=10pt,
+  innerrightmargin=10pt,
+  innertopmargin=5pt,
+  innerbottommargin=5pt
+]{thmbox}
+
+% Custom proof environment (also boxed)
+\renewenvironment{proof}[1][Proof]{%
+  \begin{mdframed}[linewidth=0.8pt, roundcorner=5pt, linecolor=black, skipabove=\baselineskip, skipbelow=\baselineskip, innertopmargin=5pt, innerbottommargin=5pt]%
+  \noindent\textbf{#1. }%
+}{%
+  \end{mdframed}%
+}
+
+% Redefine theorem environments to use thmbox
+\let\oldtheorem\theorem
+\renewenvironment{theorem}{\begin{thmbox}\begin{oldtheorem}}{\end{oldtheorem}\end{thmbox}}
+
+\let\oldlemma\lemma
+\renewenvironment{lemma}{\begin{thmbox}\begin{oldlemma}}{\end{oldlemma}\end{thmbox}}
+
+\let\oldcorollary\corollary
+\renewenvironment{corollary}{\begin{thmbox}\begin{oldcorollary}}{\end{oldcorollary}\end{thmbox}}
+
+\let\oldproposition\proposition
+\renewenvironment{proposition}{\begin{thmbox}\begin{oldproposition}}{\end{oldproposition}\end{thmbox}}
+
+\let\oldproperty\property
+  \renewenvironment{property}{\begin{oldproperty}}{\end{oldproperty}}
+
+  
+
+% Reference shortcuts
+\newcommand{\thmref}[1]{Theorem~\ref{#1}}
+\newcommand{\lemref}[1]{Lemma~\ref{#1}}
+\newcommand{\corref}[1]{Corollary~\ref{#1}}
+\newcommand{\propref}[1]{Property~\ref{#1}} 
+
+% To customize QED symbol
+\renewcommand{\qedsymbol}{$\blacksquare$}
+
+\usetikzlibrary{decorations.pathreplacing} % for angle arc
+\usetikzlibrary{angles, quotes, calc} % for drawing angles
+
+\usepackage{color}   %May be necessary if you want to color links
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true, %set true if you want colored links
+    linktoc=all,     %set to all if you want both sections and subsections linked
+    linkcolor=black,  %choose some color if you want links to stand out
+}
+
+\usepackage{xcolor}
+\usepackage[most]{tcolorbox}
+
+
+% Define a custom tcolorbox environment for examples
+\newtcolorbox{examplebox}[2][]{
+  colback=blue!5!white,
+  colframe=blue!30!black,
+  title=#2,
+  boxrule=0mm,
+  fonttitle=\bfseries,
+  width=\textwidth,
+  breakable,
+  #1
+}
+
+\newtcolorbox{definizione}[2] {
+  colback=green!5!white,
+  colframe=green!30!black,
+  title=#2,
+  boxrule=0mm,
+  fonttitle=\bfseries,
+  width=\textwidth,
+  breakable,
+  #1
+}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+\lstset{style=mystyle}
+
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+  \hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{#1}}
+\makeatother
+
+
+%================================
+% THEOREM BOX
+%================================
+
+\tcbuselibrary{theorems, skins, hooks}
+\newtcbtheorem[number within=subsection]{Theorem}{Teorema}
+{%
+    enhanced,
+    breakable,
+    colback=white,
+    frame hidden,
+    boxrule=0sp,
+    borderline west={2pt}{0pt}{black},
+    sharp corners,
+    detach title,
+    before upper=\tcbtitle\par\smallskip,
+    coltitle=black,
+    fonttitle=\bfseries\sffamily,
+    description font=\mdseries,
+    separator sign none,
+    segmentation style={solid, black}
+}
+{th}
+
+%================================
+% EXAMPLE BOX
+%================================
+
+\newtcbtheorem[number within=section]{Example}{\faPencil $\;$ Esempio}
+{%
+    colback=blue!5!white,
+    breakable,
+    colframe=blue!30!black,
+    coltitle=blue!40!black,
+    boxrule=1pt,
+    sharp corners,
+    detach title,
+    before upper=\tcbtitle\par\smallskip,
+    fonttitle=\bfseries,
+    description font=\mdseries,
+    separator sign none,
+    description delimiters parenthesis
+}
+{ex}
+
+%================================
+% DEFINITION BOX
+%================================
+
+\newtcbtheorem[number within=section]{Definition}{\faHandORight $\;$ Definizione}
+{%
+    enhanced,
+    before skip=2mm,
+    after skip=2mm,
+    colback=green!5,
+    colframe=green!80!black,
+    boxrule=0.5mm,
+    attach boxed title to top left={xshift=1cm, yshift*=1mm-\tcboxedtitleheight},
+    varwidth boxed title*=-3cm,
+    boxed title style={frame code={
+        \path[fill=tcbcolback]
+        ([yshift=-1mm,xshift=-1mm]frame.north west)
+        arc[start angle=0,end angle=180,radius=1mm]
+        ([yshift=-1mm,xshift=1mm]frame.north east)
+        arc[start angle=180,end angle=0,radius=1mm];
+        
+        \path[left color=tcbcolback!60!black, right color=tcbcolback!60!black, middle color=tcbcolback!80!black]
+        ([xshift=-2mm]frame.north west) -- ([xshift=2mm]frame.north east)
+        [rounded corners=1mm]-- ([xshift=1mm,yshift=-1mm]frame.north east)
+        -- (frame.south east) -- (frame.south west)
+        -- ([xshift=-1mm,yshift=-1mm]frame.north west)
+        [sharp corners]-- cycle;
+    }, interior engine=empty},
+    fonttitle=\bfseries,
+    title={#2},
+    #1
+}
+{def}
+
+%================================
+% OBSERVATION BOX
+%================================
+
+\newtcbtheorem[number within=section]{Observation}{\faLightbulbO $\;$ Osservazione}
+{%
+    enhanced,
+    breakable,
+    colback=orange!10!white,
+    colframe=orange!60!black,
+    coltitle=orange!40!black,
+    boxrule=0.8pt,
+    sharp corners,
+    detach title,
+    before upper=\tcbtitle\par\smallskip,
+    fonttitle=\bfseries,
+    description font=\mdseries,
+    separator sign none,
+    description delimiters parenthesis,
+    borderline west={2pt}{0pt}{orange!80!black}
+}
+{obs}
+
+
+\newcommand{\thm}[3][]{\begin{Theorem}{#2}{#1}#3\end{Theorem}}
+\newcommand{\ex}[3][]{\begin{Example}{#2}{#1}#3\end{Example}}
+\newcommand{\dfn}[3][]{\begin{Definition}[colbacktitle=green!75!black]{#2}{#1}#3\end{Definition}}
+
+\titleformat{\section}[hang]{\huge\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}[hang]{\Large\normalfont\itshape}{\thesubsection}{1em}{}
+
+\geometry{a4paper, margin=1in, includehead, nomarginpar}
+\geometry{letterpaper, left=1.5in, right=1in, top=1in, bottom=1in}
+
+\usepackage[italian]{babel}
+\usepackage{fancyhdr}
+
+\addto\captionsitalian{% Replace "english" with the language you use
+  \renewcommand{\contentsname}%
+    {Indice}%
+}
+
+\pagestyle{fancy}
+
+\fancyfoot{} % clear all footer fields
+\fancyfoot[LE,RO]{\thepage}
+\fancyfoot[LO,CE]{by Imbriani Paolo}
+
+\onehalfspacing
+\title{Introduzione ad Agda: programmazione funzionale con tipizzazione dipendente}
+\author{Università di Verona\\Imbriani Paolo - VR500437\\}
+
+\begin{document}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.3\textwidth]{UniversityofVerona.png}
+    \label{fig:centered-image}
+\end{figure}
+
+\maketitle
+
+\pagebreak
+
+\tableofcontents
+
+\pagebreak
+
+\section*{Prefazione}
+
+Questa dispensa e raccolta di appunti è stata 
+realizzata durante il tirocinio del terzo anno 
+di Informatica (A.A 2025/2026) presso l'Università di Verona.
+L'obiettivo principale di questo lavoro 
+è quello di aiutarmi nel corso del tirocinio per 
+avere le conoscenze di base di Agda per poter modellare
+la logica modale S4.2 utilizzando come strumento proprio Agda.
+All'interno di questo documento vengono usati anche estratti di lezioni del mini-corso
+\enquote{\textit{Introduction to Type Theory}}
+tenute dal professore \textit{Thorsten Altenkirch}, 
+docente di Informatica presso l'Università di Nottingham.
+Questa dispensa non vuole \textbf{sostituire} i testi ufficiali
+sulla teoria dei tipi o su Agda, ma vuole essere
+un \textbf{supporto} per chi si avvicina per la prima volta
+a questo linguaggio di programmazione funzionale con tipizzazione dipendente.
+
+\pagebreak
+
+\section{Introduzione}
+
+\subsection{Che cos'è la Teoria dei Tipi?}
+
+Originariamente sviluppata come alternativa alla teoria degli insiemi (\textit{Axiomatic Set Theory}) per
+fondare la matematica, la teoria dei tipi è ora ampiamente utilizzata
+in informatica, in particolare nei linguaggi di programmazione
+funzionale e nei sistemi di verifica formale.
+Non solo, molto semplicemente la teoria dei tipi
+la possiamo vedere come una logica costruttiva ed intuizionista.
+
+\subsection*{Caratteristiche principali}
+
+\begin{itemize}[leftmargin=2em]
+  \item \textbf{Il typing come giudizio:}
+    \[
+      3 \in \mathbb{N} \quad \text{o equivalentemente} \quad 3 : \mathbb{N}
+    \]
+    Nella Teoria dei Tipi, il typing è un \emph{giudizio}, non una proposizione.  
+    La Teoria dei Tipi è \emph{staticamente tipata} — la correttezza dei tipi è verificata dal sistema stesso.
+
+  \item \textbf{Tipi dipendenti:}  
+    I tipi possono dipendere dai valori. 
+    Prendiamo per esempio il tipo dei vettori:
+    \[
+      \text{Vec} : \mathbb{N} \to \text{Type} \quad \text{dove} \quad \text{Vec}(n) \text{ è il tipo dei vettori di lunghezza } n.
+    \]
+
+
+  \item \textbf{Assioma di univalenza:}  
+    Identifica l’equivalenza di strutture con l’uguaglianza di tipi (come nella \emph{Homotopy Type Theory}).
+
+  \item \textbf{Operazioni insiemistiche:}  
+    Le usuali operazioni \(\cup, \cap, \subseteq\) non sono definite direttamente sui tipi,  
+    ma sui sottoinsiemi (o \emph{predicati}) di un dato tipo.
+
+  \item \textbf{La logica è emergente:}  
+    La corrispondenza tra logica e tipi è nota come \emph{isomorfismo di Curry–Howard}:  
+    \[
+      \text{Proposizioni come Tipi, Dimostrazioni come Programmi.}
+    \]
+
+  \item \textbf{Le funzioni sono primitive:}  
+    Le funzioni sono oggetti centrali nella Teoria dei Tipi.  
+    Ad esempio, una relazione \( R \) su tipi \( A, B \) può essere vista come:
+    \[
+      R : A \to B \to \text{Prop}
+    \]
+\end{itemize}
+
+\subsection{Cos'è Agda?}
+
+Agda è un linguaggio di programmazione funzionale con tipizzazione dipendente
+e un sistema di dimostrazione interattivo. 
+Sviluppato principalmente per la ricerca e l'insegnamento,
+Agda consente di scrivere programmi che sono anche prove formali,
+garantendo così la correttezza del codice attraverso il sistema di tipi.
+
+\subsubsection{Caratteristiche principali di Agda}
+
+\begin{itemize}
+  \item \textbf{Sintassi simile a Haskell:}  
+    Agda ha una sintassi che ricorda quella di Haskell, rendendolo accessibile a chi ha familiarità con i linguaggi funzionali.
+  \item \textbf{Supporto Unicode:}  
+    Agda supporta caratteri Unicode, permettendo l'uso di simboli matematici direttamente nel codice.
+  \item \textbf{Tipi dipendenti:}  
+    Agda supporta tipi che possono dipendere da valori, permettendo di esprimere proprietà più precise nei tipi stessi.
+  \item \textbf{Propositions as Types (PaT):}  
+    In Agda, le proposizioni logiche sono rappresentate come tipi, e le prove di queste proposizioni sono rappresentate come programmi che abitano questi tipi.
+  \item \textbf{Sistema di moduli:} 
+    Agda ha un sistema di moduli che consente di organizzare il codice in modo strutturato e riutilizzabile.
+  \item \textbf{Interattività:} 
+    Agda offre un ambiente interattivo che facilita la scrittura e la verifica delle prove, con feedback immediato sullo stato delle dimostrazioni.
+\end{itemize}
+\noindent
+Agda ci permette di modellare concetti matematici e logici in modo rigoroso,
+fornendo un ponte tra teoria dei tipi, programmazione funzionale e logica formale.
+La cosa interessante è che funziona come se stessimo costruendo le fondamenta su 
+cui poi poggeranno i nostri assiomi o dimostrazioni (è proprio così 
+che funziona la logica costruttiva).
+
+\begin{Observation}{}{}
+  Agda è un linguaggio di programmazione funzionale totale, il che significa che ogni funzione definita in Agda deve essere totale, ovvero deve essere definita per tutti gli input possibili e deve sempre terminare.
+  Senza questa caratteristica, la logica alla base del linguaggio diventerebbe inconsistente, e sarebbe possibile dimostrare affermazioni arbitrarie.
+\end{Observation}
+
+
+
+\section{Primi passi con Agda}
+
+\subsection{Tipi di base}
+
+In agda, come giù precedentemente detto, niente è realmente definito fin dall'inizio (se non dalle librerie
+standard di Agda). Tuttavia possiamo noi stessi definire i nostri tipi di base.
+Per esempio, definiamo il tipo dei numeri naturali, usando la notazione di Peano:
+
+\begin{minted}[fontsize=\small, bgcolor=gray!5, frame=lines]{agda}
+data ℕ : Set where
+  zero : ℕ
+  suc : ℕ → ℕ 
+\end{minted}
+In questo tipo di dato, abbiamo due costruttori:
+\begin{itemize}
+  \item \texttt{zero} rappresenta il numero naturale 0.
+  \item \texttt{suc} è una funzione che prende un numero naturale \( n \) e restituisce il successore di \( n \), cioè \( n + 1 \).
+\end{itemize} 
+
+
+\begin{Observation}{}{}{}
+  In Agda, tutto può essere un nome anche la stringa \texttt{134function$\_$*3} poiché l'unico
+vincolo che abbiamo sui nomi è che non possono contenere spazi (poiché Agda usa gli spazi per definire i nomi).
+\end{Observation}
+
+\subsection{Definizione di operatori}
+Possiamo definire operatori personalizzati in Agda per rendere il codice più leggibile.
+Ad esempio, definiamo l'operatore di somma per i numeri naturali:
+\begin{minted}[fontsize=\small, bgcolor=gray!5, frame=lines]{agda}
+_+_ : ℕ → ℕ → ℕ
+zero + n = n
+suc m + n = suc (m + n)
+\end{minted}
+In questo esempio, l'operatore \texttt{+} è definito come una funzione che prende due numeri naturali e restituisce la loro somma.
+Altro esempio, definiamo l'operatore di moltiplicazione:
+\begin{minted}[fontsize=\small, bgcolor=gray!5, frame=lines]{agda}
+_*_ : ℕ → ℕ → ℕ
+zero * n = zero
+suc m * n = n + (m * n)
+\end{minted}
+Solitamente, in Agda, per aggiungere chiarezza a questi operatori
+dobbiamo anche specificare la loro precedenza e associatività attraverso
+le direttive \texttt{infix} e \texttt{infixl}/\texttt{infixr}.
+\begin{itemize}
+  \item \texttt{infixl n \_op\_}: Definisce l'operatore \texttt{op} come un operatore binario con associatività a sinistra e precedenza \( n \).
+  \item \texttt{infixr n \_op\_}: Definisce l'operatore \texttt{op} come un operatore binario con associatività a destra e precedenza \( n \).
+  \item \texttt{infix n \_op\_}: Definisce l'operatore \texttt{op} come un operatore binario non associativo con precedenza \( n \).
+\end{itemize}
+Il valore $n$ determina la precedenza dell'operatore, con valori più alti che indicano una precedenza più alta.
+Solitamente si usa una scala da 0 a 9 per la precedenza degli operatori.
+
+\subsection{Pattern matching e Goals}
+
+Agda aiuta nella scrittura delle funzioni tramite il \textbf{pattern matching}.
+Quando definiamo una funzione, possiamo specificare come essa si comporta per diversi casi
+basati sui valori di input. Prendiamo coe esempio la funzione somma che abbiamo scritto sopra, un modo
+per farci aiutare da Agda è quello di scrivere la firma della funzione e poi
+usare il comando \textbf{C-c C-l} per creare i \textbf{goals} (obiettivi) che dobbiamo
+soddisfare per completare la definizione della funzione.
+\begin{minted}[fontsize=\small, bgcolor=gray!5, frame=lines]{agda}
+_+_ : ℕ → ℕ → ℕ
+_+_ = ?
+\end{minted}
+Dopo aver premuto \textbf{C-c C-l}, Agda genererà i seguenti goals:
+\begin{minted}[fontsize=\small, bgcolor=gray!5, frame=lines]{agda}
+_+_ : ℕ → ℕ → ℕ
+_+_ = {!0!}
+\end{minted}
+Dove \texttt{\{!0!\}} rappresenta un buco che dobbiamo riempire per completare la definizione della funzione.
+Possiamo quindi completare la definizione della funzione somma
+utilizzando il pattern matching per specificare i casi. Basta inserire prima del simbolo \texttt{=} i parametri
+$m$ e $n$ e poi premere \textbf{C-c C-c} per generare i goals per ciascun caso:
+\begin{minted}[fontsize=\small, bgcolor=gray!5, frame=lines]{agda}
+_+_ : ℕ → ℕ → ℕ
+zero + n = {!0!}
+suc m + n = {!1!}
+\end{minted}
+Ora, dobbiamo riempire i buchi con le espressioni appropriate per ciascun caso.
+\begin{minted}[fontsize=\small, bgcolor=gray!5, frame=lines]{agda}
+_+_ : ℕ → ℕ → ℕ
+zero + n = {! n !}
+suc m + n = {! suc (m + n) !}
+\end{minted}
+Dopo aver completato la definizione, possiamo rimuovere i buchi facendo
+la combinazione di tasti \textbf{C-c C-SPACE} per verificare che la funzione sia correttamente definita.
+Alternativamente alla ridefinizione di ogni singolo concetto base, possiamo importare
+le librerie standard di Agda che contengono già
+definizioni di tipi e funzioni comuni.
+
+\subsection{Liste}
+
+Definiamo il tipo delle liste in Agda:
+\begin{minted}[fontsize=\small, bgcolor=gray!5, frame=lines]{agda}
+data List (A : Set) : Set where
+  [] : List A
+  _::_ : A → List A → List A
+\end{minted}
+In questa definizione:
+\begin{itemize}
+  \item \texttt{List} è un tipo parametrizzato da un tipo \( A \), che rappresenta il tipo degli elementi della lista.
+  \item \texttt{[]} rappresenta la lista vuota.
+  \item \texttt{\_::\_} è un costruttore che prende un elemento di tipo \( A \) e una lista di tipo \( List \; A \), restituendo una nuova lista con l'elemento aggiunto all'inizio.
+\end{itemize}
+Proviamo a definire la funzione length (per calcolare la lunghezza di una lista):
+\begin{minted}[fontsize=\small, bgcolor=gray!5, frame=lines]{agda}
+length : {A : Set} → List A → ℕ
+length [] = zero
+length (x :: xs) = suc (length xs)
+\end{minted}
+In questa definizione:
+\begin{itemize}
+  \item Prima di tutto, notiamo che la funzione \texttt{length} è parametrizzata da un tipo \( A \) (usando le parentesi graffe per indicare che è un parametro implicito e quindi
+non deve essere specificato esplicitamente quando si chiama la funzione).
+  \item La funzione \texttt{length} prende una lista di tipo \( List \; A \) e restituisce un numero naturale \( ℕ \).
+  \item Nel caso della lista vuota, la lunghezza è zero.
+  \item Nel caso di una lista non vuota, la lunghezza è il successore della lunghezza della coda della lista.
+\end{itemize}
+Notiamo come il modo in cui definiamo le funzioni in Agda
+è in maniera ricorsiva e tramite pattern matching,
+che ci permette di definire il comportamento della funzione
+per diversi casi basati sui valori di input. Abbiamo un caso base (per la lista vuota)
+e un caso ricorsivo (per la lista non vuota).
+
+\subsection{Maybe}
+
+Per definire l'operatore di estrazione di un elemento da una lista,
+possiamo utilizzare il tipo \texttt{Maybe} per gestire il caso in cui l'elemento non esista.
+\begin{minted}[fontsize=\small, bgcolor=gray!5, frame=lines]{agda}
+data Maybe (A : Set) : Set where
+  nothing : Maybe A
+  just : A → Maybe A
+\end{minted}
+In questa definizione:
+\begin{itemize}
+  \item \texttt{Maybe} è un tipo parametrizzato da un tipo \( A \), che rappresenta il tipo dell'elemento opzionale.
+  \item \texttt{nothing} rappresenta l'assenza di un valore.
+  \item \texttt{just} è un costruttore che prende un elemento di tipo \( A \) e restituisce un valore di tipo \( Maybe \; A \) che contiene quell'elemento.
+\end{itemize}
+Ora possiamo definire la funzione \texttt{\_!!\_} per estrarre l'n-esimo elemento da una lista:
+\begin{minted}[fontsize=\small, bgcolor=gray!5, frame=lines]{agda}
+_!!_ : {A : Set} → List A → ℕ → Maybe A
+[] !! n = nothing
+(x :: xs) !! zero = just x
+(x :: xs) !! (suc n) = xs !! n
+\end{minted}
+In quest'altra definizione notiamo:
+\begin{itemize}
+  \item La funzione \texttt{\_!!\_} è parametrizzata da un tipo \( A \) (usando le parentesi graffe per indicare che è un parametro implicito).
+  \item La funzione prende una lista di tipo \( List \; A \) e un numero naturale \( ℕ \) (l'indice dell'elemento da estrarre) e restituisce un valore di tipo \( Maybe \; A \).
+  \item Nel caso della lista vuota, restituisce \texttt{nothing}, indicando che non c'è nessun elemento da estrarre.
+  \item Nel caso in cui l'indice sia zero, restituisce il primo elemento della lista avvolto in \texttt{just}.
+  \item Nel caso in cui l'indice sia un successore, chiama ricorsivamente la funzione sulla coda della lista e sull'indice decrementato di uno.
+\end{itemize}
+Questo costrutto ci permette di gestire in modo sicuro l'estrazione di elementi da una lista,
+senza incorrere in errori di accesso a indici fuori dai limiti. Questa caratteristica
+è molto più comune in Haskell che in Agda, ma penso sia comunque interessante mostrarla.
+\begin{Observation}{}{}
+Tuttavia, esiste una versione più sicura di questa funzione che sfrutta i tipi dipendenti
+che garantisce che l'indice sia sempre valido per ogni input, evitando di usare il tipo \texttt{Maybe}.
+È interessante notare come in Agda, con il giusto impegno e l'uso delle dimostrazioni
+formali, possiamo garantire la correttezza del nostro codice facendo in modo
+che \textit{non cada mai in errori di runtime}. 
+\end{Observation}
+
+\section{Uguaglianza in Agda}
+
+In Agda, l'uguaglianza è un concetto fondamentale che viene trattato in modo rigoroso attraverso il sistema di tipi.
+
+\subsection{Definizione di uguaglianza}
+
+L'uguaglianza in Agda è definita tramite un tipo chiamato \texttt{\_≡\_}, che rappresenta l'uguaglianza tra due elementi di uno stesso tipo.
+\begin{minted}[fontsize=\small, bgcolor=gray!5, frame=lines]{agda}
+data _≡_ {A : Set} (x : A) : A → Set where
+  refl : x ≡ x
+\end{minted}
+In questa definizione:
+\begin{itemize}
+  \item \texttt{\_≡\_} è un tipo parametrizzato da un tipo \( A \) e da un elemento \( x \) di tipo \( A \).
+  \item Il costruttore \texttt{refl} rappresenta il fatto che ogni elemento è uguale a se stesso.
+\end{itemize}
+Da qua, inizia tutto il lavoro di dimostrazione delle proprietà dell'uguaglianza.
+Infatti \enquote{refl} (che è nient'altro che la riflessività) è il blocchetto principale per poi costruire tutte le altre definizioni.
+
+\begin{Observation}{}{}
+  Nella matematica tradizionale "$x=y$" è un affermazione, una dichiarazione. Ad esempio, questa affermazione potrebbe essere vera o falsa. In Agda invece, "$x ≡ y$" è un tipo: il tipo dei testimoni che dimostrano che x e y sono uguali. Ad esempio, questo tipo potrebbe essere abitato (cioè esistere un valore di quel tipo), oppure potrebbe essere vuoto (cioè non esistere alcun valore di quel tipo).
+ Quindi se nella matematica tradizionale dimostreremmo che $x=y$, in Agda esibiamo un valore di tipo x ≡ y.  
+\end{Observation}
+\noindent
+Con la definizione di uguaglianza a disposizione, possiamo affermare e dimostrare che zero è uguale a zero:
+\begin{minted}[fontsize=\small, bgcolor=gray!5, frame=lines]{agda}
+zero-equals-zero : zero ≡ zero
+zero-equals-zero = refl
+\end{minted}
+\noindent
+In esattamente lo stesso modo, possiamo affermare e dimostrare che $2+2=4$:
+\begin{minted}[fontsize=\small, bgcolor=gray!5, frame=lines]{agda}
+grande-teorema : two + two ≡ four
+grande-teorema = refl
+\end{minted}
+Possiamo usare \texttt{refl} in esattamente quelle situazioni, in cui i due lati della presunta identità sono manifestamente uguali, cioè uguali in un modo che richiede solo lo srotolamento di tutte le definizioni e la semplificazione tramite il calcolo, ma nessuna vera intuizione, per convincersi dell'uguaglianza.
+Per esempio, essendo che zero $+$ b è definito come b, possiamo usare \texttt{refl} nella seguente dimostrazione:
+\begin{minted}[fontsize=\small, bgcolor=gray!5, frame=lines]{agda}
+trivial : (b : ℕ) → zero + b ≡ b
+trivial b = refl
+\end{minted}
+Questo tuttavia funziona solo perché abbiamo definito l'operatore di somma in un certo modo.
+\begin{minted}[fontsize=\small, bgcolor=gray!5, frame=lines]{agda}
+_+_ : ℕ → ℕ → ℕ
+zero + n = n -- Guarda qui!
+suc m + n = suc (m + n)
+\end{minted}
+È tutt'altra storia il verso opposto dell'uguaglianza, cioè dimostrare che b è uguale a zero $+$ b.
+In questo caso, non possiamo usare \texttt{refl}, perché b non è definito come zero $+$ b.
+Dobbiamo prima però definire un paio di strumenti ausiliari.
+
+\subsection{Congruenza}
+
+La \textbf{congruenza} è una proprietà fondamentale dell'uguaglianza che afferma che se due elementi sono uguali, allora lo sono anche i risultati delle funzioni applicate a questi elementi.
+Proviamo a definire la funzione di congruenza in Agda:
+\begin{minted}[fontsize=\small, bgcolor=gray!5, frame=lines]{agda}
+cong : {A B : Set} {x y : A} 
+→ (f : A → B) 
+→ x ≡ y 
+→ f x ≡ f y
+cong f refl = refl
+\end{minted}
+\noindent
+In questa definizione:
+\begin{itemize}
+  \item La funzione \texttt{cong} prende due tipi \( A \) e \( B \), due elementi \( x \) e \( y \) di tipo \( A \), una funzione \( f \) da \( A \) a \( B \), e una prova che \( x \) è uguale a \( y \).
+  \item Restituisce una prova che \( f(x) \) è uguale a \( f(y) \).
+  \item Il caso base della definizione afferma che se la prova di uguaglianza è data da \texttt{refl}, allora anche l'uguaglianza tra \( f(x) \) e \( f(y) \) è dimostrata da \texttt{refl}.
+\end{itemize}
+Ora possiamo effettivamente dimostrare che b è uguale a zero $+$ b usando la funzione di congruenza:
+
+\begin{minted}[fontsize=\small, bgcolor=gray!5, frame=lines]{agda}
+symm-zero-plus : (b : ℕ) → b + zero ≡ b
+symm-zero-plus zero = refl
+symm-zero-plus (suc n) = cong suc (symm-zero-plus n)
+\end{minted}
+Vediamo come:
+\begin{itemize}
+  \item Nel caso base, quando \( b \) è zero, la prova è semplicemente \texttt{refl}, poiché zero è uguale a zero $+$ zero. (Stiamo praticamente usando la riflessività per dire che zero è uguale a zero).
+  \item Nel caso ricorsivo, quando \( b \) è il successore di \( n \), usiamo la funzione di congruenza per applicare la funzione \texttt{suc} alla prova che \( n \) è uguale a zero $+$ \( n \).
+\end{itemize}
+
+\subsection{Simmetria}
+
+La \textbf{simmetria} è un'altra proprietà fondamentale dell'uguaglianza che afferma che se un elemento è uguale a un secondo, allora il secondo è uguale al primo.
+Proviamo a definire la funzione di simmetria in Agda:
+\begin{minted}[fontsize=\small, bgcolor=gray!5, frame=lines]{agda}
+sym : {A : Set} {x y : A}
+→ x ≡ y
+→ y ≡ x
+sym refl = refl
+\end{minted}
+
+\subsection{Transitività}
+
+La \textbf{transitività} è un'altra proprietà fondamentale dell'uguaglianza che afferma che se un elemento è uguale a un secondo, e il secondo è uguale a un terzo, allora il primo è uguale al terzo.
+Proviamo a definire la funzione di transitività in Agda:
+
+\begin{minted}[fontsize=\small, bgcolor=gray!5, frame=lines]{agda}
+trans : {A : Set} {x y z : A}
+→ x ≡ y
+→ y ≡ z
+→ x ≡ z
+trans refl refl = refl
+\end{minted}
+Ormai abbiamo capito che se la prova di uguaglianza è data da \texttt{refl}, allora possiamo concludere che l'uguaglianza tra \( x \) e \( z \) è dimostrata da \texttt{refl}.
+\subsection{Associatività}
+Possiamo anche dimostrare che l'operazione di somma è associativa utilizzando le proprietà dell'uguaglianza che abbiamo definito.
+\begin{minted}[fontsize=\small, bgcolor=gray!5, frame=lines]{agda}
+assoc-+ : (a b c : ℕ) → (a + b) + c ≡ a + (b + c)
+assoc-+ zero b c = refl
+assoc-+ (suc a) b c = cong suc (assoc-+ a b c)
+\end{minted}
+In questa definizione:
+\begin{itemize}
+  \item Nel caso base, quando \( a \) è zero, la prova è semplicemente \texttt{refl}, poiché zero sommato a qualsiasi numero è uguale a quel numero.
+  \item Nel caso ricorsivo, quando \( a \) è il successore di \( a' \), usiamo la funzione di congruenza per applicare la funzione \texttt{suc} alla prova che \( a' + b + c \) è uguale a \( a' + (b + c) \).
+\end{itemize}
+\subsection{Commutatività}
+
+Possiamo anche dimostrare che l'operazione di somma è commutativa utilizzando le proprietà dell'uguaglianza che abbiamo definito.
+\begin{minted}[fontsize=\small, bgcolor=gray!5, frame=lines]{agda}
+comm-+ : (a b : ℕ) → a + b ≡ b + a
+comm-+ zero b = symm-zero-plus b
+comm-+ (suc a) b = cong suc (comm-+ a b)
+\end{minted}
+\begin{Observation}{}{}
+  Come notiamo man mano che costruiamo le definizioni di queste proprietà, 
+  esse ci aiutano a costruire dimostrazioni più complesse basate su di esse (perché
+  sono "witness" o "testimoni" che ci permettono di affermare certe uguaglianze). 
+  La definizione di uguaglianza in Agda e le proprietà che ne derivano
+  (riflessività, simmetria, transitività, congruenza) forniscono una base solida
+  per ragionare sull'uguaglianza tra elementi di tipi diversi.
+  Questi concetti sono fondamentali non solo in Agda, ma anche in molte altre aree della matematica e dell'informatica teorica.
+\end{Observation}
+In questa definizione:
+\begin{itemize}
+  \item Come parametro, abbiamo due numeri naturali \( a \) e \( b \). L'obiettivo è ottenere una dimostrazione
+  che dice che \( a + b \) è uguale a \( b + a \).
+  \item Nel caso base, quando \( a \) è zero, usiamo la funzione \texttt{symm-zero-plus} per dimostrare che \( b + 0 \) è uguale a \( b \).
+  \item Nel caso ricorsivo, quando \( a \) è il successore di \( a' \), usiamo la funzione di congruenza per applicare la funzione \texttt{suc} alla prova che \( a' + b \) è uguale a \( b + a' \).
+\end{itemize}
+
+\pagebreak
+
+\section{Metalogica in Agda}
+
+Una cosa interessante di Agda è che possiamo anche modellare concetti di metalogica (quindi
+possiamo usare Agda per ragionare su sistemi logici stessi), grazie alla sua natura di linguaggio di programmazione e sistema di dimostrazione interattivo.
+Ad esempio, possiamo definire un semplice sistema logico proposizionale in Agda.
+Proviamo a modellare alcuni concetti della \textbf{logica minimale}, 
+che è una logica proposizionale più debole della logica classica poiché
+contiene solo l'implicazione e la negazione come connettivi logici.
+Quest'ultima rifiuta il principio del terzo escluso e l'ex falso quodlibet.
+Andremo inoltre a definire la deduzione naturale come sistema deduttivo.
+
+\subsection{Definizione delle proposizioni e formule}
+
+In Agda, possiamo definire un tipo per rappresentare le proposizioni e le formule logiche.
+\begin{minted}[fontsize=\small, bgcolor=gray!5, frame=lines]{agda}
+open import Data.String
+
+data Form : Set where
+  atom : String → Form
+  _[⇒]_ : Form → Form → Form
+\end{minted}
+Questo non sarebbe un modo molto efficiente per rappresentare le formule logiche,
+ma per scopi didattici va più che bene.
+Quindi abbiamo definito un tipo \texttt{Form} con due costruttori:
+\begin{itemize}
+  \item \texttt{atom} rappresenta una proposizione atomica, identificata da una stringa e mi permette di creare proposizioni come "P", "Q", "R", ecc.
+  \item \texttt{\_[⇒]\_} rappresenta l'implicazione tra due formule logiche.
+\end{itemize}
+\subsection{Definizione dei contesti}
+In logica, un contesto è un insieme di assunzioni o ipotesi da cui possiamo dedurre altre proposizioni.
+In Agda, possiamo rappresentare un contesto come una lista di formule logiche. Anche in questo
+caso, tocca definirlo in maniera ricorsiva.
+\begin{minted}[fontsize=\small, bgcolor=gray!5, frame=lines]{agda}
+data Context : Set where
+  • : Con
+  _▷_ : Con → Form → Con
+\end{minted}
+Ricordiamo anche di dare la precedenza all'operatore \texttt{▷} e \texttt{⇒}:
+\begin{minted}[fontsize=\small, bgcolor=gray!5, frame=lines]{agda}
+infixr 8 _▷_
+infixr 9 _[⇒]_
+\end{minted}
+Per evitare di definire ogni volta le variabili e contesti con dei nomi ad ogni definizione 
+(possiamo usare le variabili implicite di Agda):
+\begin{minted}[fontsize=\small, bgcolor=gray!5, frame=lines]{agda}
+variable Γ Δ : Con
+variable ψ φ : Form
+\end{minted}
+
+\subsection{Definizione delle regole di deduzione naturale}
+
+Dobbiamo ora definire $\vdash$ ovvero il giudizio di deducibilità.
+Ora possiamo definire le regole di deduzione naturale per la logica minimale (le linee 
+orizzontali chiaramente separano le ipotesi dalle conclusioni, ma non sono codificate all'interno di agda).
+\begin{minted}[fontsize=\small, bgcolor=gray!5, frame=lines]{agda}
+infix 5 _⊢_
+data _⊢_ : Con → Form → Set where
+       ----------
+zero : Γ ▷ φ ⊢ φ
+
+suc : Γ ⊢ ψ →
+    -----------  
+     Γ ▷ φ ⊢ ψ
+
+lam : Γ ▷ φ ⊢ ψ → -- introduzione dell'implicazione
+      ------------
+     Γ ⊢ φ [⇒] ψ
+
+app : Γ ⊢ φ [⇒] ψ → Γ ⊢ φ → -- modus ponens
+     ----------------------
+            Γ ⊢ ψ 
+\end{minted}
+Questa definizione è più complessa perché possiede diversi costruttori:
+\begin{itemize}
+  \item \texttt{zero}: rappresenta la regola di assunzione, che afferma che se una formula \( φ \) è nel contesto \( Γ \), allora possiamo dedurre \( φ \) da \( Γ \).
+  \item \texttt{suc}: rappresenta la regola di indebolimento, che afferma che se possiamo dedurre \( ψ \) da \( Γ \), allora possiamo anche dedurre \( ψ \) da \( Γ \) esteso con una nuova formula \( φ \).
+  \item \texttt{lam}: rappresenta la regola di introduzione dell'implicazione, che afferma che se possiamo dedurre \( ψ \) da \( Γ \) esteso con \( φ \), allora possiamo dedurre l'implicazione \( φ ⇒ ψ \) da \( Γ \).
+  \item \texttt{app}: rappresenta la regola di eliminazione dell'implicazione (modus ponens), che afferma che se possiamo dedurre \( φ ⇒ ψ \) da \( Γ \) e possiamo dedurre \( φ \) da \( Γ \), allora possiamo dedurre \( ψ \) da \( Γ \).
+\end{itemize} 
+
+%==============================
+% Regola ZERO
+%==============================
+
+% Prima riga: zero e suc
+\begin{minipage}{0.45\linewidth}
+  \centering
+  \begin{prooftree}
+  \AxiomC{}
+  \RightLabel{\scriptsize (zero)}
+  \UnaryInfC{$\Gamma , \varphi \;\vdash\; \varphi$}
+  \end{prooftree}
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.45\linewidth}
+  \centering
+  \begin{prooftree}
+  \AxiomC{$\Gamma \;\vdash\; \psi$}
+  \RightLabel{\scriptsize (suc)}
+  \UnaryInfC{$\Gamma , \varphi \;\vdash\; \psi$}
+  \end{prooftree}
+  \end{minipage}
+  
+  \vspace{1.5em}
+  
+  % Seconda riga: lam e app
+  \begin{minipage}{0.45\linewidth}
+  \centering
+  \begin{prooftree}
+  \AxiomC{$\Gamma , \varphi \;\vdash\; \psi$}
+  \RightLabel{\scriptsize (lam)}
+  \UnaryInfC{$\Gamma \;\vdash\; \varphi \Rightarrow \psi$}
+  \end{prooftree}
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.45\linewidth}
+  \centering
+  \begin{prooftree}
+  \AxiomC{$\Gamma \;\vdash\; \varphi \Rightarrow \psi$}
+  \AxiomC{$\Gamma \;\vdash\; \varphi$}
+  \RightLabel{\scriptsize (app)}
+  \BinaryInfC{$\Gamma \;\vdash\; \psi$}
+  \end{prooftree}
+\end{minipage}
+\subsection{Esempio di prova in Agda}
+Proviamo a costruire un esempio semplice in Agda usando le regole che abbiamo appena creato.
+Se io volessi dimostrare che da \( P \) implica (banalmente) \( P \) e quindi
+costruire una prova di \( P \implies P \), potrei farlo così:
+
+\begin{minted}[fontsize=\small, bgcolor=gray!5, frame=lines]{agda}
+I : • ⊢ (atom "P") [⇒] (atom "P")
+-- λ x → x
+I = lam zero
+\end{minted}
+Sto cercando di provare che dal contesto vuoto (rappresentato da \texttt{•}),
+posso dedurre che \( P \) implica \( P \) (rappresentato da \texttt{(atom "P") [⇒] (atom "P")}).
+Sto usando la regola di introduzione dell'implicazione (\texttt{lam}) per costruire questa prova 
+applicando l'assioma che ci permette di "chiudere" la derivazione.
+Quindi una visualizzazione grafica tramite deduzione naturale sarebbe:
+\begin{center}
+\begin{prooftree}
+  \AxiomC{$[\,P\,]^1$}
+  \RightLabel{\scriptsize ($\to$I)$^1$}
+  \UnaryInfC{$P \implies P$}
+\end{prooftree}
+\end{center}
+
+\begin{Observation}{}{}{}
+Per semplicità definiamo come assunzione il nostro costruttore \texttt{zero},
+mentre \texttt{suc} non fa nulla di più che estendere il contesto con una nuova
+assunzione che però non viene usata nella dimostrazione (quindi ci permette di creare nuove variabili).
+Il costruttore \texttt{lam} rappresenta l'introduzione dell'implicazione e 
+\texttt{app} rappresenta l'eliminazione dell'implicazione (modus ponens).
+\end{Observation}
+\noindent
+Cerchiamo ora invece di dimostrare:
+\[\vdash (P \to Q \to R) \to (Q \to P \to R)\]
+In Agda, possiamo costruire questa prova come segue:
+\begin{minted}[fontsize=\small, bgcolor=gray!5, frame=lines]{agda}
+sw : • ⊢ ((atom "P") [⇒] (atom "Q") [⇒] (atom "R"))
+[⇒] ((atom "Q") [⇒] (atom "P") [⇒] (atom "R"))
+sw = lam (lam (lam (app (app (suc (suc zero)) zero) (suc zero))))
+\end{minted}
+Questa definizione può sembrare complessa a prima vista, ma notiamo 
+che stiamo costruendo la prova passo dopo passo utilizzando le regole di deduzione naturale che abbiamo definito.
+La forma equivalente in deduzione naturale sarebbe:
+\begin{prooftree}
+  % first combine f and p to get Q -> R
+  \AxiomC{$[P \to (Q \to R)]^1$}
+  \AxiomC{$[P]^3$}
+  \RightLabel{\scriptsize ($\to$E)}
+  \BinaryInfC{$Q \to R$}        % result of (f p)
+
+  % now apply (Q -> R) to q to obtain R
+  \AxiomC{$[Q]^2$}
+  \RightLabel{\scriptsize ($\to$E)}
+  \BinaryInfC{$R$}
+
+  % discharge p to get P -> R
+  \RightLabel{\scriptsize ($\to$I)$^{3}$}
+  \UnaryInfC{$P \to R$}
+
+  % discharge q to get Q -> (P -> R)
+  \RightLabel{\scriptsize ($\to$I)$^{2}$}
+  \UnaryInfC{$Q \to (P \to R)$}
+
+  % discharge 1 to get (P -> Q -> R) -> (Q -> P -> R)
+  \RightLabel{\scriptsize ($\to$I)$^{1}$}
+  \UnaryInfC{$(P \to Q \to R) \to (Q \to P \to R)$}
+\end{prooftree}
+
+\begin{Observation}{}{}{}
+Notiamo come abbiamo applicato la regola di introduzione dell'implicazione (\texttt{lam}) tre volte
+e la regola di eliminazione dell'implicazione (\texttt{app}) due volte, 
+proprio come nella derivazione in Agda.
+\end{Observation}
+\noindent
+Ora che abbiamo visto la deduzione naturale in maniera grafica,
+proviamo a srolotare quello che abbiamo fatto invece in agda.
+Il modo intuitivo di costruire la prova in Agda e provarla a guardarla
+con un approccio bottom-up (chi ha esperienza con questo tipo di esercizi, sa che è il modo più semplice per affrontarli):
+\begin{itemize}
+  \item La tesi è di tipo \((P \to Q \to R) \to (Q \to P \to R)\), quindi per costruire una prova di questo tipo,
+  dobbiamo sicuramente introdurre un'ipotesi \( P \to Q \to R \) nelle assunzioni. Usiamo quindi \texttt{lam} per introdurre questa ipotesi.
+  \item Ora, la tesi diventa \( Q \to P \to R \), quindi dobbiamo introdurre un'altra ipotesi \( Q \) nelle assunzioni. Usiamo di nuovo \texttt{lam} per introdurre questa ipotesi.
+  \item Ora, la tesi diventa \( P \to R \), quindi dobbiamo introdurre un'ultima ipotesi \( P \) nelle assunzioni. Usiamo ancora \texttt{lam} per introdurre questa ipotesi.
+  \item A questo punto abbiamo applicato 3 volte \texttt{lam}, e la tesi diventa \( R \).
+  \item Possiamo ottenere $R$ applicando Modus Ponens a $Q \to R$ e $Q$. 
+  \item A sua volta $Q \to R$ può essere ottenuto applicando Modus Ponens a $P \to Q \to R$ e $P$.
+  \item Quindi alla fine le assunzioni che abbiamo chiuso sono proprio:
+  \begin{itemize}
+    \item \( P \to Q \to R \) (chiusa con la prima \texttt{lam}),
+    \item \( Q \) (chiusa con la seconda \texttt{lam}),
+    \item \( P \) (chiusa con la terza \texttt{lam}).
+  \end{itemize}
+\end{itemize}
+
+\end{document}

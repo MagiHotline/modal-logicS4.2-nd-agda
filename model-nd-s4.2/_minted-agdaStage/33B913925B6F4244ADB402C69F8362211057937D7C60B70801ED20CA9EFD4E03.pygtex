@@ -1,0 +1,5 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kr}{data}\PYG{+w}{ }ℕ\PYG{+w}{ }\PYG{o+ow}{:}\PYG{+w}{ }\PYG{k+kt}{Set}\PYG{+w}{ }\PYG{k+kr}{where}
+\PYG{+w}{  }\PYG{n+nf}{zero}\PYG{+w}{ }\PYG{o+ow}{:}\PYG{+w}{ }ℕ
+\PYG{+w}{  }\PYG{n+nf}{suc}\PYG{+w}{ }\PYG{o+ow}{:}\PYG{+w}{ }ℕ\PYG{+w}{ }\PYG{o+ow}{→}\PYG{+w}{ }ℕ
+\end{Verbatim}

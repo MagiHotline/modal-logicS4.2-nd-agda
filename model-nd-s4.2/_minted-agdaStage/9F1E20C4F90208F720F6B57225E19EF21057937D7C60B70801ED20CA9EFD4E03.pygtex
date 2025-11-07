@@ -1,0 +1,7 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kr}{open}\PYG{+w}{ }\PYG{k+kr}{import}\PYG{+w}{ }\PYG{n}{Data.String}
+
+\PYG{k+kr}{data}\PYG{+w}{ }Form\PYG{+w}{ }\PYG{o+ow}{:}\PYG{+w}{ }\PYG{k+kt}{Set}\PYG{+w}{ }\PYG{k+kr}{where}
+\PYG{+w}{  }\PYG{n+nf}{atom}\PYG{+w}{ }\PYG{o+ow}{:}\PYG{+w}{ }String\PYG{+w}{ }\PYG{o+ow}{→}\PYG{+w}{ }Form
+\PYG{+w}{  }\PYG{n+nf}{\PYGZus{}[⇒]\PYGZus{}}\PYG{+w}{ }\PYG{o+ow}{:}\PYG{+w}{ }Form\PYG{+w}{ }\PYG{o+ow}{→}\PYG{+w}{ }Form\PYG{+w}{ }\PYG{o+ow}{→}\PYG{+w}{ }Form
+\end{Verbatim}

@@ -1,0 +1,5 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kr}{data}\PYG{+w}{ }Maybe\PYG{+w}{ }\PYG{o}{(}A\PYG{+w}{ }\PYG{o+ow}{:}\PYG{+w}{ }\PYG{k+kt}{Set}\PYG{o}{)}\PYG{+w}{ }\PYG{o+ow}{:}\PYG{+w}{ }\PYG{k+kt}{Set}\PYG{+w}{ }\PYG{k+kr}{where}
+\PYG{+w}{  }\PYG{n+nf}{nothing}\PYG{+w}{ }\PYG{o+ow}{:}\PYG{+w}{ }Maybe\PYG{+w}{ }A
+\PYG{+w}{  }\PYG{n+nf}{just}\PYG{+w}{ }\PYG{o+ow}{:}\PYG{+w}{ }A\PYG{+w}{ }\PYG{o+ow}{→}\PYG{+w}{ }Maybe\PYG{+w}{ }A
+\end{Verbatim}

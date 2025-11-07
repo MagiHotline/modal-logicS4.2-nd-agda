@@ -1,0 +1,5 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nf}{comm\PYGZhy{}+}\PYG{+w}{ }\PYG{o+ow}{:}\PYG{+w}{ }\PYG{o}{(}a\PYG{+w}{ }b\PYG{+w}{ }\PYG{o+ow}{:}\PYG{+w}{ }ℕ\PYG{o}{)}\PYG{+w}{ }\PYG{o+ow}{→}\PYG{+w}{ }a\PYG{+w}{ }+\PYG{+w}{ }b\PYG{+w}{ }≡\PYG{+w}{ }b\PYG{+w}{ }+\PYG{+w}{ }a
+comm\PYGZhy{}+\PYG{+w}{ }zero\PYG{+w}{ }b\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }symm\PYGZhy{}zero\PYGZhy{}plus\PYG{+w}{ }b
+comm\PYGZhy{}+\PYG{+w}{ }\PYG{o}{(}suc\PYG{+w}{ }a\PYG{o}{)}\PYG{+w}{ }b\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }cong\PYG{+w}{ }suc\PYG{+w}{ }\PYG{o}{(}comm\PYGZhy{}+\PYG{+w}{ }a\PYG{+w}{ }b\PYG{o}{)}
+\end{Verbatim}

@@ -29,6 +29,3 @@ one-not-even ()
 
 dni : {A : Set} → A → ¬ ¬ A
 dni x = λ k → k x
-
-
-

@@ -23,8 +23,7 @@ twice (succ n) = succ (succ (twice n))
  
 infixl 6 _+_
 _+_ : ℕ → ℕ → ℕ
-zero + m = m
-succ n + m = succ (n + m)
+_+_ = {!   !}
 
 half : ℕ → ℕ
 half zero = zero

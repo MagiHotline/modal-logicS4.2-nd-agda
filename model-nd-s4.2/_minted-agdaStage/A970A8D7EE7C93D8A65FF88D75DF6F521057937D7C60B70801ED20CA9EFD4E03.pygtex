@@ -1,0 +1,7 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nf}{cong}\PYG{+w}{ }\PYG{o+ow}{:}\PYG{+w}{ }\PYG{o}{\PYGZob{}}A\PYG{+w}{ }B\PYG{+w}{ }\PYG{o+ow}{:}\PYG{+w}{ }\PYG{k+kt}{Set}\PYG{o}{\PYGZcb{}}\PYG{+w}{ }\PYG{o}{\PYGZob{}}x\PYG{+w}{ }y\PYG{+w}{ }\PYG{o+ow}{:}\PYG{+w}{ }A\PYG{o}{\PYGZcb{}}
+\PYG{o+ow}{→}\PYG{+w}{ }\PYG{o}{(}f\PYG{+w}{ }\PYG{o+ow}{:}\PYG{+w}{ }A\PYG{+w}{ }\PYG{o+ow}{→}\PYG{+w}{ }B\PYG{o}{)}
+\PYG{o+ow}{→}\PYG{+w}{ }x\PYG{+w}{ }≡\PYG{+w}{ }y
+\PYG{o+ow}{→}\PYG{+w}{ }f\PYG{+w}{ }x\PYG{+w}{ }≡\PYG{+w}{ }f\PYG{+w}{ }y
+cong\PYG{+w}{ }f\PYG{+w}{ }refl\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }refl
+\end{Verbatim}

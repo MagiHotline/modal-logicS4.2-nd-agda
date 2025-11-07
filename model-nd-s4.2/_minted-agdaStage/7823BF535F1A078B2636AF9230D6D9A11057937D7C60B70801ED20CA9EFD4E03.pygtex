@@ -1,0 +1,5 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nf}{assoc\PYGZhy{}+}\PYG{+w}{ }\PYG{o+ow}{:}\PYG{+w}{ }\PYG{o}{(}a\PYG{+w}{ }b\PYG{+w}{ }c\PYG{+w}{ }\PYG{o+ow}{:}\PYG{+w}{ }ℕ\PYG{o}{)}\PYG{+w}{ }\PYG{o+ow}{→}\PYG{+w}{ }\PYG{o}{(}a\PYG{+w}{ }+\PYG{+w}{ }b\PYG{o}{)}\PYG{+w}{ }+\PYG{+w}{ }c\PYG{+w}{ }≡\PYG{+w}{ }a\PYG{+w}{ }+\PYG{+w}{ }\PYG{o}{(}b\PYG{+w}{ }+\PYG{+w}{ }c\PYG{o}{)}
+assoc\PYGZhy{}+\PYG{+w}{ }zero\PYG{+w}{ }b\PYG{+w}{ }c\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }refl
+assoc\PYGZhy{}+\PYG{+w}{ }\PYG{o}{(}suc\PYG{+w}{ }a\PYG{o}{)}\PYG{+w}{ }b\PYG{+w}{ }c\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }cong\PYG{+w}{ }suc\PYG{+w}{ }\PYG{o}{(}assoc\PYGZhy{}+\PYG{+w}{ }a\PYG{+w}{ }b\PYG{+w}{ }c\PYG{o}{)}
+\end{Verbatim}

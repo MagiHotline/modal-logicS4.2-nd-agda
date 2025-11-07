@@ -1,0 +1,5 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nf}{length}\PYG{+w}{ }\PYG{o+ow}{:}\PYG{+w}{ }\PYG{o}{\PYGZob{}}A\PYG{+w}{ }\PYG{o+ow}{:}\PYG{+w}{ }\PYG{k+kt}{Set}\PYG{o}{\PYGZcb{}}\PYG{+w}{ }\PYG{o+ow}{→}\PYG{+w}{ }List\PYG{+w}{ }A\PYG{+w}{ }\PYG{o+ow}{→}\PYG{+w}{ }ℕ
+length\PYG{+w}{ }[]\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }zero
+length\PYG{+w}{ }\PYG{o}{(}x\PYG{+w}{ }\PYG{o+ow}{::}\PYG{+w}{ }xs\PYG{o}{)}\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }suc\PYG{+w}{ }\PYG{o}{(}length\PYG{+w}{ }xs\PYG{o}{)}
+\end{Verbatim}

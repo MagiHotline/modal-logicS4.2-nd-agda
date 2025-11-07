@@ -1,0 +1,24 @@
+\babel@toc {italian}{}\relax 
+\babel@toc {italian}{}\relax 
+\contentsline {section}{\numberline {1}Introduzione}{4}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Che cos'è la Teoria dei Tipi?}{4}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Cos'è Agda?}{4}{subsection.1.2}%
+\contentsline {subsubsection}{\numberline {1.2.1}Caratteristiche principali di Agda}{5}{subsubsection.1.2.1}%
+\contentsline {section}{\numberline {2}Primi passi con Agda}{5}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Tipi di base}{5}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Definizione di operatori}{6}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Pattern matching e Goals}{6}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.4}Liste}{7}{subsection.2.4}%
+\contentsline {subsection}{\numberline {2.5}Maybe}{8}{subsection.2.5}%
+\contentsline {section}{\numberline {3}Uguaglianza in Agda}{9}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Definizione di uguaglianza}{9}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Congruenza}{11}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Simmetria}{12}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}Transitività}{12}{subsection.3.4}%
+\contentsline {subsection}{\numberline {3.5}Associatività}{12}{subsection.3.5}%
+\contentsline {subsection}{\numberline {3.6}Commutatività}{13}{subsection.3.6}%
+\contentsline {section}{\numberline {4}Metalogica in Agda}{14}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Definizione delle proposizioni e formule}{14}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Definizione dei contesti}{14}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Definizione delle regole di deduzione naturale}{15}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.4}Esempio di prova in Agda}{16}{subsection.4.4}%

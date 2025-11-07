@@ -1,0 +1,5 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nf}{sw}\PYG{+w}{ }\PYG{o+ow}{:}\PYG{+w}{ }•\PYG{+w}{ }⊢\PYG{+w}{ }\PYG{o}{((}atom\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}P\PYGZdq{}}\PYG{o}{)}\PYG{+w}{ }[⇒]\PYG{+w}{ }\PYG{o}{(}atom\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}Q\PYGZdq{}}\PYG{o}{)}\PYG{+w}{ }[⇒]\PYG{+w}{ }\PYG{o}{(}atom\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}R\PYGZdq{}}\PYG{o}{))}
+[⇒]\PYG{+w}{ }\PYG{o}{((}atom\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}Q\PYGZdq{}}\PYG{o}{)}\PYG{+w}{ }[⇒]\PYG{+w}{ }\PYG{o}{(}atom\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}P\PYGZdq{}}\PYG{o}{)}\PYG{+w}{ }[⇒]\PYG{+w}{ }\PYG{o}{(}atom\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}R\PYGZdq{}}\PYG{o}{))}
+sw\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }lam\PYG{+w}{ }\PYG{o}{(}lam\PYG{+w}{ }\PYG{o}{(}lam\PYG{+w}{ }\PYG{o}{(}app\PYG{+w}{ }\PYG{o}{(}app\PYG{+w}{ }\PYG{o}{(}suc\PYG{+w}{ }\PYG{o}{(}suc\PYG{+w}{ }zero\PYG{o}{))}\PYG{+w}{ }zero\PYG{o}{)}\PYG{+w}{ }\PYG{o}{(}suc\PYG{+w}{ }zero\PYG{o}{))))}
+\end{Verbatim}

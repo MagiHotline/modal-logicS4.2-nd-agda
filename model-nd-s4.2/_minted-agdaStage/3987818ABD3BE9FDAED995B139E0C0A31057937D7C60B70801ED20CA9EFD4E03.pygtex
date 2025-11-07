@@ -1,0 +1,5 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nf}{I}\PYG{+w}{ }\PYG{o+ow}{:}\PYG{+w}{ }•\PYG{+w}{ }⊢\PYG{+w}{ }\PYG{o}{(}atom\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}P\PYGZdq{}}\PYG{o}{)}\PYG{+w}{ }[⇒]\PYG{+w}{ }\PYG{o}{(}atom\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}P\PYGZdq{}}\PYG{o}{)}
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} λ x → x}
+I\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }lam\PYG{+w}{ }zero
+\end{Verbatim}

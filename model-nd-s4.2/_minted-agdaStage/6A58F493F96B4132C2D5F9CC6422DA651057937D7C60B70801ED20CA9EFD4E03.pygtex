@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nf}{zero\PYGZhy{}equals\PYGZhy{}zero}\PYG{+w}{ }\PYG{o+ow}{:}\PYG{+w}{ }zero\PYG{+w}{ }≡\PYG{+w}{ }zero
+zero\PYGZhy{}equals\PYGZhy{}zero\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }refl
+\end{Verbatim}

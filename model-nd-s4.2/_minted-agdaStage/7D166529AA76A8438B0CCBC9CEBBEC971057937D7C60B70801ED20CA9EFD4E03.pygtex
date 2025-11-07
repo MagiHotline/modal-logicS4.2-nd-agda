@@ -1,0 +1,8 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{+w}{  }\PYG{k+kr}{data}\PYG{+w}{ }Vec\PYG{+w}{ }\PYG{o}{(}A\PYG{+w}{ }\PYG{o+ow}{:}\PYG{+w}{ }\PYG{k+kt}{Set}\PYG{o}{)}\PYG{+w}{ }\PYG{o+ow}{:}\PYG{+w}{ }ℕ\PYG{+w}{ }\PYG{o+ow}{→}\PYG{+w}{ }\PYG{k+kt}{Set}\PYG{+w}{ }\PYG{k+kr}{where}
+\PYG{+w}{    }\PYG{n+nf}{[]}\PYG{+w}{  }\PYG{o+ow}{:}\PYG{+w}{ }Vec\PYG{+w}{ }A\PYG{+w}{ }\PYG{l+m+mi}{0}
+\PYG{+w}{    }\PYG{n+nf}{\PYGZus{}∷\PYGZus{}}\PYG{+w}{ }\PYG{o+ow}{:}\PYG{+w}{ }\PYG{o+ow}{∀}\PYG{+w}{ }\PYG{o}{\PYGZob{}}n\PYG{o}{\PYGZcb{}}\PYG{+w}{ }\PYG{o+ow}{→}\PYG{+w}{ }A\PYG{+w}{ }\PYG{o+ow}{→}\PYG{+w}{ }Vec\PYG{+w}{ }A\PYG{+w}{ }n\PYG{+w}{ }\PYG{o+ow}{→}\PYG{+w}{ }Vec\PYG{+w}{ }A\PYG{+w}{ }\PYG{o}{(}suc\PYG{+w}{ }n\PYG{o}{)}
+
+\PYG{+w}{  }\PYG{n+nf}{v}\PYG{+w}{ }\PYG{o+ow}{:}\PYG{+w}{ }Vec\PYG{+w}{ }ℕ\PYG{+w}{ }\PYG{l+m+mi}{3}
+\PYG{+w}{  }v\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{+w}{ }∷\PYG{+w}{ }\PYG{l+m+mi}{2}\PYG{+w}{ }∷\PYG{+w}{ }\PYG{l+m+mi}{3}\PYG{+w}{ }∷\PYG{+w}{ }[]
+\end{Verbatim}
