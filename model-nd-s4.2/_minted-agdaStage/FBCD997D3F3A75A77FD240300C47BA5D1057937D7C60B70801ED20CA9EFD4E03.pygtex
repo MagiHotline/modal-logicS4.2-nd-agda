@@ -1,0 +1,5 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nf}{⟦\PYGZus{}⟧*}\PYG{+w}{ }\PYG{o+ow}{:}\PYG{+w}{ }Con\PYG{+w}{ }\PYG{o+ow}{→}\PYG{+w}{ }Env\PYG{+w}{ }\PYG{o+ow}{→}\PYG{+w}{ }\PYG{k+kt}{Prop}
+⟦\PYG{+w}{ }•\PYG{+w}{ }⟧*\PYG{+w}{ }ρ\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }⊤
+⟦\PYG{+w}{ }Γ\PYG{+w}{ }▷\PYG{+w}{ }φ\PYG{+w}{ }⟧*\PYG{+w}{ }ρ\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }⟦\PYG{+w}{ }Γ\PYG{+w}{ }⟧*\PYG{+w}{ }ρ\PYG{+w}{ }×\PYG{+w}{ }⟦\PYG{+w}{ }φ\PYG{+w}{ }⟧\PYG{+w}{ }ρ
+\end{Verbatim}

@@ -1,0 +1,6 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nf}{env}\PYG{+w}{ }\PYG{o+ow}{:}\PYG{+w}{ }Env
+env\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}P\PYGZdq{}}\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }⊥
+env\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}Q\PYGZdq{}}\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }⊤
+env\PYG{+w}{ }\PYGZus{}\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }⊥
+\end{Verbatim}

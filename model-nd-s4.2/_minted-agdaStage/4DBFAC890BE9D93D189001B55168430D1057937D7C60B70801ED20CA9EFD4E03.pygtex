@@ -1,0 +1,3 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nf}{bad}\PYG{+w}{ }\PYG{o+ow}{:}\PYG{+w}{ }•\PYG{+w}{ }⊢\PYG{+w}{ }\PYG{o}{(}atom\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}P\PYGZdq{}}\PYG{+w}{ }[⇒]\PYG{+w}{ }atom\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}Q\PYGZdq{}}\PYG{o}{)}\PYG{+w}{ }[⇒]\PYG{+w}{ }\PYG{o}{(}atom\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}Q\PYGZdq{}}\PYG{+w}{ }[⇒]\PYG{+w}{ }atom\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}P\PYGZdq{}}\PYG{o}{)}
+\end{Verbatim}

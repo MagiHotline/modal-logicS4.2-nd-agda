@@ -34,6 +34,12 @@
 \newunicodechar{Δ}{\ensuremath{\Delta}}
 \newunicodechar{⊢}{\ensuremath{\vdash}}
 \newunicodechar{∷}{::}
+\newunicodechar{⟦}{\ensuremath{\llbracket}}
+\newunicodechar{⟧}{\ensuremath{\rrbracket}}
+\newunicodechar{ρ}{\ensuremath{\rho}}
+\newunicodechar{σ}{\ensuremath{\sigma}}
+\newunicodechar{τ}{\ensuremath{\tau}}
+\newunicodechar{γ}{\ensuremath{\gamma}}
 
 \usepackage{graphicx}
 \usepackage{float}
@@ -784,6 +790,35 @@ In questa definizione:
   \item Nel caso ricorsivo, quando \( a \) è il successore di \( a' \), usiamo la funzione di congruenza per applicare la funzione \texttt{suc} alla prova che \( a' + b \) è uguale a \( b + a' \).
 \end{itemize}
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 \pagebreak
 
 \section{Metalogica in Agda}
@@ -1002,5 +1037,81 @@ con un approccio bottom-up (chi ha esperienza con questo tipo di esercizi, sa ch
     \item \( P \) (chiusa con la terza \texttt{lam}).
   \end{itemize}
 \end{itemize}
+\noindent
+Prendiamo ora come esempio la proposizione:
+\[(P \to Q) \to (Q \to P)\]
+Se provassimo a dimostrare questa proposizione in Agda,
+andremo ad incontrare un problema:
+\begin{minted}[fontsize=\small, bgcolor=gray!5, frame=lines]{agda}
+bad : • ⊢ (atom "P" [⇒] atom "Q") [⇒] (atom "Q" [⇒] atom "P")
+\end{minted}
+Questa proposizione è falsa, infatti per $P = \text{False}$ e $Q = \text{True}$,
+non vale. Quindi non esiste una prova di questa proposizione.
+
+\subsection{Semantica delle formule}
+
+Ora che abbiamo visto la sintassi 
+possiamo anche definire una semantica per le formule logiche.
+Proviamo ora a definire 
+una interpretazione della semantica in Agda.
+Definiremo \textbf{Env} che sarà la nostra "valutazione" 
+che quindi data una formula atomica ci ritorna una proposizione.
+Nella semantica classica scriveremmo: 
+\[  
+\rho : \text{Atoms} \to \{\text{True}, \text{False}\}
+\]
+Poi definiremo la funzione di valutazione delle formule logiche
+dove \(\llbracket \phi \rrbracket_{\rho}\) rappresenta la valutazione della formula \( \phi \) sotto l'interpretazione \( \rho \).
+\begin{Observation}{}{}{}
+  Per ogni formula $\phi$ e ogni interpretazione $\rho$, possiamo calcolare la proposizione $\llbracket \phi \rrbracket_{\rho}$ che rappresenta "il significato di $\phi$ sotto $\rho$".
+\end{Observation}
+
+\begin{minted}[fontsize=\small, bgcolor=gray!5, frame=lines]{agda}
+Env = String → Prop
+
+⟦_⟧ : Form → Env → Prop
+⟦ atom x ⟧ ρ = ρ x
+⟦ φ [⇒] ψ ⟧ ρ = ⟦ φ ⟧ ρ → ⟦ ψ ⟧ ρ
+\end{minted}
+Cerchiamo di scomporre questa definizione:
+\begin{itemize}
+  \item $\llbracket atom \; x \rrbracket \; \rho = \rho \; x$ significa che la valutazione di una formula atomica è semplicemente il valore assegnato a quella formula dall'interpretazione $\rho$.
+  \item $\llbracket \phi [⇒] \psi \rrbracket \rho = \llbracket \phi \rrbracket \rho \to \llbracket \psi \rrbracket \rho$ significa che la valutazione di un'implicazione è una funzione che 
+  prende la valutazione della formula $\phi$ e restituisce la valutazione della formula $\psi$.
+\end{itemize}
+Infatti un esempio di environment potrebbe essere:
+\begin{minted}[fontsize=\small, bgcolor=gray!5, frame=lines]{agda}
+env : Env 
+env "P" = ⊥
+env "Q" = ⊤
+env _ = ⊥
+\end{minted}
+Definiamo ora lo stato di valutazione per i contesti:
+\begin{minted}[fontsize=\small, bgcolor=gray!5, frame=lines]{agda}
+⟦_⟧* : Con → Env → Prop
+⟦ • ⟧* ρ = ⊤
+⟦ Γ ▷ φ ⟧* ρ = ⟦ Γ ⟧* ρ × ⟦ φ ⟧ ρ
+\end{minted}
+In questa definizione:
+\begin{itemize}
+  \item $\llbracket • \rrbracket^* \; \rho = \top$ significa che la valutazione del contesto vuoto è sempre vera.
+  \item $\llbracket \Gamma ▷ \phi \rrbracket^* \; \rho = \llbracket \Gamma \rrbracket^* \; \rho \; \times \; \llbracket \phi \rrbracket \; \rho$ significa che la valutazione di un contesto esteso con una formula è la congiunzione della valutazione del contesto originale e della valutazione della nuova formula.
+\end{itemize}
+
+\subsection{Teorema di correttezza}
+
+Ora possiamo affermare e dimostrare il teorema di correttezza per il nostro sistema logico minimale in Agda.
+
+
+
+\begin{minted}[fontsize=\small, bgcolor=gray!5, frame=lines]{agda}
+sound : Γ ⊢ ψ → ⟦ Γ ⟧* ρ → ⟦ ψ ⟧ ρ
+sound zero (_ , p) = p
+sound (suc d) (γ , _) = sound d γ
+sound (lam d) γ p = sound d (γ , p)
+sound (app d e) γ = sound d γ (sound e γ)
+\end{minted}
+
+
 
 \end{document}

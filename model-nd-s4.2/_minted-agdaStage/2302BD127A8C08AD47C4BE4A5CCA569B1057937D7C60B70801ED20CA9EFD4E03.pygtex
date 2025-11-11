@@ -1,0 +1,7 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nf}{sound}\PYG{+w}{ }\PYG{o+ow}{:}\PYG{+w}{ }Γ\PYG{+w}{ }⊢\PYG{+w}{ }ψ\PYG{+w}{ }\PYG{o+ow}{→}\PYG{+w}{ }⟦\PYG{+w}{ }Γ\PYG{+w}{ }⟧*\PYG{+w}{ }ρ\PYG{+w}{ }\PYG{o+ow}{→}\PYG{+w}{ }⟦\PYG{+w}{ }ψ\PYG{+w}{ }⟧\PYG{+w}{ }ρ
+sound\PYG{+w}{ }zero\PYG{+w}{ }\PYG{o}{(}\PYGZus{}\PYG{+w}{ },\PYG{+w}{ }p\PYG{o}{)}\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }p
+sound\PYG{+w}{ }\PYG{o}{(}suc\PYG{+w}{ }d\PYG{o}{)}\PYG{+w}{ }\PYG{o}{(}γ\PYG{+w}{ },\PYG{+w}{ }\PYGZus{}\PYG{o}{)}\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }sound\PYG{+w}{ }d\PYG{+w}{ }γ
+sound\PYG{+w}{ }\PYG{o}{(}lam\PYG{+w}{ }d\PYG{o}{)}\PYG{+w}{ }γ\PYG{+w}{ }p\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }sound\PYG{+w}{ }d\PYG{+w}{ }\PYG{o}{(}γ\PYG{+w}{ },\PYG{+w}{ }p\PYG{o}{)}
+sound\PYG{+w}{ }\PYG{o}{(}app\PYG{+w}{ }d\PYG{+w}{ }e\PYG{o}{)}\PYG{+w}{ }γ\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }sound\PYG{+w}{ }d\PYG{+w}{ }γ\PYG{+w}{ }\PYG{o}{(}sound\PYG{+w}{ }e\PYG{+w}{ }γ\PYG{o}{)}
+\end{Verbatim}

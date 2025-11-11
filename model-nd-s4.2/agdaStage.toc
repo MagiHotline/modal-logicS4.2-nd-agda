@@ -22,3 +22,5 @@
 \contentsline {subsection}{\numberline {4.2}Definizione dei contesti}{14}{subsection.4.2}%
 \contentsline {subsection}{\numberline {4.3}Definizione delle regole di deduzione naturale}{15}{subsection.4.3}%
 \contentsline {subsection}{\numberline {4.4}Esempio di prova in Agda}{16}{subsection.4.4}%
+\contentsline {subsection}{\numberline {4.5}Semantica delle formule}{18}{subsection.4.5}%
+\contentsline {subsection}{\numberline {4.6}Teorema di correttezza}{19}{subsection.4.6}%

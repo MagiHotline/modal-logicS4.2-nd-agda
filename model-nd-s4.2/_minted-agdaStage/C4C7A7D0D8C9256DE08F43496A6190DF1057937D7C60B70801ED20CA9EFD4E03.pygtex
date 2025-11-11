@@ -1,0 +1,7 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+Env\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }String\PYG{+w}{ }\PYG{o+ow}{→}\PYG{+w}{ }\PYG{k+kt}{Prop}
+
+\PYG{n+nf}{⟦\PYGZus{}⟧}\PYG{+w}{ }\PYG{o+ow}{:}\PYG{+w}{ }Form\PYG{+w}{ }\PYG{o+ow}{→}\PYG{+w}{ }Env\PYG{+w}{ }\PYG{o+ow}{→}\PYG{+w}{ }\PYG{k+kt}{Prop}
+⟦\PYG{+w}{ }atom\PYG{+w}{ }x\PYG{+w}{ }⟧\PYG{+w}{ }ρ\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }ρ\PYG{+w}{ }x
+⟦\PYG{+w}{ }φ\PYG{+w}{ }[⇒]\PYG{+w}{ }ψ\PYG{+w}{ }⟧\PYG{+w}{ }ρ\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }⟦\PYG{+w}{ }φ\PYG{+w}{ }⟧\PYG{+w}{ }ρ\PYG{+w}{ }\PYG{o+ow}{→}\PYG{+w}{ }⟦\PYG{+w}{ }ψ\PYG{+w}{ }⟧\PYG{+w}{ }ρ
+\end{Verbatim}
