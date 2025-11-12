@@ -1,0 +1,7 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nf}{ex\PYGZhy{}or}\PYG{+w}{ }\PYG{o+ow}{:}\PYG{+w}{ }∃[\PYG{+w}{ }x\PYG{+w}{ }∈\PYG{+w}{ }A\PYG{+w}{ }]\PYG{+w}{ }\PYG{o}{(}PP\PYG{+w}{ }x\PYG{+w}{ }∨\PYG{+w}{ }QQ\PYG{+w}{ }x\PYG{o}{)}\PYG{+w}{ }⇔\PYG{+w}{ }\PYG{o}{(}∃[\PYG{+w}{ }x\PYG{+w}{ }∈\PYG{+w}{ }A\PYG{+w}{ }]\PYG{+w}{ }PP\PYG{+w}{ }x\PYG{o}{)}\PYG{+w}{ }∨\PYG{+w}{ }\PYG{o}{(}∃[\PYG{+w}{ }x\PYG{+w}{ }∈\PYG{+w}{ }A\PYG{+w}{ }]\PYG{+w}{ }QQ\PYG{+w}{ }x\PYG{o}{)}
+proj₁\PYG{+w}{ }ex\PYGZhy{}or\PYG{+w}{ }\PYG{o}{(}a,\PYG{+w}{ }inj₁\PYG{+w}{ }pa\PYG{o}{)}\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }inj₁\PYG{+w}{ }\PYG{o}{(}a\PYG{+w}{ },\PYG{+w}{ }pa\PYG{o}{)}
+proj₁\PYG{+w}{ }ex\PYGZhy{}or\PYG{+w}{ }\PYG{o}{(}a,\PYG{+w}{ }inj₂\PYG{+w}{ }qa\PYG{o}{)}\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }inj₂\PYG{+w}{ }\PYG{o}{(}a\PYG{+w}{ },\PYG{+w}{ }qa\PYG{o}{)}
+proj₂\PYG{+w}{ }ex\PYGZhy{}or\PYG{+w}{ }\PYG{o}{(}inj₁\PYG{+w}{ }\PYG{o}{(}a\PYG{+w}{ },\PYG{+w}{ }pa\PYG{o}{))}\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }a\PYG{+w}{ },\PYG{+w}{ }inj₁\PYG{+w}{ }pa
+proj₂\PYG{+w}{ }ex\PYGZhy{}or\PYG{+w}{ }\PYG{o}{(}inj₂\PYG{+w}{ }\PYG{o}{(}a\PYG{+w}{ },\PYG{+w}{ }qa\PYG{o}{))}\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }a\PYG{+w}{ },\PYG{+w}{ }inj₂\PYG{+w}{ }qa
+\end{Verbatim}

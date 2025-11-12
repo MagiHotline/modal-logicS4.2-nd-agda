@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nf}{complete}\PYG{+w}{ }\PYG{o+ow}{:}\PYG{+w}{ }\PYG{o}{\PYGZob{}}ρ\PYG{+w}{ }\PYG{o+ow}{:}\PYG{+w}{ }Env\PYG{o}{\PYGZcb{}}\PYG{+w}{ }\PYG{o+ow}{→}\PYG{+w}{ }\PYG{o}{(}\PYG{o+ow}{∀}\PYG{+w}{ }ρ\PYG{+w}{ }\PYG{o+ow}{→}\PYG{+w}{ }⟦\PYG{+w}{ }Γ\PYG{+w}{ }⟧*\PYG{+w}{ }ρ\PYG{+w}{ }\PYG{o+ow}{→}\PYG{+w}{ }⟦\PYG{+w}{ }φ\PYG{+w}{ }⟧\PYG{+w}{ }ρ\PYG{o}{)}\PYG{+w}{ }\PYG{o+ow}{→}\PYG{+w}{ }Γ\PYG{+w}{ }⊢\PYG{+w}{ }φ
+compl\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }?
+\end{Verbatim}

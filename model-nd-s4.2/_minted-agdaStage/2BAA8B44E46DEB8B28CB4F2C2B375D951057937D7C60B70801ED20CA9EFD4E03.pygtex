@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nf}{raa}\PYG{+w}{ }\PYG{o+ow}{:}\PYG{+w}{ }\PYG{k+kt}{Prop}\PYG{+w}{ }\PYG{o+ow}{→}\PYG{+w}{ }\PYG{k+kt}{Prop}
+raa\PYG{+w}{ }P\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }\PYG{o}{(}¬\PYG{+w}{ }\PYG{o}{(}¬\PYG{+w}{ }P\PYG{o}{))}\PYG{+w}{ }⇒\PYG{+w}{ }P
+\end{Verbatim}

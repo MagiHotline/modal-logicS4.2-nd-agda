@@ -1,0 +1,5 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kr}{infix}\PYG{+w}{ }\PYG{l+m+mi}{2}\PYG{+w}{ }\PYGZus{}∨\PYGZus{}
+\PYG{n+nf}{\PYGZus{}∨\PYGZus{}}\PYG{+w}{ }\PYG{o+ow}{:}\PYG{+w}{ }\PYG{k+kt}{Prop}\PYG{+w}{ }\PYG{o+ow}{→}\PYG{+w}{ }\PYG{k+kt}{Prop}\PYG{+w}{ }\PYG{o+ow}{→}\PYG{+w}{ }\PYG{k+kt}{Prop}
+P\PYG{+w}{ }∨\PYG{+w}{ }Q\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }P\PYG{+w}{ }⊎\PYG{+w}{ }Q
+\end{Verbatim}

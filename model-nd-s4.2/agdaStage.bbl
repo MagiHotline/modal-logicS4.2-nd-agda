@@ -1,0 +1,54 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.2 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{anyt/global//global/global}
+    \entry{compThmLeran}{article}{}
+      \name{author}{2}{}{%
+        {{hash=8fd32756b68b64d8f3e613ae29266157}{%
+           family={Leran\bibnamedelima Cai},
+           familyi={L\bibinitperiod\bibinitdelim C\bibinitperiod},
+           given={Ambrus\bibnamedelima Kaposi},
+           giveni={A\bibinitperiod\bibinitdelim K\bibinitperiod}}}%
+        {{hash=90877ea5f7e44778ae02b3d3954a7a1e}{%
+           family={Altenkirch},
+           familyi={A\bibinitperiod},
+           given={Thorsten},
+           giveni={T\bibinitperiod}}}%
+      }
+      \strng{namehash}{47354ca8d5d34aeecef4116a0386720d}
+      \strng{fullhash}{47354ca8d5d34aeecef4116a0386720d}
+      \strng{bibnamehash}{47354ca8d5d34aeecef4116a0386720d}
+      \strng{authorbibnamehash}{47354ca8d5d34aeecef4116a0386720d}
+      \strng{authornamehash}{47354ca8d5d34aeecef4116a0386720d}
+      \strng{authorfullhash}{47354ca8d5d34aeecef4116a0386720d}
+      \field{labelalpha}{LA15}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Formalising the Completeness Theorem of Classical Propositional Logic in Agda (Proof Pearl)}
+      \field{year}{2015}
+      \field{pages}{1\bibrangedash 16}
+      \range{pages}{16}
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+

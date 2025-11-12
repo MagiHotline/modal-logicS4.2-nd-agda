@@ -6,19 +6,22 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{newunicodechar}
+\usepackage{csquotes}
+
+\usepackage[style=alphabetic,backend=biber]{biblatex}
 
 \newunicodechar{ℕ}{\ensuremath{\mathbb{N}}}
 \newunicodechar{∀}{\ensuremath{\forall}}
 \newunicodechar{→}{\ensuremath{\to}}
 \newunicodechar{≡}{\ensuremath{\equiv}}
 \newunicodechar{λ}{\ensuremath{\lambda}}
+\newunicodechar{⊎}{\ensuremath{\uplus}}
 \newunicodechar{∈}{\ensuremath{\in}}
 \newunicodechar{∃}{\ensuremath{\exists}}
 \newunicodechar{⊥}{\ensuremath{\bot}}
 \newunicodechar{⊤}{\ensuremath{\top}}
 \newunicodechar{∧}{\ensuremath{\land}}
 \newunicodechar{∨}{\ensuremath{\lor}}
-\newunicodechar{¬}{\ensuremath{\neg}}
 \newunicodechar{≠}{\ensuremath{\neq}}
 \newunicodechar{≤}{\ensuremath{\leq}}
 \newunicodechar{≥}{\ensuremath{\geq}}
@@ -31,6 +34,7 @@
 \newunicodechar{φ}{\ensuremath{\phi}}
 \newunicodechar{ψ}{\ensuremath{\psi}}
 \newunicodechar{Γ}{\ensuremath{\Gamma}}
+\newunicodechar{Σ}{\ensuremath{\Sigma}}
 \newunicodechar{Δ}{\ensuremath{\Delta}}
 \newunicodechar{⊢}{\ensuremath{\vdash}}
 \newunicodechar{∷}{::}
@@ -40,6 +44,8 @@
 \newunicodechar{σ}{\ensuremath{\sigma}}
 \newunicodechar{τ}{\ensuremath{\tau}}
 \newunicodechar{γ}{\ensuremath{\gamma}}
+\newunicodechar{₁}{\ensuremath{_1}}
+\newunicodechar{₂}{\ensuremath{_2}}
 
 \usepackage{graphicx}
 \usepackage{float}
@@ -354,6 +360,10 @@
 \fancyfoot{} % clear all footer fields
 \fancyfoot[LE,RO]{\thepage}
 \fancyfoot[LO,CE]{by Imbriani Paolo}
+
+
+\addbibresource{references.bib}  
+
 
 \onehalfspacing
 \title{Introduzione ad Agda: programmazione funzionale con tipizzazione dipendente}
@@ -790,33 +800,336 @@ In questa definizione:
   \item Nel caso ricorsivo, quando \( a \) è il successore di \( a' \), usiamo la funzione di congruenza per applicare la funzione \texttt{suc} alla prova che \( a' + b \) è uguale a \( b + a' \).
 \end{itemize}
 
+\pagebreak
 
+\section{Logica con PaT (Propositions as Types)}
 
+\subsection{Connettivi logici in Agda}
 
+In Agda, la logica è trattata attraverso il paradigma delle \textbf{Proposizioni come Tipi} (PaT, Propositions as Types).
+Questo paradigma stabilisce una corrispondenza tra proposizioni logiche e tipi di dati,
+dove una proposizione è vera se e solo se esiste un termine (un valore) del tipo corrispondente.
+Possiamo definire l'insieme di proposizioni in Agda in questa maniera:
 
+\begin{minted}[fontsize=\small, bgcolor=gray!5, frame=lines]{agda}
+Prop = Set
 
+variable P Q R : Prop
 
+infixr 1 _⇒_
+_⇒_ : Prop → Prop → Prop
+P ⇒ Q = P → Q
+\end{minted}
+Nella definizione qua sopra abbiamo descritto anche l'implicazione logica \( P ⇒ Q \)
+attraverso una funzione che prende un termine di tipo \( P \) e restituisce un termine di tipo \( Q \).
+Questa corrispondenza tra funzioni e connettivi logici ci permette di definire altri connettivi logici in modo simile.
+Possiamo provare questo tipo di proposizione:
+\[(P \to Q \to R) \to (Q \to P \to R)\]
+In questa maniera:
+\begin{minted}[fontsize=\small, bgcolor=gray!5, frame=lines]{agda}
+swap : (P ⇒ Q ⇒ R) ⇒ (Q ⇒ P ⇒ R)
+swap pqr q p = pqr p q
+\end{minted}
+Banalmente stiamo definendo una funzione \texttt{swap} che prende come input una funzione
+di tipo \( P ⇒ Q ⇒ R \) e restituisce una funzione di tipo \( Q ⇒ P ⇒ R \).
+\begin{itemize}
+  \item La funzione \texttt{swap} prende come argomento una funzione \texttt{pqr} di tipo \( P ⇒ Q ⇒ R \).
+  \item Per il concetto di currying possiamo anche prendere due argomenti separati, \( q \) di tipo \( Q \) e \( p \) di tipo \( P \).
+  \item A questo punto possiamo applicare la funzione \texttt{pqr} agli argomenti \( p \) e \( q \) nell'ordine "scambiato" per ottenere un termine di tipo \( R \).
+\end{itemize}
+Andiamo avanti a definire la congiunzione logica \( P ∧ Q \) come un tipo di coppia.
+Però prima di tutto, ci tocca definire il tipo delle coppie in Agda:
+\begin{minted}[fontsize=\small, bgcolor=gray!5, frame=lines]{agda}
+record _×_ (A B : Set) : Set where
+constructor _,_
+field
+  proj₁ : A
+  proj₂ : B
 
+open _×_
+\end{minted}
+Capiamo bene questa definizione:
+\begin{itemize}
+  \item La parola chiave \texttt{record} viene usata per definire un tipo di dato che rappresenta una struttura composta da più campi.
+  \item Il costruttore \texttt{\_,\_} viene usato per creare istanze del tipo di dato coppia.
+  \item I campi $proj_1$ e $proj_2$ rappresentano i due elementi della coppia, rispettivamente di tipo \( A \) e \( B \).
+  Per semplicità potevamo anche chiamarli \texttt{fst} e \texttt{snd} per first e second.
+  \item Quindi possiamo accedere ai campi di una coppia usando $proj_1$ e $proj_2$.
+  \item Inoltre l'istruzione \texttt{open \_×\_} ci permette di accedere ai campi del record senza dover specificare il nome del record ogni volta.
+\end{itemize}
+Con questa definizione a disposizione, possiamo ora definire la congiunzione logica \( P ∧ Q \):
+\begin{minted}[fontsize=\small, bgcolor=gray!5, frame=lines]{agda}
+infix 3 _∧_
+_∧_ : Prop → Prop → Prop
+P ∧ Q = P × Q
+\end{minted}
+Qui abbiamo definito l'operatore \( ∧ \) come un operatore binario che prende due proposizioni \( P \) e \( Q \).
+Ora che abbiamo l'implicazione e la congiunzione, possiamo facilmente definire il "se e solo se"
+\( P ⇔ Q \) come segue:
+\begin{minted}[fontsize=\small, bgcolor=gray!5, frame=lines]{agda}
+infix 0 _⇔_
+_⇔_ : Prop → Prop → Prop
+P ⇔ Q = (P ⇒ Q) ∧ (Q ⇒ P)
+\end{minted}
+Poiché \( P ⇔ Q \) è vero se e solo se sia \( P ⇒ Q \) che \( Q ⇒ P \) sono veri.
+Ora, pensiamo ora a come fare la disgiunzione.
+In Agda, possiamo definire la disgiunzione logica \( P ∨ Q \) come un tipo somma (o tipo di unione).
+Questo è fatto tramite u-plus, ovvero un operatore insiemistico per l'unione disgiunta. Ecco come possiamo definirlo:
+\begin{minted}[fontsize=\small, bgcolor=gray!5, frame=lines]{agda}
+data _⊎_ (A B : Set) : Set where
+  inj₁ : A → A ⊎ B
+  inj₂ : B → A ⊎ B
+\end{minted}
+Dobbiamo definire l'unione disgiunta come data type perché ha due costruttori distinti:
+\begin{itemize}
+  \item \texttt{inj₁} prende un elemento di tipo \( A \) e lo inserisce nell'unione disgiunta \( A ⊎ B \).
+  \item \texttt{inj₂} prende un elemento di tipo \( B \) e lo inserisce nell'unione disgiunta \( A ⊎ B \).
+\end{itemize}
+Ora che abbiamo questo strumento, possiamo definire la disgiunzione logica \( P ∨ Q \):
+\begin{minted}[fontsize=\small, bgcolor=gray!5, frame=lines]{agda}
+infix 2 _∨_
+_∨_ : Prop → Prop → Prop
+P ∨ Q = P ⊎ Q
+\end{minted}
+Ci mancano solo la negazione e la falsità per completare i connettivi logici di base.
+\begin{minted}[fontsize=\small, bgcolor=gray!5, frame=lines]{agda}
+data ⊥ : Set where
 
+record ⊤ : Set where
 
+¬ : Prop → Prop
+¬ P = P ⇒ ⊥
+\end{minted}
+In queste definizioni importanti abbiamo:
+\begin{itemize}
+  \item La falsità \( ⊥ \) è definita come un tipo di dato vuoto, che non ha costruttori.
+  \item La verità \( ⊤ \) è definita come un record vuoto, che ha esattamente un costruttore (quindi è sempre abitato).
+  \item La negazione \( \neg P \) è definita come l'implicazione da \( P \) a \( \bot \), il che significa che \( \neg P \) è vero se e solo se \( P \) porta a una contraddizione (cioè alla falsità).
+\end{itemize}
 
+\subsubsection{Proprietà interessanti da dimostrare}
 
+Una proprietà interessante da dimostrare è quella dell'associazione della congiunzione.
+Per questa prova abbiamo bisogno di dimostrare sia un lato che l'altro:
+\begin{minted}[fontsize=\small, bgcolor=gray!5, frame=lines]{agda}
+assoc : P ∧ (Q ∧ R) ⇔ (P ∧ Q) ∧ R
+proj₁ assoc (p , (q , r)) = (p , q) , r
+proj₂ assoc ((p , q) , r) = p , (q , r)
+\end{minted}
+Cerchiamo di capire questa definizione:
+\begin{itemize}
+  \item La funzione \texttt{assoc} prende come argomento una coppia di proposizioni \( P ∧ (Q ∧ R) \) e restituisce una coppia di proposizioni \( (P ∧ Q) ∧ R \).
+  \item Per dimostrare la prima direzione dell'equivalenza, usiamo il campo \texttt{proj₁} per estrarre gli elementi dalla coppia \( P ∧ (Q ∧ R) \) e li riorganizziamo per formare la coppia \( (P ∧ Q) ∧ R \).
+  \item Per dimostrare la seconda direzione dell'equivalenza, usiamo il campo \texttt{proj₂} per estrarre gli elementi dalla coppia \( (P ∧ Q) ∧ R \) e li riorganizziamo per formare la coppia \( P ∧ (Q ∧ R) \).
+  \item Abbiamo usato il costruttore delle coppie \texttt{( , )} per creare nuove coppie di proposizioni.
+\end{itemize}
+\begin{Observation}{}{}{}
+Ricordiamoci di stare attenti allo spazio tra termine e operatori in Agda.
+\end{Observation}
+Proviamo ora a dimostrare la distributività della congiunzione sulla disgiunzione, ovvero:
+\[P ∧ (Q ∨ R) ⇔ (P ∧ Q) ∨ (P ∧ R)\]
+Questa prova è leggermente più complicata quindi cerchiamo di andare a step:
+\begin{minted}[fontsize=\small, bgcolor=gray!5, frame=lines]{agda}
+distrib : P ∧ (Q ∨ R) ⇔ (P ∧ Q) ∨ (P ∧ R)
+proj₁ distrib (p , inj₁ q) = inj₁ (p , q) 
+proj₁ distrib (p , inj₂ r) = inj₂ (p , r)
+proj₂ distrib (inj₁ (p , q)) = p , inj₁ q
+proj₂ distrib (inj₂ (p , r)) = p , inj₂ r
+\end{minted}
+Come possiamo notare abbiamo anche qua diviso la dimostrazione in due parti a causa del "se e solo se": 
+\begin{itemize}
+  \item Ora, la funzione \texttt{distrib} prende come argomento una coppia di proposizioni \( P ∧ (Q ∨ R) \) e restituisce una disgiunzione di coppie di proposizioni \( (P ∧ Q) ∨ (P ∧ R) \).
+  \item Vediamo come la direzione "a destra" viene dimostrata usando il campo \texttt{proj₁}:
+    \begin{itemize}
+      \item Se la seconda proposizione della coppia è costruita usando \texttt{inj₁}, allora estraiamo \( q \) e formiamo la coppia \( (P ∧ Q) \) usando \( p \) e \( q \), che viene poi inserita nella disgiunzione usando \texttt{inj₁}.
+      \item Se la seconda proposizione della coppia è costruita usando \texttt{inj₂}, allora estraiamo \( r \) e formiamo la coppia \( (P ∧ R) \) usando \( p \) e \( r \), che viene poi inserita nella disgiunzione usando \texttt{inj₂}.
+    \end{itemize}
+  \item La direzione "a sinistra" invece, viene dimostrata usando il campo \texttt{proj₂}:
+    \begin{itemize}
+      \item Se la disgiunzione è costruita usando \texttt{inj₁}, allora estraiamo la coppia \( (p , q) \) e formiamo la coppia \( P ∧ (Q ∨ R) \) usando \( p \) e \( inj₁ \; q \).
+      \item Se la disgiunzione è costruita usando \texttt{inj₂}, allora estraiamo la coppia \( (p , r) \) e formiamo la coppia \( P ∧ (Q ∨ R) \) usando \( p \) e \( inj₂ \; r \).
+    \end{itemize}
+\end{itemize}
 
+\subsection{Leggi classiche della logica}
 
+E l'ex falso quodlibet?
+Possiamo dimostrare l'ex falso quodlibet, che afferma che da una contraddizione (falsità) possiamo dedurre qualsiasi proposizione.
+\begin{minted}[fontsize=\small, bgcolor=gray!5, frame=lines]{agda}
+ex-falso : ⊥ ⇒ P
+ex-falso ()
+\end{minted}
+Questa definizione è particolare perché:
+\begin{itemize}
+  \item La funzione \texttt{ex-falso} prende come argomento una prova di falsità \( ⊥ \) e restituisce una prova di qualsiasi proposizione \( P \).
+  \item Il corpo della funzione utilizza la sintassi di pattern matching con una parentesi vuota \texttt{()}, che indica che non ci sono casi da considerare, poiché non esistono prove di falsità.
+  \item Quindi, questa definizione afferma che se abbiamo una prova di falsità, possiamo dedurre qualsiasi proposizione \( P \), il che è coerente con il principio logico dell'ex falso quodlibet.
+\end{itemize}
+Un altro principio logico interessante è il principio del terzo escluso, che afferma che per ogni proposizione \( P \), o \( P \) è vera o la sua negazione \( \neg P \) è vera.
+In Agda, possiamo definire questo principio come segue:
+\begin{minted}[fontsize=\small, bgcolor=gray!5, frame=lines]{agda}
+tnd : Prop → Prop
+tnd P = (P ∨ ¬ P)
+\end{minted}
+Inoltre possiamo anche provare la reductio ad absurdum (riduzione all'assurdo):
+\begin{minted}[fontsize=\small, bgcolor=gray!5, frame=lines]{agda}
+raa : Prop → Prop
+raa P = (¬ (¬ P)) ⇒ P
+\end{minted}
+Infine, possiamo dimostrare che il principio del terzo escluso implica la reductio ad absurdum:
+\begin{minted}[fontsize=\small, bgcolor=gray!5, frame=lines]{agda}
+tnd→raa : (tnd P) ⇒ raa P
+tnd→raa (inj₁ p) nnp = p
+tnd→raa (inj₂ np) nnp = efq (nnp np) 
+\end{minted}
+Guardiamo come abbiamo costruito questa definizione:
+\begin{itemize}
+  \item La funzione \texttt{tnd→raa} prende come argomento una prova del principio del terzo escluso \( tnd P \; \) e restituisce una prova della reductio ad absurdum \( raa \; P \).
+  \item Nel corpo della funzione, usiamo il pattern matching per distinguere i due casi del principio del terzo escluso:
+    \begin{itemize}
+      \item Se la prova è costruita usando \texttt{inj₁}, allora abbiamo una prova diretta di \( P \), che possiamo restituire direttamente.
+      \item Se la prova è costruita usando \texttt{inj₂}, allora abbiamo una prova della negazione di \( P \) (cioè \( \neg P \)). In questo caso, usiamo la funzione \texttt{efq} (ex falso quodlibet) per dedurre \( P \) dalla contraddizione ottenuta applicando la negazione di \( P \) alla prova della negazione di \( P \).
+    \end{itemize}
+\end{itemize}
+Notiamo come possiamo dimostrare la "non-falsità" del principio del terzo escluso:
+\begin{minted}[fontsize=\small, bgcolor=gray!5, frame=lines]{agda}
+nntnd : ¬ (¬ (tnd P))
+nntnd f = f (inj₂ (λ p → f (inj₁ p)))
+\end{minted}
+Stiamo attenti a questa definizione:
+\begin{itemize}
+  \item La funzione \texttt{nntnd} prende come argomento una prova della negazione del principio del terzo escluso \( \neg (tnd P) \) e restituisce una prova della non-falsità del principio del terzo escluso \( \neg \neg (tnd P) \).
+  \item Nel corpo della funzione, applichiamo la prova della negazione del principio del terzo escluso \( f \) a una disgiunzione costruita usando \texttt{inj₂}.
+  \item La disgiunzione è costruita come una funzione anonima \( λ \; p → f \; (inj₁\; p) \), che prende una prova di \( P \) e la usa per costruire una disgiunzione usando \texttt{inj₁}.
+  \item Quindi, questa definizione afferma che se abbiamo una prova della negazione del principio del terzo escluso, possiamo dedurre una contraddizione, il che implica che il principio del terzo escluso non può essere falso.
+\end{itemize}
+Notiamo come ora possiamo anche provare che la raa implica il principio del terzo escluso:
+\begin{minted}[fontsize=\small, bgcolor=gray!5, frame=lines]{agda}
+raa→tnd : raa (tnd P) → tnd P
+raa→tnd h = h nntnd
+\end{minted}
+Molto semplicemente:
+\begin{itemize}
+  \item La funzione \texttt{raa→tnd} prende come argomento una prova della reductio ad absurdum del principio del terzo escluso \( raa \; (tnd \; P) \) e restituisce una prova del principio del terzo escluso \( tnd \; P \).
+  \item Nel corpo della funzione, applichiamo la prova della reductio ad absurdum \( h \) alla prova della non-falsità del principio del terzo escluso \( nntnd \).
+  \item Quindi, questa definizione afferma che se abbiamo una prova della reductio ad absurdum del principio del terzo escluso, possiamo dedurre il principio del terzo escluso stesso.
+\end{itemize}
+Abbiamo così dimostrato che i due principi logici sono equivalenti.
 
+\subsection{Logica del primo ordine}
 
+Possiamo estendere il nostro sistema logico per includere quantificatori del 
+primo ordine, come il quantificatore universale \( ∀ \) e il quantificatore esistenziale \( ∃ \).
+Ricordiamo che quello che fa il quantificatore universale è affermare che 
+una certa proprietà vale per tutti gli elementi di un certo insieme. 
+In Agda, possiamo definire il quantificatore universale \( ∀ \) come segue:
+\begin{minted}[fontsize=\small, bgcolor=gray!5, frame=lines]{agda}
+All : (A : Set) → (A → Prop) → Prop
+All A P = (x : A) → P x
+\end{minted}
+Qui abbiamo definito una funzione \texttt{All} che prende come argomenti un 
+insieme \( A \) e una proprietà \( P \) che mappa gli elementi di \( A \) a 
+proposizioni. La funzione restituisce una proposizione che afferma che per 
+ogni elemento \( x \) in \( A \), la proprietà \( P(x) \) è vera.
+Agda ci consente di fare una cosa utile: possiamo 
+cambiare la sintassi per rendere il quantificatore universale più leggibile:
+\begin{minted}[fontsize=\small, bgcolor=gray!5, frame=lines]{agda}
+syntax All A (λ x → P) = ∀[ x ∈ A ] P
+\end{minted}
+Invece di scrivere \texttt{All A (λ x → P)}, possiamo ora scrivere
+\texttt{∀[ x ∈ A ] P}, che è più simile alla notazione matematica tradizionale.
+\begin{minted}[fontsize=\small, bgcolor=gray!5, frame=lines]{agda}
+-- Definiamo alcune variabili (ovvero proprietà) per il nostro esempio
+variable PP QQ : A → Prop 
+-- Proviamo a dimostrare che la congiunzione di due proprietà universali è equivalente
+-- alla proprietà universale della congiunzione delle due proprietà.
+all-and : ∀[ x ∈ A ] (PP x ∧ QQ x) ⇔ 
+    (∀[ x ∈ A ](PP x)) ∧ (∀[ x ∈ A ](QQ x))
+proj₁ all-and f = (λ x →  proj₁ (f x)) , (λ x →  proj₂ (f x))
+proj₂ all-and  (f , g) = λ x → (f x)  , (g x)  
+\end{minted}
+Quindi se un elemento $x$ appartiene ad un insieme $A$ e soddisfa sia la proprietà $PP$ che la proprietà $QQ$, allora possiamo concludere che $x$ soddisfa entrambe le proprietà.
+\begin{itemize}
+  \item La funzione \texttt{all-and} prende come argomento una prova che per ogni elemento \( x \) in \( A \), la congiunzione \( PP(x) ∧ QQ(x) \) è vera, e restituisce una prova che la congiunzione delle proprietà universali \( (∀[ x ∈ A ](PP x)) ∧ (∀[ x ∈ A ](QQ x)) \) è vera.
+  \item Nel corpo della funzione, usiamo il pattern matching per distinguere i due casi:
+    \begin{itemize}
+      \item Per la prima direzione, usiamo il campo \texttt{proj₁} per estrarre la prova di \( PP(x) \) e il campo \texttt{proj₂} per estrarre la prova di \( QQ(x) \) dalla congiunzione \( PP(x) ∧ QQ(x) \).
+      \item Per la seconda direzione, usiamo le prove \( f \) e \( g \) per costruire la congiunzione \( PP(x) ∧ QQ(x) \).
+    \end{itemize}
+\end{itemize}
+Per quanto riguarda il quantificatore esistenziale \( ∃ \), è leggermente più complicato da definire in Agda,
+poiché dobbiamo rappresentare sia l'elemento che soddisfa la proprietà che la prova che l'elemento soddisfa la proprietà.
+Prima di tutto, dobbiamo creare un tipo di record per rappresentare il quantificatore esistenziale:
+\begin{minted}[fontsize=\small, bgcolor=gray!5, frame=lines]{agda}
+record Σ (A : Set) (P : A → Prop) : Set where
+constructor _,_
+field
+  witness : A
+  proof   : P witness
+\end{minted}
+Qui abbiamo definito un record \texttt{Σ} che prende come argomenti un insieme \( A \) e una proprietà \( P \) che mappa gli elementi di \( A \) a proposizioni.
+Il record ha due campi:
+\begin{itemize}
+  \item \texttt{witness} rappresenta l'elemento di \( A \) che soddisfa la proprietà \( P \).
+  \item \texttt{proof} rappresenta la prova che l'elemento \( witness \) soddisfa la proprietà \( P \).
+\end{itemize}
+Ora possiamo operare analogamente alla funzione \texttt{All} per definire il quantificatore esistenziale \( ∃ \):
+\begin{minted}[fontsize=\small, bgcolor=gray!5, frame=lines]{agda}
+Ex : (A : Set) → (A → Prop) → Prop
+Ex A P = Σ A P
 
+syntax Ex A (λ x → P) = ∃[ x ∈ A ] P
+\end{minted}
+Banalmente abbiamo definito una funzione \texttt{Ex} che prende come argomenti un insieme \( A \) e una proprietà \( P \) che mappa gli elementi di \( A \) a proposizioni.
+La funzione restituisce una proposizione che afferma che esiste un elemento \( x \) in \( A \) tale che la proprietà \( P(x) \) è vera.
+Come prima, abbiamo anche definito una sintassi più leggibile per il quantificatore esistenziale, simile 
+alla notazione matematica tradizionale.
+Possiamo provare ora una proprietà interessante riguardante il quantificatore esistenziale e la disgiunzione:
+\begin{minted}[fontsize=\small, bgcolor=gray!5, frame=lines]{agda}
+ex-or : ∃[ x ∈ A ] (PP x ∨ QQ x) ⇔ (∃[ x ∈ A ] PP x) ∨ (∃[ x ∈ A ] QQ x)
+proj₁ ex-or (a, inj₁ pa) = inj₁ (a , pa)
+proj₁ ex-or (a, inj₂ qa) = inj₂ (a , qa)
+proj₂ ex-or (inj₁ (a , pa)) = a , inj₁ pa
+proj₂ ex-or (inj₂ (a , qa)) = a , inj₂ qa
+\end{minted}
+Cerchiamo di capire questa definizione:
+\begin{itemize}
+  \item La funzione \texttt{ex-or} prende come argomento una prova che esiste un elemento \( x \) in \( A \) tale che la disgiunzione \( PP(x) ∨ QQ(x) \) è vera, e restituisce una prova che la disgiunzione delle proprietà esistenziali \( (∃[ x ∈ A ] PP x) ∨ (∃[ x ∈ A ] QQ x) \) è vera.
+  \item Nel corpo della funzione, usiamo il pattern matching per distinguere i due casi:
+    \begin{itemize}
+      \item Per la prima direzione, se la prova è costruita usando \texttt{inj₁}, allora estraiamo l'elemento \( a \) e la prova \( pa \) di \( PP(a) \), e costruiamo la disgiunzione usando \texttt{inj₁}.
+      \item Se la prova è costruita usando \texttt{inj₂}, allora estraiamo l'elemento \( a \) e la prova \( qa \) di \( QQ(a) \), e costruiamo la disgiunzione usando \texttt{inj₂}.
+      \item Per la seconda direzione, se la disgiunzione è costruita usando \texttt{inj₁}, allora estraiamo l'elemento \( a \) e la prova \( pa \) di \( PP(a) \), e costruiamo la coppia \( (a , inj₁ \; pa) \).
+      \item Se la disgiunzione è costruita usando \texttt{inj₂}, allora estraiamo l'elemento \( a \) e la prova \( qa \) di \( QQ(a) \), e costruiamo la coppia \( (a , inj₂\; qa) \).
+    \end{itemize}
+\end{itemize}
 
+\subsubsection{Assioma della scelta}
 
+Come ultimo esempio, vediamo come possiamo modellare l'assioma della scelta in Agda.
+L'assioma della scelta è uno dei principi più discussi della teoria degli insiemi e afferma che
+dato un insieme di insiemi non vuoti, è possibile scegliere un elemento da ciascun insieme per formare un nuovo insieme.
+Questo assioma ci dice soltanto che \textbf{esiste} una tale funzione di scelta, senza fornirci un modo esplicito per costruirla.
+In Agda possiamo modellare l'assioma della scelta come segue:
+\begin{minted}[fontsize=\small, bgcolor=gray!5, frame=lines]{agda}
+-- Definiamo RR come una relazione tra gli insiemi A e B
+variable RR : A → B → Prop
 
-
-
-
-
-
-
-
-
+-- L'assioma della scelta dice
+-- se per ogni x in A esiste un y in B tale che R x y
+-- allora esiste una funzione f da A a B tale che per ogni x in A R x (f x)
+ac : (∀[ x ∈ A ] ∃[ y ∈ B ] RR x y) ⇒ 
+      (∃[ f ∈ (A → B) ] ∀[ x ∈ A ] RR x (f x))
+ac h = (λ x → Σ.witness (h x)) , (λ x → Σ.proof (h x))
+\end{minted}
+Seguiamo il ragionamento dietro questa definizione:
+\begin{itemize}
+  \item La funzione \texttt{ac} prende come argomento una prova che per ogni elemento \( x \) in \( A \), esiste un elemento \( y \) in \( B \) tale che la relazione \( RR(x, y) \) è vera.
+  \item La funzione restituisce una prova che esiste una funzione \( f \) da \( A \) a \( B \) tale che per ogni elemento \( x \) in \( A \), la relazione \( RR(x, f(x)) \) è vera.
+  \item Nel corpo della funzione, costruiamo la funzione \( f \) come una funzione anonima \( λ \; x → Σ.witness \; (h \; x) \), che prende un elemento \( x \) in \( A \) e restituisce l'elemento \( y \) in \( B \) scelto dalla prova \( h(x) \).
+  \item Costruiamo anche la prova che per ogni elemento \( x \) in \( A \), la relazione \( RR(x, f(x)) \) è vera come una funzione anonima \( λ \; x → Σ.proof \; (h \; x) \), che prende un elemento \( x \) in \( A \) e restituisce la prova che la relazione \( RR(x, f(x)) \) è vera dalla prova \( h(x) \).
+  \item Quindi, questa definizione afferma che se abbiamo una prova che per ogni elemento in \( A \) esiste un elemento in \( B \) che soddisfa la relazione \( RR \), allora possiamo costruire una funzione di scelta \( f \) che sceglie un elemento da \( B \) per ogni elemento in \( A \) in modo che la relazione \( RR \) sia soddisfatta.
+\end{itemize}
 
 
 \pagebreak
@@ -1101,9 +1414,18 @@ In questa definizione:
 \subsection{Teorema di correttezza}
 
 Ora possiamo affermare e dimostrare il teorema di correttezza per il nostro sistema logico minimale in Agda.
-
-
-
+Il teorema di correttezza afferma che se una formula \( ψ \) è deducibile da un contesto \( Γ \) (cioè \( Γ ⊢ ψ \)),
+allora la valutazione di \( ψ \) sotto qualsiasi interpretazione \( ρ \) che soddisfa il contesto \( Γ \) è vera.
+In poche parole, se possiamo dimostrare una formula a partire da un insieme di assunzioni,
+allora quella formula è semanticamente valida in ogni interpretazione che rende vere le assunzioni.
+Questo teorema è molto forte perché collega la sintassi (le regole di deduzione) con la semantica (la valutazione delle formule).
+\[\Gamma \vdash \psi \iff \Gamma \vDash \psi\]
+Quindi in poche parole: "Ogni giudizio derivabile è semanticamente valido".
+È uno strumento fondamentale per garantire che il nostro sistema logico sia \textbf{coerente} e \textbf{affidabile}.
+Un sistema che non dispone di un teorema di correttezza potrebbe permettere di derivare proposizioni che non sono semanticamente valide,
+portando a contraddizioni e risultati errati.
+Formalizzare e dimostrare questo teorema in Agda ci permette di avere una prova meccanica della correttezza del nostro sistema logico.
+Sono passaggi abbastanza complessi quindi affrontiamoli step by step.
 \begin{minted}[fontsize=\small, bgcolor=gray!5, frame=lines]{agda}
 sound : Γ ⊢ ψ → ⟦ Γ ⟧* ρ → ⟦ ψ ⟧ ρ
 sound zero (_ , p) = p
@@ -1111,7 +1433,85 @@ sound (suc d) (γ , _) = sound d γ
 sound (lam d) γ p = sound d (γ , p)
 sound (app d e) γ = sound d γ (sound e γ)
 \end{minted}
+In questa definizione:
+\begin{itemize}
+  \item Abbiamo definito una funzione \texttt{sound} che prende una prova di deducibilità \( Γ ⊢ ψ \) e una valutazione del contesto \( ⟦ Γ ⟧^* ρ \),
+  e restituisce la valutazione della formula \( ⟦ ψ ⟧ ρ \).
+  \item Ora, facciamo pattern matching sui costruttori della prova di deducibilità.
+  \item Nel caso di \texttt{zero}, estraiamo la valutazione della formula \( ψ \) direttamente dalla valutazione del contesto. Quindi 
+  se abbiamo una prova che \( φ \) è nel contesto \( Γ \), allora possiamo ottenere la valutazione di \( φ \) dalla valutazione del contesto.
+  \item Nel caso di \texttt{suc}, ignoriamo la nuova formula aggiunta al contesto e continuiamo a valutare la prova originale. Quindi se possiamo dedurre \( ψ \) da \( Γ \), allora possiamo anche dedurlo da \( Γ \) esteso con una nuova formula \( φ \).
+  \item Nel caso di \texttt{lam}, estendiamo la valutazione del contesto con la valutazione della nuova formula \( φ \) e continuiamo a valutare la prova originale. Quindi se possiamo dedurre \( ψ \) da \( Γ \) esteso con \( φ \), allora possiamo dedurre l'implicazione \( φ ⇒ ψ \) da \( Γ \).
+  Ricordiamo che \texttt{lam} come costruttore rappresenta l'introduzione dell'implicazione che richiede un'ipotesi del tipo \( \Gamma, \phi \vdash \psi \).
+  \item Nel caso di \texttt{app}, applichiamo la valutazione della prova dell'implicazione alla valutazione della prova della premessa. Quindi se possiamo dedurre \( φ ⇒ ψ \) da \( Γ \) e possiamo dedurre \( φ \) da \( Γ \), allora possiamo dedurre \( ψ \) da \( Γ \).
+  Come possiamo notare infatti \texttt{app} rappresenta il modus ponens che richiede due prove: una per l'implicazione e una per la premessa.
+\end{itemize}
+Ora che abbiamo costruito la funzione \texttt{sound}, possiamo affermare che il nostro sistema logico minimale è corretto.
+Ricordiamoci della nostra funzione \texttt{bad} che non riuscivamo a dimostrare perché appunto 
+la proposizione non era valida. Ora possiamo usare il teorema di correttezza per spiegare perché non esiste una prova per quella proposizione.
+A differenza di prima, ora bad non è una prova di quella proposizione, 
+ma una \textit{prova della negazione} di quella proposizione.
+\begin{minted}[fontsize=\small, bgcolor=gray!5, frame=lines]{agda}
+bad : ¬ (• ⊢ (atom "P" [⇒] atom "Q") [⇒] (atom "Q" [⇒] atom "P"))
+bad d = sound {ρ = env} d tt (λ _ → tt) tt
 
+-- where env was defined as:
+-- env : Env
+-- env "P" = ⊥
+-- env "Q" = ⊤
+\end{minted}
+In questa definizione:
+\begin{itemize}
+  \item Abbiamo definito una funzione \texttt{bad} che prende una prova di deducibilità \( • ⊢ (P ⇒ Q) ⇒ (Q ⇒ P) \)
+  e restituisce una prova della negazione di quella proposizione.
+  (Ricordiamo che \texttt{¬ A} è definito come \( A \to \bot \), quindi una prova di \texttt{¬ A} è una funzione che prende una prova di \( A \) e restituisce una contraddizione).
+  Mostra che se esistesse una prova di \( • ⊢ (P ⇒ Q) ⇒ (Q ⇒ P) \), allora potremmo ottenere una contraddizione.
+  \item Usiamo la funzione \texttt{sound} per ottenere la valutazione della proposizione sotto l'interpretazione \texttt{env},
+  che in questo caso abbiamo deciso di essere quella che assegna \( P \) a falso e \( Q \) a vero.
+  Questo non è nient'altro che il \textbf{contromodello} che mostra che la proposizione non è valida per questa interpretazione specifica.
+  \item Passiamo la valutazione del contesto vuoto \( tt \) (che è sempre vera, poiché il contesto vuoto lo abbiamo definito come vero) e le valutazioni delle formule \( P ⇒ Q \) e \( Q ⇒ P \) sotto l'interpretazione \texttt{env}.
+  \item L'argomento \(\ (\lambda \; \_ \to tt) \; tt \) dipendono dal tipo di interpretazione.
+  Essendo che la nostra \texttt{sound} richiama sè stessa ricorsivamente nelle sottoprove che compongono la prova,
+  dovresti aver bisogno di aggiungere degli argomenti aggiuntivi "dummy" per le assunzioni. 
+  Essenzialmente, sono le "prove delle premesse" che sono necessarie per usare \texttt{sound}, ma essendo
+  che siamo in un contesto vuoto, queste prove sono banali (cioè vere).
+  \item Espandiamo: quello che \texttt{sound} deve tornare è una prova di \(\llbracket \psi \rrbracket \; \rho \) dove:
+  \[\llbracket (\text{atom "P"}) [⇒] (\text{atom "Q"}) \rrbracket \; \text{env} = \llbracket \text{atom "P"} \rrbracket \; \text{env} \to \llbracket \text{atom "Q"} \rrbracket \; \text{env} = \bot \to \top = \top\]
+  \[ \llbracket (\text{atom "Q"}) [⇒] (\text{atom "P"}) \rrbracket \; \text{env} = \llbracket \text{atom "Q"} \rrbracket \; \text{env} \to \llbracket \text{atom "P"} \rrbracket \; \text{env} = \top \to \bot = \bot\]
+  Quindi il tutto diventa:
+  \[\top \to \bot\]
+  Che quindi è falso, inabitato.
+  Quindi \texttt{sound d tt} forza Agda a produrre una prova di \(\bot\), che è impossibile e quindi genera una contraddizione.
+  \item Quindi, non esiste una prova di \( • ⊢ (P ⇒ Q) ⇒ (Q ⇒ P) \), il che dimostra che la proposizione non è valida.
+\end{itemize}
+
+\subsection{Teorema di completezza (e perché non è sempre realizzabile in Agda)}
+
+Il teorema di completezza afferma che se una formula \( ψ \) è semanticamente valida in ogni interpretazione che soddisfa un contesto \( Γ \)
+(allora \(\Gamma \vDash \psi \)), allora esiste una prova di deducibilità \( \Gamma \vdash \psi \).
+Questo strumento è anch'esso fondamentale come la soundness,
+ma chiaramente molto più forte (e più complesso da dimostrare) poiché ci permette di costruire prove a partire da validità semantiche.
+Quello che dovremmo fare in Agda sarebbe definire una funzione che prende una valutazione semantica 
+e restituisce una prova di deducibilità.
+\begin{minted}[fontsize=\small, bgcolor=gray!5, frame=lines]{agda}
+complete : {ρ : Env} → (∀ ρ → ⟦ Γ ⟧* ρ → ⟦ φ ⟧ ρ) → Γ ⊢ φ
+compl = ?
+\end{minted}
+Quello che stiamo cercando di dire è: se $\psi$ è vero in ogni interpretazione che rende vere le formule in $\Gamma$,
+allora possiamo costruire una prova sintattica di $\psi$ a partire da $\Gamma$.
+Tuttavia \textbf{non} è costruttivamente realizzabile in Agda. O almeno, non in modo semplice 
+per ogni tipo di logica.
+\begin{itemize}
+  \item Agda è basata sulla logica costruttiva che è più debole della logica classica e non supporta alcuni principi logici che sono necessari per dimostrare la completezza in generale 
+  come il principio del terzo escluso. 
+  \item La funzione \texttt{compl} non è computabile in generale: non esiste un algoritmo che, dato un'interpretazione semantica,
+  possa sempre costruire una prova sintattica. 
+\end{itemize}
+Tuttavia è comunque possibile farlo per \textbf{certe} logiche specifiche
+che solitamente sono ristrette o decidibili. 
+È stato provato e formalizzato in Agda per la logica proposizionale classica \parencite{compThmLeran} e per altre logiche.
+
+\printbibliography
 
 
 \end{document}

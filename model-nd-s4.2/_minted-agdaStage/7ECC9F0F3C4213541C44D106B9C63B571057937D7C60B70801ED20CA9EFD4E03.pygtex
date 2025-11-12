@@ -1,0 +1,11 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} Definiamo RR come una relazione tra gli insiemi A e B}
+\PYG{k+kr}{variable}\PYG{+w}{ }RR\PYG{+w}{ }\PYG{o+ow}{:}\PYG{+w}{ }A\PYG{+w}{ }\PYG{o+ow}{→}\PYG{+w}{ }B\PYG{+w}{ }\PYG{o+ow}{→}\PYG{+w}{ }\PYG{k+kt}{Prop}
+
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} L\PYGZsq{}assioma della scelta dice}
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} se per ogni x in A esiste un y in B tale che R x y}
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} allora esiste una funzione f da A a B tale che per ogni x in A R x (f x)}
+\PYG{n+nf}{ac}\PYG{+w}{ }\PYG{o+ow}{:}\PYG{+w}{ }\PYG{o}{(}\PYG{o+ow}{∀}[\PYG{+w}{ }x\PYG{+w}{ }∈\PYG{+w}{ }A\PYG{+w}{ }]\PYG{+w}{ }∃[\PYG{+w}{ }y\PYG{+w}{ }∈\PYG{+w}{ }B\PYG{+w}{ }]\PYG{+w}{ }RR\PYG{+w}{ }x\PYG{+w}{ }y\PYG{o}{)}\PYG{+w}{ }⇒
+\PYG{+w}{      }\PYG{o}{(}∃[\PYG{+w}{ }f\PYG{+w}{ }∈\PYG{+w}{ }\PYG{o}{(}A\PYG{+w}{ }\PYG{o+ow}{→}\PYG{+w}{ }B\PYG{o}{)}\PYG{+w}{ }]\PYG{+w}{ }\PYG{o+ow}{∀}[\PYG{+w}{ }x\PYG{+w}{ }∈\PYG{+w}{ }A\PYG{+w}{ }]\PYG{+w}{ }RR\PYG{+w}{ }x\PYG{+w}{ }\PYG{o}{(}f\PYG{+w}{ }x\PYG{o}{))}
+ac\PYG{+w}{ }h\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }\PYG{o}{(}\PYG{o+ow}{λ}\PYG{+w}{ }x\PYG{+w}{ }\PYG{o+ow}{→}\PYG{+w}{ }Σ.witness\PYG{+w}{ }\PYG{o}{(}h\PYG{+w}{ }x\PYG{o}{))}\PYG{+w}{ },\PYG{+w}{ }\PYG{o}{(}\PYG{o+ow}{λ}\PYG{+w}{ }x\PYG{+w}{ }\PYG{o+ow}{→}\PYG{+w}{ }Σ.proof\PYG{+w}{ }\PYG{o}{(}h\PYG{+w}{ }x\PYG{o}{))}
+\end{Verbatim}

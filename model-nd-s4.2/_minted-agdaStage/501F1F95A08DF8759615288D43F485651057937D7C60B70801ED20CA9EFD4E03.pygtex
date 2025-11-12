@@ -1,0 +1,6 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nf}{Ex}\PYG{+w}{ }\PYG{o+ow}{:}\PYG{+w}{ }\PYG{o}{(}A\PYG{+w}{ }\PYG{o+ow}{:}\PYG{+w}{ }\PYG{k+kt}{Set}\PYG{o}{)}\PYG{+w}{ }\PYG{o+ow}{→}\PYG{+w}{ }\PYG{o}{(}A\PYG{+w}{ }\PYG{o+ow}{→}\PYG{+w}{ }\PYG{k+kt}{Prop}\PYG{o}{)}\PYG{+w}{ }\PYG{o+ow}{→}\PYG{+w}{ }\PYG{k+kt}{Prop}
+Ex\PYG{+w}{ }A\PYG{+w}{ }P\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }Σ\PYG{+w}{ }A\PYG{+w}{ }P
+
+\PYG{k+kr}{syntax}\PYG{+w}{ }Ex\PYG{+w}{ }A\PYG{+w}{ }\PYG{o}{(}\PYG{o+ow}{λ}\PYG{+w}{ }x\PYG{+w}{ }\PYG{o+ow}{→}\PYG{+w}{ }P\PYG{o}{)}\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }∃[\PYG{+w}{ }x\PYG{+w}{ }∈\PYG{+w}{ }A\PYG{+w}{ }]\PYG{+w}{ }P
+\end{Verbatim}

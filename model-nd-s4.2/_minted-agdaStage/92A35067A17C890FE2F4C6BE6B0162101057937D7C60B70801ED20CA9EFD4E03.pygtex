@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nf}{nntnd}\PYG{+w}{ }\PYG{o+ow}{:}\PYG{+w}{ }¬\PYG{+w}{ }\PYG{o}{(}¬\PYG{+w}{ }\PYG{o}{(}tnd\PYG{+w}{ }P\PYG{o}{))}
+nntnd\PYG{+w}{ }f\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }f\PYG{+w}{ }\PYG{o}{(}inj₂\PYG{+w}{ }\PYG{o}{(}\PYG{o+ow}{λ}\PYG{+w}{ }p\PYG{+w}{ }\PYG{o+ow}{→}\PYG{+w}{ }f\PYG{+w}{ }\PYG{o}{(}inj₁\PYG{+w}{ }p\PYG{o}{)))}
+\end{Verbatim}

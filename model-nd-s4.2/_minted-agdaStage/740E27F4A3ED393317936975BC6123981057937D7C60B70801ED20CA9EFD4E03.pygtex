@@ -1,0 +1,9 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nf}{bad}\PYG{+w}{ }\PYG{o+ow}{:}\PYG{+w}{ }¬\PYG{+w}{ }\PYG{o}{(}•\PYG{+w}{ }⊢\PYG{+w}{ }\PYG{o}{(}atom\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}P\PYGZdq{}}\PYG{+w}{ }[⇒]\PYG{+w}{ }atom\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}Q\PYGZdq{}}\PYG{o}{)}\PYG{+w}{ }[⇒]\PYG{+w}{ }\PYG{o}{(}atom\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}Q\PYGZdq{}}\PYG{+w}{ }[⇒]\PYG{+w}{ }atom\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}P\PYGZdq{}}\PYG{o}{))}
+bad\PYG{+w}{ }d\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }sound\PYG{+w}{ }\PYG{o}{\PYGZob{}}ρ\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }env\PYG{o}{\PYGZcb{}}\PYG{+w}{ }d\PYG{+w}{ }tt\PYG{+w}{ }\PYG{o}{(}\PYG{o+ow}{λ}\PYG{+w}{ }\PYGZus{}\PYG{+w}{ }\PYG{o+ow}{→}\PYG{+w}{ }tt\PYG{o}{)}\PYG{+w}{ }tt
+
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} where env was defined as:}
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} env : Env}
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} env \PYGZdq{}P\PYGZdq{} = ⊥}
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} env \PYGZdq{}Q\PYGZdq{} = ⊤}
+\end{Verbatim}

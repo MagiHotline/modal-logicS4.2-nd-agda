@@ -1,0 +1,5 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nf}{assoc}\PYG{+w}{ }\PYG{o+ow}{:}\PYG{+w}{ }P\PYG{+w}{ }∧\PYG{+w}{ }\PYG{o}{(}Q\PYG{+w}{ }∧\PYG{+w}{ }R\PYG{o}{)}\PYG{+w}{ }⇔\PYG{+w}{ }\PYG{o}{(}P\PYG{+w}{ }∧\PYG{+w}{ }Q\PYG{o}{)}\PYG{+w}{ }∧\PYG{+w}{ }R
+proj₁\PYG{+w}{ }assoc\PYG{+w}{ }\PYG{o}{(}p\PYG{+w}{ },\PYG{+w}{ }\PYG{o}{(}q\PYG{+w}{ },\PYG{+w}{ }r\PYG{o}{))}\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }\PYG{o}{(}p\PYG{+w}{ },\PYG{+w}{ }q\PYG{o}{)}\PYG{+w}{ },\PYG{+w}{ }r
+proj₂\PYG{+w}{ }assoc\PYG{+w}{ }\PYG{o}{((}p\PYG{+w}{ },\PYG{+w}{ }q\PYG{o}{)}\PYG{+w}{ },\PYG{+w}{ }r\PYG{o}{)}\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }p\PYG{+w}{ },\PYG{+w}{ }\PYG{o}{(}q\PYG{+w}{ },\PYG{+w}{ }r\PYG{o}{)}
+\end{Verbatim}

@@ -17,10 +17,17 @@
 \contentsline {subsection}{\numberline {3.4}Transitività}{12}{subsection.3.4}%
 \contentsline {subsection}{\numberline {3.5}Associatività}{12}{subsection.3.5}%
 \contentsline {subsection}{\numberline {3.6}Commutatività}{13}{subsection.3.6}%
-\contentsline {section}{\numberline {4}Metalogica in Agda}{14}{section.4}%
-\contentsline {subsection}{\numberline {4.1}Definizione delle proposizioni e formule}{14}{subsection.4.1}%
-\contentsline {subsection}{\numberline {4.2}Definizione dei contesti}{14}{subsection.4.2}%
-\contentsline {subsection}{\numberline {4.3}Definizione delle regole di deduzione naturale}{15}{subsection.4.3}%
-\contentsline {subsection}{\numberline {4.4}Esempio di prova in Agda}{16}{subsection.4.4}%
-\contentsline {subsection}{\numberline {4.5}Semantica delle formule}{18}{subsection.4.5}%
-\contentsline {subsection}{\numberline {4.6}Teorema di correttezza}{19}{subsection.4.6}%
+\contentsline {section}{\numberline {4}Logica con PaT (Propositions as Types)}{14}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Connettivi logici in Agda}{14}{subsection.4.1}%
+\contentsline {subsubsection}{\numberline {4.1.1}Proprietà interessanti da dimostrare}{16}{subsubsection.4.1.1}%
+\contentsline {subsection}{\numberline {4.2}Leggi classiche della logica}{18}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Logica del primo ordine}{20}{subsection.4.3}%
+\contentsline {subsubsection}{\numberline {4.3.1}Assioma della scelta}{22}{subsubsection.4.3.1}%
+\contentsline {section}{\numberline {5}Metalogica in Agda}{23}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Definizione delle proposizioni e formule}{23}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Definizione dei contesti}{23}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}Definizione delle regole di deduzione naturale}{24}{subsection.5.3}%
+\contentsline {subsection}{\numberline {5.4}Esempio di prova in Agda}{25}{subsection.5.4}%
+\contentsline {subsection}{\numberline {5.5}Semantica delle formule}{27}{subsection.5.5}%
+\contentsline {subsection}{\numberline {5.6}Teorema di correttezza}{28}{subsection.5.6}%
+\contentsline {subsection}{\numberline {5.7}Teorema di completezza (e perché non è sempre realizzabile in Agda)}{30}{subsection.5.7}%

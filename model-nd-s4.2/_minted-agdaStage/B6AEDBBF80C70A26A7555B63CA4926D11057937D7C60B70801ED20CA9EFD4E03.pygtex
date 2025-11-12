@@ -1,0 +1,3 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kr}{syntax}\PYG{+w}{ }All\PYG{+w}{ }A\PYG{+w}{ }\PYG{o}{(}\PYG{o+ow}{λ}\PYG{+w}{ }x\PYG{+w}{ }\PYG{o+ow}{→}\PYG{+w}{ }P\PYG{o}{)}\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }\PYG{o+ow}{∀}[\PYG{+w}{ }x\PYG{+w}{ }∈\PYG{+w}{ }A\PYG{+w}{ }]\PYG{+w}{ }P
+\end{Verbatim}

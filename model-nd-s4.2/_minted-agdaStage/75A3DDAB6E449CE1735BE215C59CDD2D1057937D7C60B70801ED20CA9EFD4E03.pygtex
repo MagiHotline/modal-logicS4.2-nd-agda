@@ -1,0 +1,9 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kr}{record}\PYG{+w}{ }\PYGZus{}×\PYGZus{}\PYG{+w}{ }\PYG{o}{(}A\PYG{+w}{ }B\PYG{+w}{ }\PYG{o+ow}{:}\PYG{+w}{ }\PYG{k+kt}{Set}\PYG{o}{)}\PYG{+w}{ }\PYG{o+ow}{:}\PYG{+w}{ }\PYG{k+kt}{Set}\PYG{+w}{ }\PYG{k+kr}{where}
+\PYG{k+kr}{constructor}\PYG{+w}{ }\PYGZus{},\PYGZus{}
+\PYG{k+kr}{field}
+\PYG{+w}{  }\PYG{n+nf}{proj₁}\PYG{+w}{ }\PYG{o+ow}{:}\PYG{+w}{ }A
+\PYG{+w}{  }\PYG{n+nf}{proj₂}\PYG{+w}{ }\PYG{o+ow}{:}\PYG{+w}{ }B
+
+\PYG{k+kr}{open}\PYG{+w}{ }\PYGZus{}×\PYGZus{}
+\end{Verbatim}

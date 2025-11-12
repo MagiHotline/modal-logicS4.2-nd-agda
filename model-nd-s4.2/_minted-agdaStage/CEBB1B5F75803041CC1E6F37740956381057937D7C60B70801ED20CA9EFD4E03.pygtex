@@ -1,0 +1,10 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} Definiamo alcune variabili (ovvero proprietà) per il nostro esempio}
+\PYG{k+kr}{variable}\PYG{+w}{ }PP\PYG{+w}{ }QQ\PYG{+w}{ }\PYG{o+ow}{:}\PYG{+w}{ }A\PYG{+w}{ }\PYG{o+ow}{→}\PYG{+w}{ }\PYG{k+kt}{Prop}
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} Proviamo a dimostrare che la congiunzione di due proprietà universali è equivalente}
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} alla proprietà universale della congiunzione delle due proprietà.}
+\PYG{n+nf}{all\PYGZhy{}and}\PYG{+w}{ }\PYG{o+ow}{:}\PYG{+w}{ }\PYG{o+ow}{∀}[\PYG{+w}{ }x\PYG{+w}{ }∈\PYG{+w}{ }A\PYG{+w}{ }]\PYG{+w}{ }\PYG{o}{(}PP\PYG{+w}{ }x\PYG{+w}{ }∧\PYG{+w}{ }QQ\PYG{+w}{ }x\PYG{o}{)}\PYG{+w}{ }⇔
+\PYG{+w}{    }\PYG{o}{(}\PYG{o+ow}{∀}[\PYG{+w}{ }x\PYG{+w}{ }∈\PYG{+w}{ }A\PYG{+w}{ }]\PYG{o}{(}PP\PYG{+w}{ }x\PYG{o}{))}\PYG{+w}{ }∧\PYG{+w}{ }\PYG{o}{(}\PYG{o+ow}{∀}[\PYG{+w}{ }x\PYG{+w}{ }∈\PYG{+w}{ }A\PYG{+w}{ }]\PYG{o}{(}QQ\PYG{+w}{ }x\PYG{o}{))}
+proj₁\PYG{+w}{ }all\PYGZhy{}and\PYG{+w}{ }f\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }\PYG{o}{(}\PYG{o+ow}{λ}\PYG{+w}{ }x\PYG{+w}{ }\PYG{o+ow}{→}\PYG{+w}{  }proj₁\PYG{+w}{ }\PYG{o}{(}f\PYG{+w}{ }x\PYG{o}{))}\PYG{+w}{ },\PYG{+w}{ }\PYG{o}{(}\PYG{o+ow}{λ}\PYG{+w}{ }x\PYG{+w}{ }\PYG{o+ow}{→}\PYG{+w}{  }proj₂\PYG{+w}{ }\PYG{o}{(}f\PYG{+w}{ }x\PYG{o}{))}
+proj₂\PYG{+w}{ }all\PYGZhy{}and\PYG{+w}{  }\PYG{o}{(}f\PYG{+w}{ },\PYG{+w}{ }g\PYG{o}{)}\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }\PYG{o+ow}{λ}\PYG{+w}{ }x\PYG{+w}{ }\PYG{o+ow}{→}\PYG{+w}{ }\PYG{o}{(}f\PYG{+w}{ }x\PYG{o}{)}\PYG{+w}{  },\PYG{+w}{ }\PYG{o}{(}g\PYG{+w}{ }x\PYG{o}{)}
+\end{Verbatim}
