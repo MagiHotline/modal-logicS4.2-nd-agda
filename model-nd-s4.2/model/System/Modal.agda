@@ -15,6 +15,8 @@ open import Data.Fin.Subset as Subset
 -- We first define modal formulas 
 data mf : Set where 
     atom : String → mf
+    BOT : mf
+    TOP : mf
     _⇒_ : mf → mf → mf
     ¬_ : mf → mf
     _∧_ : mf → mf → mf
@@ -34,11 +36,13 @@ data mf : Set where
 position : {n : ℕ} → Set
 position {n} = Subset n 
 
+infix 6 _^_ 
 record pf {n : ℕ} : Set where 
    constructor _^_
    field 
     A : mf
     s : position {n}
+
 
 -- Let's redifine context as a list of position formulas
 
@@ -46,6 +50,7 @@ variable Γ : {n : ℕ} → List (pf {n})
 variable Δ : {n : ℕ} → List (pf {n})
 
 -- I need to know what to union over a list of position formulas.
+-- I won't redefine the Fin n as token but I will barely say that the tokens are elements of Fin n.
 fresh : {n : ℕ} → Fin n → List (pf) → Set
 fresh x Γ = x ∉ (⋃ (List.map (pf.s) Γ))
 
