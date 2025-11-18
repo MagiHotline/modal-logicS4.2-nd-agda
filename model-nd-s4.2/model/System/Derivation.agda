@@ -10,6 +10,7 @@ open import Relation.Binary.PropositionalEquality as Eq using (_≡_; refl)
 open import Data.Fin using (Fin; zero; suc; fromℕ; toℕ)
 open import Data.Fin.Subset as Subset
 open import System.Modal
+open import Data.List.Membership.Propositional as Mem using (_∈_)
 
 infix 4 _⊢_
 data _⊢_ : {n : ℕ} → List (pf {n}) → pf {n} → Set where
@@ -21,6 +22,9 @@ data _⊢_ : {n : ℕ} → List (pf {n}) → pf {n} → Set where
     -- (A ^ s) ∷ Γ è il contesto esteso 
     -- B ^ s La conclusione che si vuole dimostrare.
     --  Γ ⊢ (A ⇒ B) ^ s quando abbiamo questa prova l'elemento A ^ s è stato rimosso e quindi scaricato
+
+    -- Assunzione: P è derivabile da Γ se P è in Γ.
+    Ass : {n : ℕ} {P : pf {n}} {Γ : List (pf {n})} → P Mem.∈ Γ → Γ ⊢ P
     ⇒I : {A B : mf} {n : ℕ} {s : position {n}} → (P_B : (A ^ s) ∷ Γ ⊢ B ^ s) → Γ ⊢ (A ⇒ B) ^ s
     ⇒E : {A B : mf} {n : ℕ} {s : position {n}} → (P₁ : Γ ⊢ (A ⇒ B) ^ s) → (P₂ : Γ ⊢ A ^ s) → Γ ⊢ B ^ s  
     ∧I : {A B : mf} {n : ℕ} {s : position {n}} → (P₁ : Γ ⊢ A ^ s) → (P₂ : Γ ⊢ B ^ s) → Γ ⊢ (A ∧ B) ^ s  

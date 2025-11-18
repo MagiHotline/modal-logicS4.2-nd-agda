@@ -21,6 +21,8 @@ open import Data.String using (String)
 open import Relation.Binary.PropositionalEquality as Eq using (_≡_; refl)
 open import Data.Fin using (Fin; zero; suc; fromℕ; toℕ)
 open import Data.Fin.Subset as Subset
+open import Data.List.Membership.Propositional as Mem using (_∈_)
+open import Data.List.Relation.Unary.Any as Any
 
 -- Include library for definition of the modal system
 open import System.Modal
@@ -31,7 +33,12 @@ open import System.Derivation
 
 {- §0. MP: A , A→B → B -}
 
-{- §1. P1: A → (B → A) -}
+{- §1. P1: A → (B → A) ^ ⊥ -}
+
+axiom1 : {n : ℕ} (A B : mf) → [] ⊢ (A ⇒ (B ⇒ A)) ^ ⊥
+
+           
+
 
 {- §2. P2: (A → (B → C)) → ((A → B) → (A → C)) -}
 
