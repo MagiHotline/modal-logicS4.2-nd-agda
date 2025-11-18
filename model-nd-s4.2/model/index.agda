@@ -35,10 +35,11 @@ open import System.Derivation
 
 {- §1. P1: A → (B → A) ^ ⊥ -}
 
-axiom1 : {n : ℕ} (A B : mf) → [] ⊢ (A ⇒ (B ⇒ A)) ^ ⊥
+-- axiom1 : {n : ℕ} {φ ψ : mf} → ([] ⊢ (φ ⇒ (ψ ⇒ φ)) ^ ⊥)
+-- axiom1 {φ = φ} {ψ} = 
 
-           
-
+axiom1 : ∀ {n A B s} → [] ⊢ (A ⇒ (B ⇒ A)) ^ s
+axiom1 {n} {A} {B} {s} = {!   !}
 
 {- §2. P2: (A → (B → C)) → ((A → B) → (A → C)) -}
 

@@ -12,14 +12,11 @@ open import Data.Fin.Subset as Subset
 open import System.Modal
 
 -- Il tipo di una Prova è una Prova di una specifica Formula Posizionata (pf).
--- Le assunzioni (il contesto) saranno gestite come parametri chiusi (assunzioni scaricabili) nelle regole di introduzione.
 data Proof {n : ℕ} : pf {n} → Set where
-    -- Implica-Introduzione (scarica un'assunzione [A^s] per ottenere (A⇒B)^s)
+    -- Implica-Introduzione
     -- L'assunzione scaricata A^s è un parametro del costruttore.
     -- (Per semplicità, non sto includendo qui il meccanismo di gestione del contesto di Agda,
     -- ma l'idea è che A^s non deve essere una premessa non scaricata di P_B)
-    -- In una formalizzazione 'pura' ND in Agda, questo è gestito da una funzione.
-    -- Qui lo semplifichiamo, assumendo che sia corretto in linea di principio.
 
     -- Se hai una prova P_B di B^s che dipende da un'assunzione A^s,
     -- allora puoi concludere una prova di (A⇒B)^s (senza dipendere da A^s).
@@ -70,4 +67,5 @@ data Proof {n : ℕ} : pf {n} → Set where
      → (P_C : Proof (C ^ t))
      -- If from A^s∪{x} and Δ we can prove C^t then ...
      → Proof (C ^ t)
+
 

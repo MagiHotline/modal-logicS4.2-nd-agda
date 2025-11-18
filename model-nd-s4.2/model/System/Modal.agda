@@ -46,8 +46,8 @@ record pf {n : ℕ} : Set where
 
 -- Let's redifine context as a list of position formulas
 
-variable Γ : {n : ℕ} → List (pf {n})
-variable Δ : {n : ℕ} → List (pf {n})
+-- variable Γ : {n : ℕ} → List (pf {n})
+-- variable Δ : {n : ℕ} → List (pf {n})
 
 -- I need to know what to union over a list of position formulas.
 -- I won't redefine the Fin n as token but I will barely say that the tokens are elements of Fin n.
