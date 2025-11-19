@@ -10,23 +10,22 @@ open import Data.Fin.Subset as Subset using (_∪_; ⁅_⁆; _∉_)
 open import System.Modal
 open import Data.List.Membership.Propositional as Mem using (_∈_)
 
--- Definizione di derivazione del tipo : Γ ⊢ A^s
+-- Definizione delle regole di inferenza del sistema di deduzione naturale
 infix 4 _⊢_
 data _⊢_ : {n : ℕ} → List (pf {n}) → pf {n} → Set where
 
-    -- REGOLE STRUTTURALI --
+    -- REGOLE STRUTTURALI 
 
     -- ASSUNZIONE: Mi serve per introddure ipotesi all'interno della derivazione
-    -- Se A^s è presente in un punto qualsiasi di Γ, possiamo derivarlo.
-    Ass : ∀ {n A s} {Γ : List (pf {n})} 
-        → (A ^ s) ∈ Γ  -- Prova che la formula è nel contesto
-        → Γ ⊢ (A ^ s)
-    -- New: Se posso provare P da Γ, posso provarlo anche se aggiungo un'altra ipotesi 
-    New : ∀ {n P Q} {Γ : List (pf {n})}
+    Ass : ∀ {n A Γ} {s : position {n}} → (A ^ s) ∷ Γ ⊢ (A ^ s)
+    -- Wk: Se posso provare P da Γ, posso provarlo anche se aggiungo un'altra ipotesi 
+    Wk : ∀ {n P Q} {Γ : List (pf {n})}
         → (Π : Γ ⊢ P)
         → (Q ∷ Γ) ⊢ P
+
+    -- Cut? 
     
-    -- REGOLE PROPOSIZIONALI --
+    -- REGOLE PROPOSIZIONALI 
 
     -- IMPLICAZIONE INTRODUZIONE
     -- Per provare A ⇒ B, assumo A (aggiungendolo a Γ) e provo B.
@@ -58,8 +57,6 @@ data _⊢_ : {n : ℕ} → List (pf {n}) → pf {n} → Set where
         → Γ ⊢ B ^ s 
         → Γ ⊢ (A ∨ B) ^ s
     -- DISGIUNZIONE ELIMINAZIONE
-    -- Se ho A ∨ B, e so che A implica C e B implica C, allora ho C.
-    -- Si scaricano due assunzioni diverse in due rami diversi.
     ∨E : ∀ {n A B C s} {Γ : List (pf {n})}
         → (P_AB : Γ ⊢ (A ∨ B) ^ s) 
         → (P_C₁ : (A ^ s) ∷ Γ ⊢ C ^ s) 

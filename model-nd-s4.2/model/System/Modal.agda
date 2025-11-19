@@ -3,7 +3,7 @@
 module System.Modal where
 
 open import Data.Nat as Nat using (ℕ; zero; suc; _+_; _<_; _≤_)
-open import Data.List as List using (List; []; _∷_)
+open import Data.List as List using (List; []; _∷_; map)
 open import Data.Product using (_×_; _,_)
 open import Data.String using (String)
 open import Relation.Binary.PropositionalEquality as Eq using (_≡_; refl)
@@ -41,9 +41,8 @@ record pf {n : ℕ} : Set where
     A : mf
     s : position {n}
 
--- I need to know what to union over a list of position formulas.
 -- I won't redefine the Fin n as token but I will just say that the tokens are elements of Fin n.
 fresh : {n : ℕ} → Fin n → List (pf) → Set
-fresh x Γ = x ∉ (⋃ (List.map (pf.s) Γ))
+fresh x Γ = x ∉ (⋃ (map (pf.s) Γ))
 
 

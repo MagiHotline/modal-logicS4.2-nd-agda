@@ -11,6 +11,7 @@ open import Data.Fin using (Fin; zero; suc; fromℕ; toℕ)
 open import Data.Fin.Subset as Subset
 open import System.Modal
 
+-- DA BUTTARE
 -- Il tipo di una Prova è una Prova di una specifica Formula Posizionata (pf).
 data Proof {n : ℕ} : pf {n} → Set where
     -- Implica-Introduzione
