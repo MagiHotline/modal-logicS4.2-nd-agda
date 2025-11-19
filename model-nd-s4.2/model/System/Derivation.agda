@@ -23,10 +23,9 @@ data _⊢_ : {n : ℕ} → List (pf {n}) → pf {n} → Set where
     -- (A ^ s) ∷ Γ è il contesto esteso 
     -- B ^ s La conclusione che si vuole dimostrare.
     --  Γ ⊢ (A ⇒ B) ^ s quando abbiamo questa prova l'elemento A ^ s è stato rimosso e quindi scaricato
-
     -- Assunzione: P è derivabile da Γ se P è in Γ.
-    Ax : ∀ {n A} {s : position {n}} {Γ : List (pf {n})} → (A ^ s) ∷ Γ ⊢ (A ^ s)
-    Wk : ∀ {n A B} {s : position {n}} {Γ : List (pf {n})}
+    Ax : ∀ {n A s} {Γ : List (pf {n})} → (A ^ s) ∷ Γ ⊢ (A ^ s)
+    New : ∀ {n A B} {s : position {n}} {Γ : List (pf {n})}
         → (P_B : Γ ⊢ B ^ s) 
         → (B ^ s) ∷ Γ ⊢ (A ⇒ B) ^ s
     ⇒I : ∀ {n A B} {s : position {n}} {Γ : List (pf {n})}

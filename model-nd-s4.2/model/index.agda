@@ -26,8 +26,9 @@ open import Data.List.Relation.Unary.Any as Any
 
 -- Include library for definition of the modal system
 open import System.Modal
-open import System.Proof 
-open import System.Derivation
+-- open import System.Proof 
+-- open import System.Derivation
+open import System.NaturalDeduction
 
 -- S4.2 è il più piccolo insieme X di formule che contiene tutte le istanze dei seguenti assiomi: 
 
@@ -35,11 +36,18 @@ open import System.Derivation
 
 {- §1. P1: A → (B → A) ^ ⊥ -}
 
--- axiom1 : {n : ℕ} {φ ψ : mf} → ([] ⊢ (φ ⇒ (ψ ⇒ φ)) ^ ⊥)
--- axiom1 {φ = φ} {ψ} = 
+-- 1. Aggiungitamo tra le assunzioni A 
+-- 2. Usiamo New per aggiungere B al contesto di (1) e provare A da [B, A]
+-- 3. Usiamo ⇒I per scaricare l'assunzione B e provare B ⇒ A da [A]
+-- 4. Usiamo ⇒I per scaricare l'assunzione A e provare A ⇒ (B ⇒ A) da []
 
-axiom1 : ∀ {n A B s} → [] ⊢ (A ⇒ (B ⇒ A)) ^ s
-axiom1 {n} {A} {B} {s} = {!   !}
+-- Implies -- B ∷ A  -- A ∷ [] ⊢ A
+axiom1 : ∀ {n A B} → [] ⊢ (A ⇒ (B ⇒ A)) ^ ⊥
+axiom1 {n} {A} {B} = ⇒I ( ⇒I ( New ( Ass (here refl) ) ) )
+-- (here refl), è la prova che la formula P si trova in una specifica posizione all'interno della lista Γ.
+-- here prova che A ^ ⊥ è in testa alla lista A ^ ⊥ :: []
+-- (parallelo di un qualcosa del tipo (x ∷ xs) dove x è here e xs è there)
+-- refl prova che A ^ ⊥ ≡ A ^ ⊥
 
 {- §2. P2: (A → (B → C)) → ((A → B) → (A → C)) -}
 

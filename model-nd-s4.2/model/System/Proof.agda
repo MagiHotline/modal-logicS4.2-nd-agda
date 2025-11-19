@@ -21,9 +21,7 @@ data Proof {n : ℕ} : pf {n} → Set where
     -- Se hai una prova P_B di B^s che dipende da un'assunzione A^s,
     -- allora puoi concludere una prova di (A⇒B)^s (senza dipendere da A^s).
     ----------- REGOLE PROPOSIZIONALI -----------
-    Ax : {A : mf} {s : position {n}} → Proof (A ^ s) → Proof (A ^ s)
-    -- Weakening
-    Wk : {A B : mf} {s : position {n}} → Proof (A ^ s) → Proof ((B ⇒ A) ^ s)
+    Ax : {A : mf} {s : position {n}} → Proof (A ^ s) → Proof (A ^ s) 
     -- Introduizione dell'implicazione
     ⇒I : {A B : mf} {s : position {n}} → (P_B : Proof (B ^ s)) → Proof ((A ⇒ B) ^ s)
     -- Eliminazione dell'implicazione

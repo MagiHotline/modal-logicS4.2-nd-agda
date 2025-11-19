@@ -7,8 +7,6 @@ open import Data.List as List using (List; []; _∷_)
 open import Data.Product using (_×_; _,_)
 open import Data.String using (String)
 open import Relation.Binary.PropositionalEquality as Eq using (_≡_; refl)
-
--- Include library for Fin and Subset
 open import Data.Fin using (Fin; zero; suc; fromℕ; toℕ)
 open import Data.Fin.Subset as Subset 
 
@@ -43,14 +41,8 @@ record pf {n : ℕ} : Set where
     A : mf
     s : position {n}
 
-
--- Let's redifine context as a list of position formulas
-
--- variable Γ : {n : ℕ} → List (pf {n})
--- variable Δ : {n : ℕ} → List (pf {n})
-
 -- I need to know what to union over a list of position formulas.
--- I won't redefine the Fin n as token but I will barely say that the tokens are elements of Fin n.
+-- I won't redefine the Fin n as token but I will just say that the tokens are elements of Fin n.
 fresh : {n : ℕ} → Fin n → List (pf) → Set
 fresh x Γ = x ∉ (⋃ (List.map (pf.s) Γ))
 
