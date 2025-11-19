@@ -47,11 +47,6 @@ mp P_A P_A⇒B = ⇒E P_A⇒B P_A
 axiom1 : ∀ {n A B} → [] ⊢ (A ⇒ (B ⇒ A)) ^ ⊥
 axiom1 = ⇒I ( ⇒I ( Wk ( Ass ) ) )
 
--- (here refl), è la prova che la formula P si trova in una specifica posizione all'interno della lista Γ.
--- here prova che A ^ ⊥ è in testa alla lista A ^ ⊥ :: []
--- (parallelo di un qualcosa del tipo (x ∷ xs) dove x è here e xs è there)
--- refl prova che A ^ ⊥ ≡ A ^ ⊥
-
 {- §2. P2: (A → (B → C)) → ((A → B) → (A → C)) -}
 
 
@@ -60,6 +55,9 @@ axiom1 = ⇒I ( ⇒I ( Wk ( Ass ) ) )
 {- §4. K: □(A → B) → (□A → □B) -}
 
 {- §5. T: □A → A -}
+
+axiomT : ∀ {n A} → [] ⊢(□ A ⇒ A) ^ ⊥
+axiomT = ⇒I (□E ( Ass ))
 
 {- §6. 4: □A → □□A -}
 

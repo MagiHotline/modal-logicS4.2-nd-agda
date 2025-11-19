@@ -22,6 +22,13 @@ data mf : Set where
     □_ : mf → mf
     ◇_ : mf → mf
 
+infixr 10 _⇒_  
+infixr 15 _∨_  
+infixr 20 _∧_  
+infix  30 □_  
+infix  30 ◇_   
+infix  30 ¬_
+
 -- Next, we define position formulas where a Position formula is an expression A^s 
 -- where A is a modal formula and s is a position.
 -- A position is a finite set of tokens where the empty set denotes the empty position 
