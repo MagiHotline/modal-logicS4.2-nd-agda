@@ -2,13 +2,25 @@
 
 module System.NaturalDeduction where
 
-open import Data.Nat as Nat using (ℕ)
+-- Include some useful STD Agda libraries
+open import Data.Nat as Nat using (ℕ; zero; suc)
+open import Data.Vec as Vec using (here; there)
 open import Data.List as List using (List; []; _∷_; _++_)
 open import Data.Product using (_×_; _,_)
-open import Data.Fin using (Fin)
-open import Data.Fin.Subset as Subset using (_∪_; ⁅_⁆; _∉_)
-open import System.Modal
-open import Data.List.Membership.Propositional as Mem using (_∈_)
+open import Data.String using (String)
+open import Relation.Binary.PropositionalEquality as Eq using (_≡_; refl)
+open import Data.Fin using (Fin; zero; suc; fromℕ; toℕ)
+open import Data.List.Membership.Propositional as Mem using (_∈_; _∉_)
+open import Data.List.Relation.Unary.Any as Any
+
+open import System.Modal 
+
+variable 
+    n : ℕ
+    s t : position {n}
+    A B : mf 
+    Q T P : pf 
+    Γ : List (pf {n})
 
 -- Definizione delle regole di inferenza del sistema di deduzione naturale
 infix 4 _⊢_
@@ -17,47 +29,49 @@ data _⊢_ : {n : ℕ} → List (pf {n}) → pf {n} → Set where
     -- REGOLE STRUTTURALI 
 
     -- ASSUNZIONE: Mi serve per introddure ipotesi all'interno della derivazione
-    Ass : ∀ {n A Γ} {s : position {n}} → (A ^ s) ∷ Γ ⊢ (A ^ s)
-    -- Wk: Se posso provare P da Γ, posso provarlo anche se aggiungo un'altra ipotesi 
-    Wk : ∀ {n P Q} {Γ : List (pf {n})}
+    Ass : ∀ {A Γ} → (A ^ s) ∷ Γ ⊢ (A ^ s)
+    -- WEAKENING: Se posso provare P da Γ, posso provarlo anche se aggiungo un'altra ipotesi 
+    Wk : ∀ {P Q} 
         → (Π : Γ ⊢ P)
         → (Q ∷ Γ) ⊢ P
 
-    -- Cut? 
-    
+    -- EXCHANGE 
+    Exch : ∀ {Q T Γ}
+        → (Π : Q ∷ T ∷ Γ ⊢ P)
+        → T ∷ Q ∷ Γ ⊢ P
+
     -- REGOLE PROPOSIZIONALI 
 
     -- IMPLICAZIONE INTRODUZIONE
-    -- Per provare A ⇒ B, assumo A (aggiungendolo a Γ) e provo B.
-    -- L'assunzione A viene "scaricata" (rimossa dal contesto della conclusione).
-    ⇒I : ∀ {n A B} {Γ : List (pf {n})} {s : position {n}}
+    ⇒I : ∀ {A B} 
         → (P_B : (A ^ s) ∷ Γ ⊢ B ^ s) 
         → Γ ⊢ (A ⇒ B) ^ s
+
     -- IMPLICAZIONE ELIMINAZIONE (Modus Ponens)
-    ⇒E : ∀ {n A B s} {Γ : List (pf {n})}
+    ⇒E : ∀ {A B s}
         → (P_A⇒B : Γ ⊢ (A ⇒ B) ^ s) 
         → (P_A : Γ ⊢ A ^ s) 
         → Γ ⊢ B ^ s  
     -- CONGIUNZIONE
-    ∧I : ∀ {n A B s} {Γ : List (pf {n})}
+    ∧I : ∀ {A B s}
         → Γ ⊢ A ^ s 
         → Γ ⊢ B ^ s 
         → Γ ⊢ (A ∧ B) ^ s  
-    ∧E₁ : ∀ {n A B s} {Γ : List (pf {n})}
+    ∧E₁ : ∀ {A B s} 
         → Γ ⊢ (A ∧ B) ^ s 
         → Γ ⊢ A ^ s
-    ∧E₂ : ∀ {n A B s} {Γ : List (pf {n})}
+    ∧E₂ : ∀ {A B s} 
         → Γ ⊢ (A ∧ B) ^ s 
         → Γ ⊢ B ^ s 
     -- DISGIUNZIONE
-    ∨I₁ : ∀ {n A B s} {Γ : List (pf {n})}
+    ∨I₁ : ∀ {A B s} 
         → Γ ⊢ A ^ s 
         → Γ ⊢ (A ∨ B) ^ s
-    ∨I₂ : ∀ {n A B s} {Γ : List (pf {n})}
+    ∨I₂ : ∀ {A B s} 
         → Γ ⊢ B ^ s 
         → Γ ⊢ (A ∨ B) ^ s
     -- DISGIUNZIONE ELIMINAZIONE
-    ∨E : ∀ {n A B C s} {Γ : List (pf {n})}
+    ∨E : ∀ {A B C s} 
         → (P_AB : Γ ⊢ (A ∨ B) ^ s) 
         → (P_C₁ : (A ^ s) ∷ Γ ⊢ C ^ s) 
         → (P_C₂ : (B ^ s) ∷ Γ ⊢ C ^ s) 
@@ -70,35 +84,39 @@ data _⊢_ : {n : ℕ} → List (pf {n}) → pf {n} → Set where
     --    → Γ ⊢ BOT ^ s
 
     -- RAA
-    RAA : ∀ {n A s} {Γ : List (pf {n})}
+    RAA : ∀ {A s}
         → (P_bot : (A ^ s) ∷ Γ ⊢ BOT ^ s) 
         → Γ ⊢ (¬ A) ^ s                  
     -- Ex-falso quod libet
-    Ex-falso : ∀ {n A s} {Γ : List (pf {n})}
+    Ex-falso : ∀ {A s} 
         → (P_bot : Γ ⊢ BOT ^ s) 
         → Γ ⊢ A ^ s
-
+        
     -- REGOLE MODALI 
 
     -- BOX INTRODUZIONE 
-    □I : ∀ {n A x s} {Γ : List (pf {n})}
+    □I : ∀ {A x s} 
         → x ∉ s
         → fresh x Γ                       
         → (P : Γ ⊢ A ^ (s ∪ ⁅ x ⁆))   
-        → Γ ⊢ (□ A) ^ s
+        → Γ ⊢ (□ A) ^ s 
     -- BOX ELIMINAZIONE
-    □E : ∀ {n A t s} {Γ : List (pf {n})}
+    □E : ∀ {A}
         → (P_box : Γ ⊢ (□ A) ^ s)
         → Γ ⊢ A ^ (s ∪ t)
     -- DIAMOND INTRODUZIONE
-    ◇I : ∀ {n A t s} {Γ : List (pf {n})}
+    ◇I : ∀ {A t s} 
         → (P_A : Γ ⊢ A ^ (s ∪ t)) 
         → Γ ⊢ (◇ A) ^ s
     -- DIAMOND ELIMINAZIONE
-    ◇E : ∀ {n A C x s t} {Γ : List (pf {n})}
+    ◇E : ∀ {A C x s t} 
          → x ∉ s
          → x ∉ t
          → fresh x Γ                        
          → (P_diamond : Γ ⊢ (◇ A) ^ s)     
          → (P_C : (A ^ (s ∪ ⁅ x ⁆)) ∷ Γ ⊢ C ^ t) 
-         → Γ ⊢ C ^ t                        
+         → Γ ⊢ C ^ t     
+    -- NEC 
+    NEC : ∀ {A} 
+        → (P_A : Γ ⊢ A ^ ∅) 
+        → Γ ⊢ (□ A) ^ ∅                   
