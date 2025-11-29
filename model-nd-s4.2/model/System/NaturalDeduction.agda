@@ -24,7 +24,7 @@ variable
 
 -- Definizione delle regole di inferenza del sistema di deduzione naturale
 infix 4 _⊢_
-data _⊢_ : {n : ℕ} → List (pf {n}) → pf {n} → Set where
+data _⊢_ {n : ℕ} : List (pf {n}) → pf {n} → Set where
 
     -- REGOLE STRUTTURALI 
 
@@ -76,22 +76,24 @@ data _⊢_ : {n : ℕ} → List (pf {n}) → pf {n} → Set where
         → (P_C₁ : (A ^ s) ∷ Γ ⊢ C ^ s) 
         → (P_C₂ : (B ^ s) ∷ Γ ⊢ C ^ s) 
         → Γ ⊢ C ^ s
-
-    -- Questa è solo MP ? 
-    -- ¬E : ∀ {n A s} {Γ : List (pf {n})}
-    --    → Γ ⊢ (¬ A) ^ s 
-    --    → Γ ⊢ A ^ s 
-    --    → Γ ⊢ BOT ^ s
-
-    -- RAA
-    RAA : ∀ {A s}
+    -- NEGAZIONE ELIMINAZIONE
+    ¬E : ∀ {A s} 
+      → Γ ⊢ (¬ A) ^ s 
+      → Γ ⊢ A ^ s 
+      → Γ ⊢ BOT ^ s
+    -- NEGAZIONE INTRODUZIONE
+    ¬I : ∀ {A s}
         → (P_bot : (A ^ s) ∷ Γ ⊢ BOT ^ s) 
-        → Γ ⊢ (¬ A) ^ s                  
-    -- Ex-falso quod libet
+        → Γ ⊢ (¬ A) ^ s     
+    -- RIDUZIONE ALL'ASSURDO     
+    RAA : ∀ {A s}
+       → ((¬ A) ^ s) ∷ Γ ⊢ BOT ^ s
+       → Γ ⊢ A ^ s    
+    -- EX-FALSO QUOD LIBET
     Ex-falso : ∀ {A s} 
         → (P_bot : Γ ⊢ BOT ^ s) 
         → Γ ⊢ A ^ s
-        
+
     -- REGOLE MODALI 
 
     -- BOX INTRODUZIONE 

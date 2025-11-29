@@ -35,34 +35,88 @@ open import System.NaturalDeduction
 -- ∉⊥ : ∀ {n} {x : Fin n} → x ∉ ⊥
 -- ∉⊥ ()
 
+prova : (A ^ s) ∷ (B ^ s) ∷ [] ⊢ B ^ s
+prova = Wk Ass 
+
 -- S4.2 è il più piccolo insieme X di formule che contiene tutte le istanze dei seguenti assiomi: 
 
 {- §0. MP: A , A→B → B -}
--- Modus Ponens -- A ∷ [] , A ⇒ B ∷ [] ⊢ B
--- mp : ∀ {n A B} → ( [] ⊢ A ^ ⊥ ) → ( [] ⊢ (A ⇒ B) ^ ⊥ ) → ( [] ⊢ B ^ ⊥ )
--- mp P_A P_A⇒B = ⇒E P_A⇒B P_A
 
-{- §1. P1: A → (B → A) ^ ⊥ -}
+mp : ∀ {n A B} → ( [] ⊢ A ^ (∅ {n}) ) → ( [] ⊢ (A ⇒ B) ^ (∅ {n}) ) → ( [] ⊢ B ^ (∅ {n}) )
+mp P_A P_A⇒B = ⇒E P_A⇒B P_A
 
-axiom1 : ∀ {n A B} → [] ⊢ (A ⇒ (B ⇒ A)) ^ ∅
-axiom1 = ⇒I ( ⇒I ( Wk ( Ass ) ) )
+{- §1. P1: A → (B → A) ^ ∅ -}
+
+-- axiom1 : ∀ {n A B} → [] ⊢ (A ⇒ (B ⇒ A)) ^ ∅
+axiom1 : ∀ {n A B} → [] ⊢ (A ⇒ (B ⇒ A)) ^ (∅ {n})
+axiom1 {n} {A} {B} = ⇒I ( ⇒I ( Wk Ass ) )
 
 {- §2. P2: (A → (B → C)) → ((A → B) → (A → C)) -}
 
-{- §3. P3: ((¬ B → ¬A) → ((¬ B → A) → B)  -}
+axiom2 : ∀ {n A B C} → [] ⊢ ((A ⇒ (B ⇒ C)) ⇒ ((A ⇒ B) ⇒ (A ⇒ C))) ^ (∅ {n})
+axiom2 {n} {A} {B} {C} = 
+  ⇒I {A = (A ⇒ (B ⇒ C))} {B = ((A ⇒ B) ⇒ (A ⇒ C))} (                   
+    ⇒I {A = (A ⇒ B)} {B = (A ⇒ C)} (               
+      ⇒I {A = A} {B = C} (               
+         ⇒E -- C             
+           (⇒E -- B ⇒ C           
+             (Wk (Wk Ass)) -- A ⇒ (B ⇒ C)
+             Ass -- A          
+           )
+           (⇒E -- B           
+             (Wk Ass) -- A ⇒ B       
+             Ass -- A          
+           )
+      )
+    )
+  )
+
+
+{- §3. P3: ((¬ B → ¬A) → ((¬ B → A) → B) ^ ∅ -}
+
+axiom3 : ∀ {n : ℕ} {A B} → [] ⊢ ((¬ B ⇒ ¬ A) ⇒ ((¬ B ⇒ A) ⇒ B)) ^ (∅ {n})
+axiom3 {n} {A} {B} = 
+  ⇒I {A = ¬ B ⇒ ¬ A} {B = (¬ B ⇒ A) ⇒ B} (
+    ⇒I {A = ¬ B ⇒ A} {B = B} (
+       RAA {A = B} (
+          ¬E (
+             ⇒E (Wk (Wk Ass)) Ass
+          ) 
+          (  
+             ⇒E (Wk Ass) Ass
+          )
+       )
+    )
+  )
 
 {- §4. K: □(A → B) → (□A → □B) -}
 
+-- axiomK : 
+
 {- §5. T: □A → A -}
 
--- axiomT : ∀ {A} → ([] ⊢ ((□ A) ⇒ A) ^ ∅)
--- axiomT = ⇒I (□E {t = ⊥} ( Ass ))
+axiomT : ∀ {n A} → ([] ⊢ ((□ A) ⇒ A) ^ (∅ {n}))
+axiomT {n} {A} = ⇒I {A = □ A} {B = A} (□E {t = ∅} ( Ass ))
 
 {- §6. 4: □A → □□A -}
 
--- axiom4 : ∀ {n A} → ([] ⊢ (((□ A) ⇒ □ (□ A)) ^ ⊥))
+-- Richiede che esistano almeno 2 token (suc (suc n)) 
+axiom4 : ∀ {n A} → ([] ⊢ (((□ A) ⇒ □ (□ A)) ^ (∅ {suc (suc n)})))
+axiom4 = {!!}
 
-{- §7. C: ◇□A → □◇A -}
+{- §7. 4: (□A → ◇A) ^ ∅ -}
+
+axiomD : ∀ {n A} → [] ⊢ (□ A ⇒ ◇ A) ^ (∅ {n})
+axiomD {n} {A} = 
+    ⇒I 
+    (                
+      ◇I {t = ∅} 
+      (   
+        □E {t = ∅} Ass 
+      )
+    )
+
+{- §8. C: ◇□A → □◇A -}
 
 
 
