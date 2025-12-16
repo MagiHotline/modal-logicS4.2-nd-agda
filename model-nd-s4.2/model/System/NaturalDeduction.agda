@@ -103,7 +103,7 @@ data _⊢_ {n : ℕ} : List (pf {n}) → pf {n} → Set where
         → (P : Γ ⊢ A ^ (s ∪ ⁅ x ⁆))   
         → Γ ⊢ (□ A) ^ s 
     -- BOX ELIMINAZIONE
-    □E : ∀ {A}
+    □E : ∀ {A s t}
         → (P_box : Γ ⊢ (□ A) ^ s)
         → Γ ⊢ A ^ (s ∪ t)
     -- DIAMOND INTRODUZIONE

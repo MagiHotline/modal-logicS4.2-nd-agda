@@ -9,8 +9,6 @@
 
 -}
 
-{-# OPTIONS --cubical-compatible --safe #-}
-
 module index where
 
 -- Include some useful STD Agda libraries
@@ -31,15 +29,21 @@ open import System.NaturalDeduction
 
 -- § TATTICHE / LEMMI AUSILIARI
 
-zero≢suc-zero : ∀ {n} → zero ≡ suc zero → ⊥
-zero≢suc-zero ()
+-- Definiamo esplicitamente che (suc zero) non è (zero).
+-- Ci serve per la prova di fresheness nella regola □I.
+suc-zero≢zero : ∀ {n} → Fin.suc (Fin.zero {n}) ≢ Fin.zero
+suc-zero≢zero () 
 
-∉-singleton : ∀ {n} {x y : Token n} → (x ≡ y → ⊥) → x ∉ ⁅ y ⁆
-∉-singleton x≢y (here p) = x≢y p
+-- ∉-singleton : Se x ed y sono distinti, allora x non appartiene alla lista contenente solo y.
+∉-singleton : ∀ {a} {A : Set a} {x y : A} → x ≢ y → x ∉ (y ∷ [])
+∉-singleton x≢y (Any.here p) = x≢y p
+∉-singleton x≢y (Any.there ())
 
+-- fresh-[] : Una formula posizionata in x è sempre fresh da una lista vuota.
 fresh-[] : ∀ {n} {x : Token n} → fresh x []
 fresh-[] ()
 
+-- x∉∅ : Prova che x non appartiene all'insieme vuoto
 x∉∅ : ∀ {n} {x : Token n} → x ∉ (∅ {n})
 x∉∅ ()
 
@@ -145,20 +149,23 @@ axiomT {n} {A} = ⇒I {A = □ A} {B = A} (□E {t = ∅} ( Ass ))
 {- §6. 4: □A → □□A -}
 
 -- Richiede che esistano almeno 2 token (suc (suc n))
-
 axiom4 : ∀ {n A} → [] ⊢ (□ A ⇒ □ (□ A)) ^ (∅ {suc (suc n)})
-axiom4 =
-  ⇒I (
-    □I {x = zero}
-       x∉∅
-       fresh-[]
-       (
-         □I {x = suc zero}
-            (∉-singleton zero≢suc-zero)
-            fresh-[]
+axiom4 {n} {A} =
+  let 
+    x = Fin.zero 
+    y = Fin.suc Fin.zero
+  in
+  ⇒I {A = □ A} {B = □ (□ A)} ( -- Scarico □A ^ ∅ 
+    □I {x = x} -- Rimuovi x
+       x∉∅ -- x non appartiene alla lista vuota
+       fresh-[] 
+       ( 
+         □I {x = y} -- Rimuovi y
+            (∉-singleton (suc-zero≢zero {n})) -- Un elemento x non appartiene alla lista di y se x e y sono diversi
+            fresh-[] -- Un elemento è sempre fresh da una lista vuota
             (
-              □E Ass
-            )
+              □E Ass -- Assumption □ A ^ ∅
+            ) 
        )
   )
 
@@ -180,4 +187,4 @@ axiomD {n} {A} =
 {- §8. C: ◇□A → □◇A -}
 
 geachAxiom : ∀ {n A} → ([] ⊢ ((◇ (□ A))⇒ (□ (◇ A)) ^ (∅ {suc (suc n)})))
-geachAxiom {A = A} = {!!}
+geachAxiom {n} {A} = {!!}
