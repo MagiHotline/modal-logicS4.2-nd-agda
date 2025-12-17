@@ -239,7 +239,7 @@ geachAttempt {n} {A} =
                   {- 
                   
                     Agda v2.8.0
-                    error: [UnequalTerms]
+                    238 => error: [UnequalTerms]
                     y != x of type Fin (suc (suc n))
                     when checking that the inferred type of an application
                       □ A ^ (∅ ∪ ⁅ x ⁆) ∷ ◇ (□ A) ^ ∅ ∷ [] ⊢ A ^ ((∅ ∪ ⁅ x ⁆) ∪ ⁅ y ⁆)
