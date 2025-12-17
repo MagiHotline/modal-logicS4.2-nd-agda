@@ -34,6 +34,10 @@ data _⊢_ {n : ℕ} : List (pf {n}) → pf {n} → Set where
     Wk : ∀ {P Q} 
         → (Π : Γ ⊢ P)
         → (Q ∷ Γ) ⊢ P
+    Cast : ∀ {A s t} 
+        → (s ≈ t) -- PROVA che i due token siano uguali
+        → Γ ⊢ A ^ s -- PROVA che hai (x,y)
+        → Γ ⊢ A ^ t -- PROVA che ti serve (y,x)
 
     -- EXCHANGE 
     Exch : ∀ {Q T Γ}
@@ -121,4 +125,5 @@ data _⊢_ {n : ℕ} : List (pf {n}) → pf {n} → Set where
     -- NEC 
     NEC : ∀ {A} 
         → (P_A : Γ ⊢ A ^ ∅) 
-        → Γ ⊢ (□ A) ^ ∅                   
+        → Γ ⊢ (□ A) ^ ∅
+     

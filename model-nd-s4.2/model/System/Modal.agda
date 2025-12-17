@@ -10,7 +10,6 @@ open import Data.Bool using (Bool; true; false; if_then_else_)
 open import Relation.Nullary.Decidable using (does)
 open import Data.Fin using (Fin; zero; suc; fromℕ; toℕ; _≟_)
 open import Data.List.Membership.Propositional as Mem using (_∈_; _∉_)
--- open import Data.Fin.Subset as Subset
 
 data mf : Set where 
     BOT : mf
@@ -65,19 +64,21 @@ record pf {n : ℕ} : Set where
     A : mf
     s : position {n}
 
--- La nuova funzione fresh controlla che un token x non appartenga 
--- alla lista delle formule in Γ
+fresh : {n : ℕ} → Token n → List (pf {n}) → Set
+fresh x Γ = x ∉ (concat (map pf.s Γ))
 
--- Given a predicate P, then Any P xs means that at least one element
--- in xs satisfies P. See `Relation.Unary` for an explanation of
--- predicates.
+-- Equivalenza logica
+-- A ⇔ B significa semplicemente (A implica B) E (B implica A)
+infix 3 _⇔_
+_⇔_ : Set → Set → Set
+A ⇔ B = (A → B) × (B → A)
+
+-- Definizione di Equivalenza Insiemistica
+-- Due posizioni sono equivalenti se contengono gli stessi elementi.
+infix 4 _≈_
+_≈_ : {n : ℕ} → position {n} → position {n} → Set
+s ≈ t = ∀ {x} → (x ∈ s) ⇔ (x ∈ t)
 
 -- Quindi ci chiediamo se un elemento x appartiene a una lista di elementi xs
 -- _∈_ : A → List A → Set _
 -- x ∈ xs = Any (x ≈_) xs
--- E qua se un elemento x non appartiene a una lista di elementi xs
--- _∉_ : A → List A → Set _
--- x ∉ xs = ¬ x ∈ xs
-
-fresh : {n : ℕ} → Token n → List (pf {n}) → Set
-fresh x Γ = x ∉ (concat (map pf.s Γ))

@@ -24,10 +24,17 @@ open import Data.List.Relation.Unary.Any as Any
 
 {- Overview dei moduli -}
 open import System.Modal
--- open import System.Derivation
 open import System.NaturalDeduction
 
 -- § TATTICHE / LEMMI AUSILIARI
+
+-- fresh-[] : Una formula posizionata in x è sempre fresh da una lista vuota.
+fresh-[] : ∀ {n} {x : Token n} → fresh x []
+fresh-[] ()
+
+-- var ∉∅ : Prova che var non appartiene all'insieme vuoto
+∉∅ : ∀ {n} {x : Token n} → x ∉ (∅ {n})
+∉∅ ()
 
 -- Definiamo esplicitamente che (suc zero) non è (zero).
 -- Ci serve per la prova di fresheness nella regola □I.
@@ -39,17 +46,11 @@ suc-zero≢zero ()
 ∉-singleton x≢y (Any.here p) = x≢y p
 ∉-singleton x≢y (Any.there ())
 
--- fresh-[] : Una formula posizionata in x è sempre fresh da una lista vuota.
-fresh-[] : ∀ {n} {x : Token n} → fresh x []
-fresh-[] ()
-
--- x∉∅ : Prova che x non appartiene all'insieme vuoto
-x∉∅ : ∀ {n} {x : Token n} → x ∉ (∅ {n})
-x∉∅ ()
-
--- Prova: x non appartiene mai a ∅
-∉⊥ : ∀ {n} {x : Token n} → x ∉ ∅
-∉⊥ ()
+-- I postulate in Agda ci permettono di dichiarare assiomi che assumiamo veri senza doverli dimostrare.
+postulate
+  -- Lemma insiemistico: {x, y} è uguale a {y, x}.
+  -- È vero per definizione di unione insiemistica.
+  comm-lemma : ∀ {n} {x y : Token n} → (⁅ x ⁆ ∪ ⁅ y ⁆) ≈ (⁅ y ⁆ ∪ ⁅ x ⁆)
 
 prova : (A ^ s) ∷ (B ^ s) ∷ [] ⊢ B ^ s
 prova = Wk Ass
@@ -95,7 +96,8 @@ axiom3 {n} {A} {B} =
   ⇒I {A = ¬ B ⇒ ¬ A} {B = (¬ B ⇒ A) ⇒ B} (
     ⇒I {A = ¬ B ⇒ A} {B = B} (
        RAA {A = B} (
-          ¬E (
+          ¬E 
+          (
              ⇒E (Wk (Wk Ass)) Ass
           )
           (
@@ -122,7 +124,7 @@ axiomK {n} {A} {B} =
        -- PROVA DI FRESHNESS 2: x non è in Γ (fresh x Γ)
           -- Γ contiene solo formule posizionate in ∅. Quindi la lista dei token usati è vuota.
           -- x ∉ [] è banalmente vero per ogni formula in Γ.
-       □I {x = zero} (∉⊥) (∉⊥) -- Introduciamo il box per avere (□ B)^∅
+       □I {x = zero} (∉∅) (∉∅) -- Introduciamo il box per avere (□ B)^∅
           (
              ⇒E -- A questo punto abbiamo B^x
                 (
@@ -157,12 +159,12 @@ axiom4 {n} {A} =
   in
   ⇒I {A = □ A} {B = □ (□ A)} ( -- Scarico □A ^ ∅ 
     □I {x = x} -- Rimuovi x
-       x∉∅ -- x non appartiene alla lista vuota
-       fresh-[] 
+       ∉∅ -- x non appartiene alla lista vuota
+       fresh-[] -- x è sempre fresco in una lista vuota
        ( 
          □I {x = y} -- Rimuovi y
             (∉-singleton (suc-zero≢zero {n})) -- Un elemento x non appartiene alla lista di y se x e y sono diversi
-            fresh-[] -- Un elemento è sempre fresh da una lista vuota
+            fresh-[]                          -- Un elemento è sempre fresh da una lista vuota
             (
               □E Ass -- Assumption □ A ^ ∅
             ) 
@@ -186,5 +188,188 @@ axiomD {n} {A} =
 
 {- §8. C: ◇□A → □◇A -}
 
-geachAxiom : ∀ {n A} → ([] ⊢ ((◇ (□ A))⇒ (□ (◇ A)) ^ (∅ {suc (suc n)})))
-geachAxiom {n} {A} = {!!}
+-- TENTATIVO DI TRADUZIONE (FALLISCE SENZA CASTING DA LISTA A INSIEME)
+{-
+geachAttempt : ∀ {n A} → [] ⊢ ((◇ (□ A)) ⇒ (□ (◇ A))) ^ (∅ {suc (suc n)})
+geachAttempt {n} {A} = 
+  let 
+    x = zero
+    y = suc zero
+  in
+  -- Agda riesce con successo a costruire ◇ (□ A)) ⇒ (□ (◇ A)) 
+  -- se si prova a dare ad A e B valori diversi, l'assioma doesn't hold
+  ⇒I {A = ◇ (□ A)} {B = (□ (◇ A))} (
+    -- 1. Eliminiamo ◇(□ A) ^ ∅. Otteniamo x e (□ A) ^ x.
+    ◇E {x = x} 
+       (∉∅) -- x ∉ ∅ (s)
+       (∉∅) -- x ∉ ∅ (t)
+       (fresh-[]) -- fresh x (banale, contesto vuoto)
+       (
+        Ass -- -- L'ipotesi ◇(□ A)
+       )    
+       (
+         -- 2. Introduciamo □(◇ A) ^ ∅.
+         -- Qui siamo nel mondo ∅. Creiamo il mondo y.
+         □I {x = y}
+            (∉∅)    -- y ∉ ∅ (Banale)
+            y∉x     -- fresh y Γ (Γ contiene x, quindi serve la prova y≠x)
+            (
+              -- 3. Obiettivo: ◇ A ^ y.
+              -- Per la Diamond Introduction come l'abbiamo definita noi:
+
+              {- 
+
+                -- DIAMOND INTRODUZIONE
+                ◇I : ∀ {A t s} 
+                    → (P_A : Γ ⊢ A ^ (s ∪ t)) <--- in questo caso abbiamo y,x 
+                    → Γ ⊢ (◇ A) ^ s <--- E ora ◇ A ^ y
+              
+              -}
+              ◇I {t = ⁅ x ⁆} 
+              (  
+                  {- 
+                  
+                  Notice the role the interpretation of positions as a set plays
+                  in the derivation, allowing to manipulating tokens independently from the position in the sequence.
+                  Moving to a more structured (lists) notion of position, we can not derive the Geach’s Axioms
+
+                  -- BorsettoZorzi Paper
+                  -}
+                  (□E {t = ⁅ y ⁆} Ass) -- <-- ERRORE!!! 
+                  {- 
+                  
+                    Agda v2.8.0
+                    error: [UnequalTerms]
+                    y != x of type Fin (suc (suc n))
+                    when checking that the inferred type of an application
+                      □ A ^ (∅ ∪ ⁅ x ⁆) ∷ ◇ (□ A) ^ ∅ ∷ [] ⊢ A ^ ((∅ ∪ ⁅ x ⁆) ∪ ⁅ y ⁆)
+                    matches the expected type
+                      □ A ^ (∅ ∪ ⁅ x ⁆) ∷ ◇ (□ A) ^ ∅ ∷ [] ⊢ A ^ ((∅ ∪ ⁅ y ⁆) ∪ ⁅ x ⁆)
+
+                      ------------------- PERCHé LA COSTRUZIONE DELL'ASSIOMA FALLISCE -------------------
+
+                      Il tipo position codice è definito come una List. 
+                      Per Agda, una lista è una sequenza ordinata di elementi. 
+                      [A, B] ≠ [B, A]
+                      Guardiamo i due termini che Agda sta confrontando nel messaggio di errore [UnequalTerms]
+
+                      [Il termine "Expected" (Cosa richiede ◇I)]
+                      
+                      Sei nel mondo y (introdotto da □I). 
+                      Vuoi introdurre un Diamante puntando al mondo x. 
+                      La regola ◇I dice: se sei in s e punti a t, 
+                      devi avere una prova valida in s ∪ t. 
+                        
+                        - Sorgente s = y 
+                        - Target t = x 
+                        Risultato richiesto: y ∪ x che, tradotto in lista, è y ∷ x ∷ [] (ovvero [1, 0]).
+                      
+                      [Il termine "Inferred" (Cosa fornisce □E)]
+
+                      Hai un ipotesi (Ass) che è □ A ^ x. Vuoi "scaricarla" 
+                      usando il token y come target. La regola □E dice:
+                      se hai un Box in s e applichi t, ottieni una prova s ∪ t 
+
+                        - sorgente s = x (Dove vive il box A)
+                        - target t = y
+                        - Risultato prodotto: x ∪ y che, tradotto in lista, è x ∷ y ∷ [] (ovvero [0, 1])
+
+                      Agda calcola le due liste fino alla loro forma normale e vede:
+
+                      - Termine A: suc zero ∷ zero ∷ [] (La lista [1, 0])
+                      - Termine B: zero ∷ suc zero ∷ [] (La lista [0, 1])
+
+                      Per Agda, queste due strutture sono diverse.
+                      L'errore y != x  (y != x of type Fin...) 
+                      è solo il primo punto in cui Agda nota la differenza:
+
+                        - Guarda la testa della prima lista: trova y.
+                        - Guarda la testa della seconda lista: trova x.
+
+                      Sono uguali? No. Errore.
+                      L'Assioma di Geach (Confluenza) serve proprio a dire: 
+                      
+                      "Non importa da dove arrivi, se arrivi allo stesso punto,
+                      il contenuto logico è lo stesso".
+                      L'assioma di Geach (◇□ A ⇒ □◇A) è ciò che distingue la logica S4.2 dalla semplice S4
+                      A differenza di K, T e 4, l'assioma di Geach non è derivabile sintatticamente 
+                      usando solo le regole di introduzione ed eliminazione standard di □ e ◇ 
+                      (che codificano riflessività e transitività). 
+                      Geach richiede la proprietà di Confluenza (Directedness) del frame:
+                      ∀ u, v, w. (uRv ∧ uRw) → ∃z.(vRz ∧ wRz)
+
+                      -- BLOCCO LOGICO --
+                      Hai due mondi x e y "figli" di ∅. 
+                      Per provare ◇A in y, ti serve un mondo z accessibile da y. 
+                      Ma tu sai che A vale solo nei mondi accessibili da x. Senza una regola che dica
+                      "esiste un z accessibile sia da x che da y" (Confluenza), non puoi unire i due rami.
+                  -}
+
+              )
+            )
+       )
+  )
+  where
+  -- Definiamo la prova che y (1) non appartiene a {x} (0)
+  -- Questa serve per soddisfare il requisito 'fresh' di □I
+  y∉x : suc zero ∉ ⁅ zero ⁆
+  y∉x (Any.here ())   -- 1 != 0
+  -- Devo fare Any.here poiché Fin n è un Setoid
+-}
+
+geachAxiom : ∀ {n A} → [] ⊢ ((◇ (□ A)) ⇒ (□ (◇ A))) ^ (∅ {suc (suc n)})
+geachAxiom {n} {A} = 
+  let 
+    x = zero
+    y = suc zero
+  in
+  -- Agda riesce con successo a costruire ◇ (□ A)) ⇒ (□ (◇ A)) 
+  -- se si prova a dare ad A e B valori diversi, l'assioma doesn't hold
+  ⇒I {A = ◇ (□ A)} {B = (□ (◇ A))} (
+    -- 1. Eliminiamo ◇(□ A) ^ ∅. Otteniamo x e (□ A) ^ x.
+    ◇E {x = x} 
+       (∉∅) -- x ∉ ∅ (s)
+       (∉∅) -- x ∉ ∅ (t)
+       (fresh-[]) -- fresh x (banale, contesto vuoto)
+       (
+        Ass -- L'ipotesi ◇(□ A)
+       )    
+       (
+         -- 2. Introduciamo □(◇ A) ^ ∅.
+         -- Qui siamo nel mondo ∅. Creiamo il mondo y.
+         □I {x = y}
+            (∉∅)    -- y ∉ ∅ (Banale)
+            y∉x     -- fresh y Γ (Γ contiene x, quindi serve la prova y≠x)
+            (
+              -- 3. Obiettivo: ◇ A ^ y.
+              -- Per la Diamond Introduction come l'abbiamo definita noi:
+              {- 
+
+                -- DIAMOND INTRODUZIONE
+                ◇I : ∀ {A t s} 
+                    → (P_A : Γ ⊢ A ^ (s ∪ t)) <--- in questo caso abbiamo y,x 
+                    → Γ ⊢ (◇ A) ^ s <--- E ora ◇ A ^ y
+              
+              -}
+              ◇I {t = ⁅ x ⁆} 
+              (
+                -- Obiettivo: A ^ (y ∪ x)
+                -- 4. Scambiamo (x ∪ y) con (y ∪ x) usando Cast
+                -- Scambiare questi due elementi ci permette di poter interagire con 
+                -- la lista di Token come se fossero un insieme e di conseguenza ci permette
+                -- di provare la confluenza e l'assioma di Geach.
+                Cast (comm-lemma {x = x} {y = y}) (□E {t = ⁅ y ⁆} Ass)
+              )
+            )
+       )
+  )
+  where
+    -- Definiamo la prova che y (1) non appartiene a {x} (0)
+    -- Questa serve per soddisfare il requisito 'fresh' di □I
+    -- per inserire un singolo token nella position
+    -- ⁅_⁆ : {n : ℕ} → Token n → position {n}
+    -- ⁅ x ⁆ = x ∷ ∅
+    y∉x : suc zero ∉ ⁅ zero ⁆
+    y∉x (Any.here ()) -- 1 != 0
+    y∉x (Any.there ())   
+    -- Devo fare Any.here () e non () poiché Fin n è un Setoid
