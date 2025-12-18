@@ -11,7 +11,6 @@
 
 module index where
 
--- Include some useful STD Agda libraries
 open import Data.Nat as Nat using (ℕ; zero; suc)
 open import Data.Empty using (⊥)
 open import Data.List as List using (List; []; _∷_; _++_)
@@ -22,7 +21,6 @@ open import Data.Fin using (Fin; zero; suc; fromℕ; toℕ; _≟_)
 open import Data.List.Membership.Propositional as Mem using (_∈_; _∉_)
 open import Data.List.Relation.Unary.Any as Any
 
-{- Overview dei moduli -}
 open import System.Modal
 open import System.NaturalDeduction
 
@@ -36,8 +34,7 @@ fresh-[] ()
 ∉∅ : ∀ {n} {x : Token n} → x ∉ (∅ {n})
 ∉∅ ()
 
--- Definiamo esplicitamente che (suc zero) non è (zero).
--- Ci serve per la prova di fresheness nella regola □I.
+-- Definiamo esplicitamente che suc zero non è (zero).
 suc-zero≢zero : ∀ {n} → Fin.suc (Fin.zero {n}) ≢ Fin.zero
 suc-zero≢zero () 
 
@@ -64,7 +61,6 @@ mp P_A P_A⇒B = ⇒E P_A⇒B P_A
 
 {- §1. P1: A → (B → A) ^ ∅ -}
 
--- axiom1 : ∀ {n A B} → [] ⊢ (A ⇒ (B ⇒ A)) ^ ∅
 axiom1 : ∀ {n A B} → [] ⊢ (A ⇒ (B ⇒ A)) ^ (∅ {n})
 axiom1 {n} {A} {B} = ⇒I ( ⇒I ( Wk Ass ) )
 
@@ -109,8 +105,6 @@ axiom3 {n} {A} {B} =
 
 {- §4. K: □(A → B) → (□A → □B) -}
 
--- Assioma K: □(A → B) → (□A → □B)
--- Richiede un universo con almeno 1 token (suc n) per poter fare il "salto" nel mondo x.
 axiomK : ∀ {n A B} → [] ⊢ (□ (A ⇒ B) ⇒ (□ A ⇒ □ B)) ^ (∅ {suc n})
 axiomK {n} {A} {B} = 
   let 
@@ -248,61 +242,37 @@ geachAttempt {n} {A} =
 
                       ------------------- PERCHé LA COSTRUZIONE DELL'ASSIOMA FALLISCE -------------------
 
-                      Il tipo position codice è definito come una List. 
+                      Il tipo position nel codice è definito come una List. 
                       Per Agda, una lista è una sequenza ordinata di elementi. 
                       [A, B] ≠ [B, A]
-                      Guardiamo i due termini che Agda sta confrontando nel messaggio di errore [UnequalTerms]
-
-                      [Il termine "Expected" (Cosa richiede ◇I)]
-                      
-                      Sei nel mondo y (introdotto da □I). 
-                      Vuoi introdurre un Diamante puntando al mondo x. 
-                      La regola ◇I dice: se sei in s e punti a t, 
-                      devi avere una prova valida in s ∪ t. 
-                        
-                        - Sorgente s = y 
-                        - Target t = x 
-                        Risultato richiesto: y ∪ x che, tradotto in lista, è y ∷ x ∷ [] (ovvero [1, 0]).
-                      
-                      [Il termine "Inferred" (Cosa fornisce □E)]
-
-                      Hai un ipotesi (Ass) che è □ A ^ x. Vuoi "scaricarla" 
-                      usando il token y come target. La regola □E dice:
-                      se hai un Box in s e applichi t, ottieni una prova s ∪ t 
-
-                        - sorgente s = x (Dove vive il box A)
-                        - target t = y
-                        - Risultato prodotto: x ∪ y che, tradotto in lista, è x ∷ y ∷ [] (ovvero [0, 1])
+                      Guardiamo i due termini che Agda sta confrontando nel messaggio di errore                    
 
                       Agda calcola le due liste fino alla loro forma normale e vede:
 
-                      - Termine A: suc zero ∷ zero ∷ [] (La lista [1, 0])
-                      - Termine B: zero ∷ suc zero ∷ [] (La lista [0, 1])
+                      - A: suc zero ∷ zero ∷ [] (La lista [1, 0])
+                      - B: zero ∷ suc zero ∷ [] (La lista [0, 1])
 
                       Per Agda, queste due strutture sono diverse.
                       L'errore y != x  (y != x of type Fin...) 
-                      è solo il primo punto in cui Agda nota la differenza:
 
                         - Guarda la testa della prima lista: trova y.
                         - Guarda la testa della seconda lista: trova x.
 
-                      Sono uguali? No. Errore.
-                      L'Assioma di Geach (Confluenza) serve proprio a dire: 
-                      
-                      "Non importa da dove arrivi, se arrivi allo stesso punto,
-                      il contenuto logico è lo stesso".
+                      In informatica e matematica, la confluenza (Assioma di Geach) è una proprietà di riscrittura dei sistemi,
+                      che descrive quali termini in tale sistema possono essere riscritti in più modi,
+                      per produrre lo stesso risultato.
+
                       L'assioma di Geach (◇□ A ⇒ □◇A) è ciò che distingue la logica S4.2 dalla semplice S4
                       A differenza di K, T e 4, l'assioma di Geach non è derivabile sintatticamente 
                       usando solo le regole di introduzione ed eliminazione standard di □ e ◇ 
-                      (che codificano riflessività e transitività). 
                       Geach richiede la proprietà di Confluenza (Directedness) del frame:
                       ∀ u, v, w. (uRv ∧ uRw) → ∃z.(vRz ∧ wRz)
 
                       -- BLOCCO LOGICO --
-                      Hai due mondi x e y "figli" di ∅. 
+                      Hai due posizioni x e y. 
                       Per provare ◇A in y, ti serve un mondo z accessibile da y. 
                       Ma tu sai che A vale solo nei mondi accessibili da x. Senza una regola che dica
-                      "esiste un z accessibile sia da x che da y" (Confluenza), non puoi unire i due rami.
+                      "esiste un z accessibile sia da x che da y" (Confluenza), non puoi unire i due "rami".
                   -}
 
               )
@@ -338,7 +308,7 @@ geachAxiom {n} {A} =
          -- 2. Introduciamo □(◇ A) ^ ∅.
          -- Qui siamo nel mondo ∅. Creiamo il mondo y.
          □I {x = y}
-            (∉∅)    -- y ∉ ∅ (Banale)
+            (∉∅)    -- y ∉ ∅ 
             y∉x     -- fresh y Γ (Γ contiene x, quindi serve la prova y≠x)
             (
               -- 3. Obiettivo: ◇ A ^ y.
@@ -372,4 +342,5 @@ geachAxiom {n} {A} =
     y∉x : suc zero ∉ ⁅ zero ⁆
     y∉x (Any.here ()) -- 1 != 0
     y∉x (Any.there ())   
-    -- Devo fare Any.here () e non () poiché Fin n è un Setoid
+    -- Devo fare Any.here () e non () poiché Fin n è un
+    -- Setoid e lo sto confrontando con una lista 

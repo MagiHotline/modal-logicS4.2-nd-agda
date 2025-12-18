@@ -1,3 +1,0 @@
-sw : • ⊢ ((atom "P") [⇒] (atom "Q") [⇒] (atom "R"))
-[⇒] ((atom "Q") [⇒] (atom "P") [⇒] (atom "R"))
-sw = lam (lam (lam (app (app (suc (suc zero)) zero) (suc zero))))

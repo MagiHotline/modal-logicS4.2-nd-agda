@@ -36,8 +36,8 @@ data _⊢_ {n : ℕ} : List (pf {n}) → pf {n} → Set where
         → (Q ∷ Γ) ⊢ P
     Cast : ∀ {A s t} 
         → (s ≈ t) -- PROVA che i due token siano uguali
-        → Γ ⊢ A ^ s -- PROVA che hai (x,y)
-        → Γ ⊢ A ^ t -- PROVA che ti serve (y,x)
+        → Γ ⊢ A ^ s -- PROVA che hai (ex. (x,y))
+        → Γ ⊢ A ^ t -- PROVA che ti serve (ex. (y,x))
 
     -- EXCHANGE 
     Exch : ∀ {Q T Γ}

@@ -68,7 +68,6 @@ fresh : {n : ℕ} → Token n → List (pf {n}) → Set
 fresh x Γ = x ∉ (concat (map pf.s Γ))
 
 -- Equivalenza logica
--- A ⇔ B significa semplicemente (A implica B) E (B implica A)
 infix 3 _⇔_
 _⇔_ : Set → Set → Set
 A ⇔ B = (A → B) × (B → A)
@@ -78,7 +77,3 @@ A ⇔ B = (A → B) × (B → A)
 infix 4 _≈_
 _≈_ : {n : ℕ} → position {n} → position {n} → Set
 s ≈ t = ∀ {x} → (x ∈ s) ⇔ (x ∈ t)
-
--- Quindi ci chiediamo se un elemento x appartiene a una lista di elementi xs
--- _∈_ : A → List A → Set _
--- x ∈ xs = Any (x ≈_) xs

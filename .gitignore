@@ -3,8 +3,11 @@
 *.fdb_latexmk
 *.fls
 *.log
-*.synctex.gz
+*.run.xml
 *.toc
+*.bbl
+*.bcf
+*.blg
 *.thm
 *.synctex.gz
 *.out
