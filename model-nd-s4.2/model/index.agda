@@ -10,7 +10,7 @@
 -}
 
 module index where
-
+  
 open import Data.Nat as Nat using (ℕ; zero; suc)
 open import Data.Empty using (⊥)
 open import Data.List as List using (List; []; _∷_; _++_)

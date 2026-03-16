@@ -3,6 +3,7 @@
 module System.Modal where
 
 open import Data.Nat as Nat using (ℕ; zero; suc; _+_; _<_; _≤_)
+open import Data.String using (String)
 open import Data.List as List using (List; []; _∷_; map; concat; _++_)
 open import Data.Product using (_×_; _,_)
 open import Relation.Binary.PropositionalEquality as Eq using (_≡_; refl)
@@ -11,7 +12,8 @@ open import Relation.Nullary.Decidable using (does)
 open import Data.Fin using (Fin; zero; suc; fromℕ; toℕ; _≟_)
 open import Data.List.Membership.Propositional as Mem using (_∈_; _∉_)
 
-data mf : Set where 
+data mf : Set where
+    VAR : String → mf
     BOT : mf
     TOP : mf
     _⇒_ : mf → mf → mf
@@ -20,6 +22,11 @@ data mf : Set where
     _∨_ : mf → mf → mf
     □_ : mf → mf
     ◇_ : mf → mf
+
+p q r : mf
+p = VAR "p"
+q = VAR "q"
+r = VAR "r"
 
 -- precedenze e associatività degli operatori
 infixr 10 _⇒_  
